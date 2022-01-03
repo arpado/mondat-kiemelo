@@ -1,0 +1,65 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 100%;
+    min-height: 90vh;
+    flex-wrap: wrap;
+}
+
+.part {
+
+}
+
+.selected {
+    background: red;
+}
+
+
+.input-area {
+    width: 100%;
+    height: 10vh;
+}
+
+.new {
+
+}
+
+.sentence-box {
+    height: 6em;
+    width: fit-content;
+    display: inline;
+    margin: 2px;
+    flex-wrap: nowrap;
+}
+
+.sentence-indicator {
+    height: 2em;
+    border-left: 1px solid black;
+    border-top: 1px solid black;
+    border-right: 1px solid black;
+}
+
+.word-container {
+    display: inline-block;
+    height: 4em;
+}
+
+.individual-word {
+    height: 2em;
+    display: block;
+    white-space: pre-wrap;
+}
+
+.word-indicator {
+    height: 2em;
+    min-width: 100%;
+    display: block;
+}
+
+.button1 {
+    position: absolute;
+}
+.button2{
+    position: absolute;
+}
