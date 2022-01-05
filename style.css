@@ -57,9 +57,16 @@
     display: block;
 }
 
+.button-container {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+}
+
+/*
 .button1 {
     position: absolute;
 }
 .button2{
     position: absolute;
-}
+}*/
