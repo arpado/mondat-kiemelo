@@ -38,24 +38,35 @@
     border-left: 1px solid black;
     border-top: 1px solid black;
     border-right: 1px solid black;
+    display: block;
 }
 
-.word-container {
-    display: inline-block;
-    height: 4em;
+.try-out {
+    display: inline;
 }
+
+/*.word-container {
+    display: block;
+    height: 4em;
+}*/
 
 .individual-word {
     height: 2em;
-    display: block;
+    display: inline;
     white-space: pre-wrap;
 }
 
-.word-indicator {
+.space-between {
+    height: 2em;
+    display: inline;
+    white-space: pre-wrap;
+} 
+
+/*.word-indicator {
     height: 2em;
     min-width: 100%;
-    display: block;
-}
+    display: inline;
+}*/
 
 .button-container {
     position: absolute;
