@@ -1,4 +1,4 @@
-let container = document.querySelector('.container');
+let container = document.querySelector('.main');
 let createNewSentButton = document.querySelector('.new');
 let inputSentence = document.querySelector('#input-sentence');
 let wordSelected = '';
@@ -41,37 +41,54 @@ function closeButtonMenu() {
 
 // letrehozza a foreszben a mondatszerkezetet, ezt a reszt jelentosen atirom
 createNewSentButton.addEventListener('click', () => {
+
     if (inputSentence.value.trim() === '') {
         return inputSentence.value = '';
     }
+
+    //loop a tagomndatokra
 
     let sentenceDiv = document.createElement('div');
     container.append(sentenceDiv);
     sentenceDiv.setAttribute('class', 'sentence-box');
 
-    let sentenceIndicatorDiv = document.createElement('div');
-    sentenceDiv.append(sentenceIndicatorDiv);
-    sentenceIndicatorDiv.setAttribute('class', 'sentence-indicator');
+    let rankDiv = document.createElement('div');
+    sentenceDiv.append(rankDiv);
+    rankDiv.setAttribute('class', 'rank-box');
 
+    let subSentenceDiv = document.createElement('div');
+    sentenceDiv.append(subSentenceDiv);
+    subSentenceDiv.setAttribute('class', 'word-box');
+
+    // ki
+    /*let sentenceIndicatorDiv = document.createElement('div');
+    subSentenceDiv.append(sentenceIndicatorDiv);
+    sentenceIndicatorDiv.setAttribute('class', 'sentence-indicator');*/
+
+    //ezt atalakitani?? split /n -nel is!!!
     let inputSentenceSplit = inputSentence.value.trim().split(' ');
-    let tryOut = document.createElement('div');
+
+    //ki
+    /*let tryOut = document.createElement('div');
     tryOut.setAttribute('class', 'try-out')
-    sentenceDiv.append(tryOut);
+    subSentenceDiv.append(tryOut);*/
 
     for (let i = 0; i < inputSentenceSplit.length; i++) {
         //lehet, h a wordcontainer nem is kell majd
         /*let wordDivContainer = document.createElement('div');
-        sentenceDiv.append(wordDivContainer);
+        subSentenceDiv.append(wordDivContainer);
         wordDivContainer.setAttribute('class', 'word-container');*/
 
         let wordDiv = document.createElement('div');
-        sentenceDiv.append(wordDiv);
+        subSentenceDiv.append(wordDiv);
         wordDiv.setAttribute('class', 'individual-word');
         wordDiv.innerText = inputSentenceSplit[i];
-        let spaceBetween = document.createElement('div');
-        sentenceDiv.append(spaceBetween);
+
+        //ki
+        /*let spaceBetween = document.createElement('div');
+        subSentenceDiv.append(spaceBetween);
         spaceBetween.setAttribute('class', 'space-between')
-        spaceBetween.innerText = ' ';
+        spaceBetween.innerText = ' ';*/
     }
 
     inputSentence.value = '';
@@ -108,3 +125,51 @@ document.addEventListener('click', e => {
         closeButtonMenu();
     }
 });
+
+//MENU
+
+//gombok
+let toggleInputBtn = document.getElementById('toggle-input-btn');
+let toggleSettingsBtn = document.getElementById('toggle-settings-btn');
+let toggleHelpBtn = document.getElementById('toggle-help-btn');
+
+//window-k
+let inputWindow = document.getElementById('input-window');
+let settingsWindow = document.getElementById('settings-window');
+let helpWindow = document.getElementById('help-window');
+
+//toggle method
+document.addEventListener('click', e => {
+    switch (e.target) {
+        case toggleInputBtn:
+            if (inputWindow.classList.contains('hidden')) {
+                inputWindow.classList.remove('hidden');
+            } else {
+                inputWindow.classList.add('hidden');
+            }
+            break;
+        case toggleSettingsBtn:
+            if (settingsWindow.classList.contains('hidden')) {
+                settingsWindow.classList.remove('hidden');
+            } else {
+                settingsWindow.classList.add('hidden');
+            }
+            break;
+        case toggleHelpBtn:
+            if (helpWindow.classList.contains('hidden')){
+                helpWindow.classList.remove('hidden');        
+            } else {
+                helpWindow.classList.add('hidden');
+            }
+    }
+});
+
+let previewBtn = document.querySelector('.preview-btn')
+
+let addNewBtnBtn = document.getElementById('add-new-btn');
+addNewBtnBtn.addEventListener('click', e => {
+    let newBtn = document.createElement('button');
+    
+    previewBtn.insertBefore(newBtn, addNewBtnBtn);
+})
+
