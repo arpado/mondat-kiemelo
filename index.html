@@ -6,12 +6,62 @@
     <link rel="stylesheet" href="style.css">
     <title>Document</title>
 </head>
+
 <body>
-    <div class="container"></div>
+    <header class="header">
+        <div class="title"><h1>Word Highlighter</h1></div>
+        <div class="options">
+            <div class="option-item input" id='toggle-input-btn'>Input</div>
+            <div class="option-item settings" id='toggle-settings-btn'>Settings</div>
+            <div class="option-item help" id='toggle-help-btn'>Help</div>
+        </div>
+    </header>
+
+    <div class="main"></div>
     
-    <div class="input-area">
-        <input type="text" name="" id="input-sentence" placeholder="Enter text here..." size="100">
+    <div class="option-window input-area hidden" id='input-window'>
+        <textarea name="" id="input-sentence" placeholder="Enter text here..." cols="50" rows="10"></textarea>
         <button class="new">ADD SUB-SENTENCE</button>
+    </div>
+
+    <div class="option-window hidden" id='settings-window'>
+        <h2 class="settings-header">Settings</h2>
+        <div class="column-left">
+                <h3 class="btn-selector-header">Select Buttons</h3>
+                <div class="preview-btn">
+                    <p>Preview</p>
+                    <button id="add-new-btn">Add new Button</button>
+                </div>
+                <div class="color-btn">
+                    <p>Button Color</p>
+                </div>
+                <div class="text-btn">
+                    <p>Button Text</p>
+                </div>
+                <div class="text-color-btn">
+                    <p>Choose a Color for the Text:</p>
+                </div>
+        </div>
+
+        <div class="column-right">
+            <div class="background"><p>Toggle Background Image</p></div>
+            <div class="toggle-theme"><p>Toggle Light/Dark Theme??</p></div>
+            <div class="word-box-color"><p>Select Background Color for the Word Container</p></div>
+            <div class="font-size"><p>Select Font Size</p></div>
+            <div class="font-color"><p>Select Font Color</p></div>
+        </div>
+
+        <div class="btn-row">
+            <button>Cancel</button>
+            <button>OK</button>
+        </div>
+
+    </div>
+
+    <div class="option-window hidden" id="help-window">
+        <h2>How to use this page?</h2>
+        <p>Welcome here</p>
+        <p>Help will be available in this section later on</p>
     </div>
 
     <script src="scripts.js"></script>
