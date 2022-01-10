@@ -8,6 +8,11 @@ h1, h2, h3 {
     font-size: 1em;
 }
 
+.short-hr {
+    width: 50%;
+    margin: auto;
+}
+
 .hidden {
     visibility: hidden;
     display: none;
@@ -47,6 +52,13 @@ h1, h2, h3 {
     color: white;
 }
 
+/* TEXT INPUT */
+
+#input-sentence {
+    box-sizing: border-box;
+    width: 100%;
+    height: 90%;
+}
 /*.part {
 
 }*/
@@ -104,6 +116,10 @@ h1, h2, h3 {
     grid-column-start: left-end;
     grid-column-end: left-middle;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    padding-left: .2em;
+    padding-right: .2em;
 }
 
 .color-btn {
@@ -112,6 +128,10 @@ h1, h2, h3 {
     grid-column-start: left-middle;
     grid-column-end: right-middle;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    padding-left: .2em;
+    padding-right: .2em;
 }
 
 .text-btn {
@@ -120,6 +140,10 @@ h1, h2, h3 {
     grid-column-start: right-middle;
     grid-column-end: right-end;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    padding-left: .2em;
+    padding-right: .2em;
 }
 
 .text-color-btn {
@@ -135,6 +159,11 @@ h1, h2, h3 {
     grid-column-end: column-right-end;
 }
 
+.range-toggle {
+    width: 25px;
+    /* https://stackoverflow.com/questions/18389224/how-to-style-html5-range-input-to-have-different-color-before-and-after-slider */
+}
+
 .btn-row {
     grid-row-start: buttons;
     grid-column-start: column-middle;
@@ -142,8 +171,7 @@ h1, h2, h3 {
 }
 
 
-
-/* MAIN */
+/* MAIN WINDOW*/
 
 .main {
     display: flex;
