@@ -8,6 +8,7 @@ let buttonContainer = document.createElement('div');
 buttonContainer.setAttribute('class', 'button-container');
 
 let buttonContent = ['red', 'blue', 'green'];
+// buttoncontent 
 let numberOfButtons = 6;
 
 // legordulo gombsavot letrehozza
@@ -18,7 +19,7 @@ function makeButtons(locX, locY, buttonContent) {
 
     for (let i = 0; i < buttonContent.length; i++) {
         let button = document.createElement('button');
-        button.setAttribute('class', 'button');
+        button.setAttribute('class', 'color-picker-button');
         button.setAttribute('id', buttonContent[i]);
         button.innerText = buttonContent[i];
         buttonContainer.append(button);
@@ -111,7 +112,7 @@ document.addEventListener('click', e => {
     } 
     
     // ha a gombra kattint valtoztatasok, majd torli a szelekciot
-    else if (e.target.classList.contains('button')) {
+    else if (e.target.classList.contains('color-picker-button')) {
         wordSelected = document.querySelector('#wordSelected');
         let color = e.target.id;
         wordSelected.style.background = color;
@@ -164,12 +165,192 @@ document.addEventListener('click', e => {
     }
 });
 
-let previewBtn = document.querySelector('.preview-btn')
+// ----------------------- BALOLDAL -----------------------//
+
+//setup for btn-s
+
+let previewBtnSection = document.querySelector('.preview-btn');
+let btnColorSection = document.querySelector('.color-btn');
+let btnTextSection = document.querySelector('.text-btn');
+
+// HTML templates
+
+//let ColorSelectorTemplate = `<input type="color" value="#ff0000">`;
+/*`
+<select name="colors" class="color-select">
+<option value="">--Please choose an option--</option>
+<option value="red">Red</option>
+<option value="green">Green</option>
+<option value="blue">Blue</option>
+<option value="cyan">Cyan</option>
+<option value="magenta">Magenta</option>
+<option value="yellow">Yellow</option>
+</select>
+`;*/
+
+// btn hozzaadas
 
 let addNewBtnBtn = document.getElementById('add-new-btn');
+let lineNumber = 1;
+
 addNewBtnBtn.addEventListener('click', e => {
     let newBtn = document.createElement('button');
-    
-    previewBtn.insertBefore(newBtn, addNewBtnBtn);
-})
+    let newColorSelector = document.createElement('input');
+    let setNewBtnText = document.createElement('input');
+    //add input & select attributes later
+    //add class later
+    newBtn.setAttribute('id', `button-${lineNumber}`);
+    newBtn.setAttribute('class', 'removeBtn')
+    previewBtnSection.insertBefore(newBtn, addNewBtnBtn);
+    newBtn.innerText = 'Remove Line';
 
+    btnColorSection.append(newColorSelector);
+    newColorSelector.setAttribute('id', `color-selector-${lineNumber}`);
+    //color pickernek inkabb colorpickert
+    //newColorSelector.innerHTML = ColorSelectorTemplate;
+    newColorSelector.setAttribute('type', 'color');
+    newColorSelector.setAttribute('value', '#ffffff');
+
+    btnTextSection.append(setNewBtnText);
+    setNewBtnText.setAttribute('id', `text-input-${lineNumber}`);
+    lineNumber++;
+});
+
+function getIdNum(id) {
+    return idNumber = parseInt((id.replace(/[^\d]/g, '')));
+}
+
+// btn remove
+
+previewBtnSection.addEventListener('click', e => {
+    // console.log(previewBtnSection.children.item(index))
+    // console.log(previewBtnSection.children)
+    // console.log(index)
+    if (e.target.classList.contains('removeBtn')) {
+    //document.querySelector(`#${e.target.id}`).remove();
+    //console.log(e.target.id)
+    getIdNum(e.target.id);
+    //console.log(idNumber)
+    document.getElementById(`button-${idNumber}`).remove();
+    document.getElementById(`color-selector-${idNumber}`).remove();
+    document.getElementById(`text-input-${idNumber}`).remove();
+    }
+});
+
+// btn text/color update
+
+btnColorSection.addEventListener('input', e => {
+    getIdNum(e.target.id);
+    let newBtn = document.querySelector(`#button-${idNumber}`)
+    newBtn.style.background = e.target.value;
+});
+
+btnTextSection.addEventListener('keyup', e => {
+    getIdNum(e.target.id);
+    let newBtn = document.querySelector(`#button-${idNumber}`);
+    newBtn.innerText = e.target.value;
+});
+
+//Egy kulon oszlopba remove
+
+// ---------------------- JOBBOLDAL --------------------------- //
+
+
+// toggle background image
+
+function toggleBackgroundImage(status) {
+    let body = document.querySelector('body')
+    if(status === '1') {
+        body.style.backgroundImage = 'url("img/parchment.jpeg")';
+    } else {
+        body.style.backgroundImage = 'none';
+    }
+}
+
+let toggleBackgroundImageInput = document.querySelector('#toggle-background-img');
+
+// set fontsize
+function setFontSize() {
+    let main = document.querySelector('.main');
+    main.style.fontSize = setFontSizeInputNum.value + setFontSizeInputUnits.value;
+}
+
+let setFontSizeInputNum = document.querySelector('#font-size');
+let setFontSizeInputUnits = document.querySelector('#font-size-units');
+
+//set font color
+
+function setFontColor() {
+    let main = document.querySelector('.main');
+    main.style.color = setFontColorInput.value;
+}
+
+let setFontColorInput = document.querySelector('#font-color');
+
+// set font family
+
+function setFontFamily() {
+    let main = document.querySelector('.main');
+    main.style.fontFamily = setFontFamilyInput.value;
+}
+
+let setFontFamilyInput = document.querySelector('#font-family');
+
+// btn font color
+
+function setBtnFontColor() {
+    //document.querySelectorAll('.color-picker-button').style.color = setBtnFontColorInput.value;
+    buttonContainer.style.color = setBtnFontColorInput.value;
+    //ezt a removebuttont majd frissiteni kell, sot, event listnerbe kitenni, h previewban is latszodjon
+    
+}
+
+let setBtnFontColorInput = document.querySelector('#btn-font-color');
+setFontColorInput.addEventListener('change', e => {
+    btnColorSection.children.style.color = e.target.value;
+});
+
+// save pref
+
+let savePreferences = document.querySelector('#save-preferences');
+
+savePreferences.addEventListener('click', (e) => {
+    localStorage.clear();
+    localStorage.setItem('backgroundImg', toggleBackgroundImageInput.value);
+    //localStorage.setItem('', '');
+    let backgroundImg = localStorage.getItem('backgroundImg')
+    applyPreferences(backgroundImg);
+    
+ 
+});
+
+function applyPreferences(backgroundImg) {
+    // az ertekeket a localstoragebol kell vennie
+    toggleBackgroundImage(backgroundImg);
+    /*setFontSize();
+    setFontColor();
+    setFontFamily();
+    setBtnFontColor();*/
+}
+
+// gombok mentese
+
+function saveButtons() {
+    let collection = document.querySelectorAll('.removeBtn');
+    collection.forEach(element => 
+        localStorage.setItem(element.id, JSON.stringify({
+            text : element.innerText, 
+            color : element.style.backgroundColor
+        }))
+    );
+}
+
+// gombok hozzarendelese
+
+function loadButtons() {
+
+}
+
+
+
+// if localstorage.length === 0 -> setDefaultPref
