@@ -25,9 +25,9 @@
     </div>
 
     <div class="option-window hidden" id='settings-window'>
-        <h2 class="settings-header">Settings</h2>
+        <h2 class="settings-header">Settings<hr></h2>
         <div class="column-left">
-                <h3 class="btn-selector-header">Select Buttons</h3>
+                <h3 class="btn-selector-header">Select Buttons<hr class="short-hr"></h3>
                 <div class="preview-btn">
                     <p>Preview</p>
                     <button id="add-new-btn">Add new Button</button>
@@ -38,22 +38,60 @@
                 <div class="text-btn">
                     <p>Button Text</p>
                 </div>
-                <div class="text-color-btn">
-                    <p>Choose a Color for the Text:</p>
-                </div>
         </div>
 
         <div class="column-right">
-            <div class="background"><p>Toggle Background Image</p></div>
+
+            <div class="toggle-background">
+                <label>Toggle Background Image
+                <input type="range" class="range-toggle" id="toggle-background-img" min="0" max="1"/>
+                </label>
+            </div>
+
             <div class="toggle-theme"><p>Toggle Light/Dark Theme??</p></div>
             <div class="word-box-color"><p>Select Background Color for the Word Container</p></div>
-            <div class="font-size"><p>Select Font Size</p></div>
-            <div class="font-color"><p>Select Font Color</p></div>
+
+            <div class="font-size">
+                <label>Select Font Size</label>
+                <input type="number" name="font-size" id="font-size">
+                <select name="font-size-units" id="font-size-units">
+                    <option value="">--Please choose an option--</option>
+                    <option value="em">em</option>
+                    <option value="rem">rem</option>
+                    <option value="px">px</option>
+                    <option value="mm">mm</option>
+                    <option value="%">%</option>
+                    <option value="fr">fr</option>
+                </select>
+            </div>
+
+            <div class="font-color"><label>Select Font Color</label>
+                <input type="color" name="font-color" id="font-color" value="#000000">
+            </div>
+
+            <div class="font-family"><label>Select Font Family</label>
+                <select name="font-family" id="font-family">
+                    <option value="">--Please choose an option--</option>
+                    <option value="Arial, Helvetica, sans-serif">Arial</option>
+                    <option value="Cambria, Cochin, Georgia, Times, 'Times New Roman', serif">Cambria</option>
+                    <option value="Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">Impact</option>
+                    <option value="'Times New Roman', Times, serif">Times New Roman</option>
+                    <option value="'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif">Trebuchet MS</option>
+                    <option value="Verdana, Geneva, Tahoma, sans-serif;">Verdana</option>
+                </select>
+            </div>
+
+            <div class="text-color-btn">
+                <label>Choose a Color for the Text on Buttons:</label>
+                <input type="color" name="btn-font-color" id="btn-font-color" value="#000000">
+            </div>
+
+            <div class="word-box-border"><p>Choose a border for the word-box</p></div>
         </div>
 
         <div class="btn-row">
             <button>Cancel</button>
-            <button>OK</button>
+            <button id="save-preferences">OK</button>
         </div>
 
     </div>
