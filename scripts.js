@@ -180,6 +180,22 @@ document.addEventListener('click', e => {
     }
 });
 
+// pressing the Esc key closes all of the windows
+document.onkeydown = function(evt) {
+    evt = evt || window.event;
+    var isEscape = false;
+    if ("key" in evt) {
+        isEscape = (evt.key === "Escape" || evt.key === "Esc");
+    } else {
+        isEscape = (evt.keyCode === 27);
+    }
+    if (isEscape) {
+        helpWindow.classList.add('hidden');
+        settingsWindow.classList.add('hidden');
+        inputWindow.classList.add('hidden');
+    }
+};
+
 // ----------------------- BALOLDAL -----------------------//
 
 //setup for btn-s
