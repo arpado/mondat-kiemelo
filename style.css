@@ -83,7 +83,6 @@ h1, h2, h3 {
     display: grid;
     grid-template-columns: [column-left-end] minmax(0, 1fr) [column-middle] minmax(0, 1fr) [column-right-end];
     grid-template-rows: [header] minmax(0, 1fr) [main] minmax(0, 5fr) [buttons] minmax(0, 1fr);
-   
 }
 
 .settings-header {
