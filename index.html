@@ -49,7 +49,7 @@
             </div>
 
             <div class="toggle-theme"><p>Toggle Light/Dark Theme??</p></div>
-            <div class="word-box-color"><p>Select Background Color for the Word Container</p></div>
+            
 
             <div class="font-size">
                 <label>Select Font Size</label>
@@ -86,7 +86,42 @@
                 <input type="color" name="btn-font-color" id="btn-font-color" value="#000000">
             </div>
 
-            <div class="word-box-border"><p>Choose a border for the word-box</p></div>
+            <div class="word-box-border"><label>Choose a border for the word-box</label>
+                <input type="number" name="word-border-thickness-number" id="word-border-thickness-number">
+                <select name="word-border-thickness-unit" id="word-border-thickness-unit">
+                    <option value="">--Please choose an option--</option>
+                    <option value="em">em</option>
+                    <option value="rem">rem</option>
+                    <option value="px">px</option>
+                    <option value="mm">mm</option>
+                    <option value="%">%</option>
+                    <option value="fr">fr</option>
+                </select>
+                <input type="color" name="word-border-color" id="word-border-color">
+                <select name="word-border-style" id="word-border-style">
+                    <option value=""></option>
+                </select>
+            </div>
+
+            <div class="sentence-box-border"><label>Choose a border for the word-box</label>
+                <input type="number" name="sentence-border-thickness-number" id="sentence-border-thickness-number">
+                <select name="sentence-border-thickness-unit" id="sentence-border-thickness-unit">
+                    <option value="">--Please choose an option--</option>
+                    <option value="em">em</option>
+                    <option value="rem">rem</option>
+                    <option value="px">px</option>
+                    <option value="mm">mm</option>
+                    <option value="%">%</option>
+                    <option value="fr">fr</option>
+                </select>
+                <input type="color" name="sentence-border-color" id="sentence-border-color">
+                <select name="sentence-border-style" id="sentence-border-style">
+                    <option value=""></option>
+                </select>
+            </div>
+
+
+            <div class="word-box-color"><p>Select Background Color for the Word Container</p></div>
         </div>
 
         <div class="btn-row">
