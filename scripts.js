@@ -7,23 +7,38 @@ let wordSelected = '';
 let buttonContainer = document.createElement('div');
 buttonContainer.setAttribute('class', 'button-container');
 
-let buttonContent = ['red', 'blue', 'green'];
+//let buttonContent = ['red', 'blue', 'green'];
 // buttoncontent 
-let numberOfButtons = 6;
+//let numberOfButtons = 6;
+
+// id-t megtalani
+//let buttonId = buttonArray[i].key;
+// kell egz szortirozas regexel a id-ra, uj arraybe sorbarakni oket
+
+//let buttonColor = buttonArray[i].val.color;
+//let buttonText = buttonArray[i].val.text;
 
 // legordulo gombsavot letrehozza
-function makeButtons(locX, locY, buttonContent) {
+function makeButtons(locX, locY, sortedButtonArray) {
     container.appendChild(buttonContainer);
     buttonContainer.style.left = locX + 'px';
     buttonContainer.style.top = locY + 'px';
 
-    for (let i = 0; i < buttonContent.length; i++) {
+    for (let i = 0; i < sortedButtonArray.length; i++) {
         let button = document.createElement('button');
         button.setAttribute('class', 'color-picker-button');
-        button.setAttribute('id', buttonContent[i]);
-        button.innerText = buttonContent[i];
+        button.setAttribute('id', `${sortedButtonArray[i].key}-main`);
+        button.innerText = sortedButtonArray[i].val.text;
+        button.style.background = sortedButtonArray[i].val.color;
         buttonContainer.append(button);
     }
+
+    let button = document.createElement('button');
+    button.setAttribute('class', 'color-picker-button');
+    button.setAttribute('id', 'clear-main');
+    button.innerText = 'Clear';
+    button.style.background = 'transparent';
+    buttonContainer.append(button);
 }
 
 // a kijelolt szo (amit a gombokkal valtoztat) jelolesenek torlese
@@ -107,14 +122,14 @@ document.addEventListener('click', e => {
     if (e.target.classList.contains('individual-word')) {
         // ez a clearSelect csak biztonsagbol van itt, elvileg redundans
         clearSelectedWord();
-        makeButtons(e.pageX, e.pageY, buttonContent);
+        makeButtons(e.pageX, e.pageY, sortedButtonArray);
         e.target.setAttribute('id', 'wordSelected');
     } 
     
     // ha a gombra kattint valtoztatasok, majd torli a szelekciot
     else if (e.target.classList.contains('color-picker-button')) {
         wordSelected = document.querySelector('#wordSelected');
-        let color = e.target.id;
+        let color = e.target.style.background;
         wordSelected.style.background = color;
         clearSelectedWord();
         closeButtonMenu();
@@ -253,7 +268,7 @@ btnTextSection.addEventListener('keyup', e => {
 
 //Egy kulon oszlopba remove
 
-// ---------------------- JOBBOLDAL --------------------------- //
+// ---------------------- JOBBOLDAL (PREFERENCES) --------------------------- //
 
 
 // toggle background image
@@ -310,6 +325,21 @@ setFontColorInput.addEventListener('change', e => {
     btnColorSection.children.style.color = e.target.value;
 });
 
+// word box border
+
+let WordBoxBorder = document.querySelectorAll('.wordDiv')
+
+/* width | style | color */
+function setWordBoxBorder() {
+    let setWordBoxBorderNumInput = document.querySelector('#word-border-thickness-number').value;
+    let setWordBoxBorderUnitInput = document.querySelector('#word-border-thickness-unit').value;
+    let setWordBoxBorderStyleInput = document.querySelector('#word-border-color').value;
+    let setWordBoxBorderColorInput = document.querySelector('#word-border-style').value;
+    return WordBoxBorderStyle = `${setWordBoxBorderNumInput}${setWordBoxBorderUnitInput} ${setWordBoxBorderStyleInput} ${setWordBoxBorderColorInput}`
+}
+
+// sentence box border
+
 // save pref
 
 let savePreferences = document.querySelector('#save-preferences');
@@ -317,11 +347,15 @@ let savePreferences = document.querySelector('#save-preferences');
 savePreferences.addEventListener('click', (e) => {
     localStorage.clear();
     localStorage.setItem('backgroundImg', toggleBackgroundImageInput.value);
+    localStorage.setItem('wordBoxBorder', setWordBoxBorder())
     //localStorage.setItem('', '');
-    let backgroundImg = localStorage.getItem('backgroundImg')
+    let backgroundImg = localStorage.getItem('backgroundImg');
+    //let localStorage.setItem('', '');
     applyPreferences(backgroundImg);
-    
- 
+    saveButtons();
+    loadButtons();
+
+    //setWordBoxBorder()
 });
 
 function applyPreferences(backgroundImg) {
@@ -331,25 +365,66 @@ function applyPreferences(backgroundImg) {
     setFontColor();
     setFontFamily();
     setBtnFontColor();*/
+
+
 }
 
 // gombok mentese
 
 function saveButtons() {
     let collection = document.querySelectorAll('.removeBtn');
-    collection.forEach(element => 
+    collection.forEach(element => {
+        if (element.style.background === '') {
+            element.style.background = '#ffffff';
+        }
         localStorage.setItem(element.id, JSON.stringify({
             text : element.innerText, 
-            color : element.style.backgroundColor
+            color : element.style.background
         }))
-    );
+    });
 }
 
 // gombok hozzarendelese
 
 function loadButtons() {
-
+    return sortedButtonArray = findLocalItems('button-').sort(compare);
 }
+
+//gombok kikeresese
+//ezt atirni, megerteni, h mi a fene
+//https://gist.github.com/n0m4dz/77f08d3de1b9115e905c
+
+function findLocalItems (query) {
+    var i, results = [];
+    for (i in localStorage) {
+      if (localStorage.hasOwnProperty(i)) {
+        if (i.match(query) || (!query && typeof i === 'string')) {
+          value = JSON.parse(localStorage.getItem(i));
+          results.push({key:i,val:value});
+        }
+      }
+    }
+    return results;
+  }
+
+
+// compare a gombok sortjahoz
+
+function compare(a, b) {
+    if (a.key < b.key){
+      return -1;
+    }
+    if (a.key > b.key){
+      return 1;
+    }
+    return 0;
+  }
+
+
+
+
+
+
 
 
 
