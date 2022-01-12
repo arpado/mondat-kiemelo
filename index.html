@@ -56,9 +56,8 @@
                 <label>Select Font Size</label>
                 <input type="number" name="font-size" id="font-size">
                 <select name="font-size-units" id="font-size-units">
-                    <option value="">--Please choose an option--</option>
-                    <option value="em">em</option>
                     <option value="rem">rem</option>
+                    <option value="em">em</option>
                     <option value="px">px</option>
                     <option value="mm">mm</option>
                     <option value="%">%</option>
@@ -100,11 +99,13 @@
                 </select>
                 <input type="color" name="word-border-color" id="word-border-color">
                 <select name="word-border-style" id="word-border-style">
-                    <option value=""></option>
+                    <option value="solid">Solid</option>
+                    <option value="dotted">Dotted</option>
+                    <option value="vavie">Wavie</option>
                 </select>
             </div>
 
-            <div class="sentence-box-border"><label>Choose a border for the word-box</label>
+            <div class="sentence-box-border"><label>Choose a border for the sentence-box</label>
                 <input type="number" name="sentence-border-thickness-number" id="sentence-border-thickness-number">
                 <select name="sentence-border-thickness-unit" id="sentence-border-thickness-unit">
                     <option value="">--Please choose an option--</option>
@@ -138,6 +139,7 @@
         <p>Help will be available in this section later on</p>
     </div>
 
+    <script src="settings.js"></script>
     <script src="scripts.js"></script>
 </body>
 </html>
