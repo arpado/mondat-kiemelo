@@ -1,6 +1,67 @@
 let container = document.querySelector('.main');
-let createNewSentButton = document.querySelector('.new');
-let inputSentence = document.querySelector('#input-sentence');
+
+// -------------------- MENUS ------------------------ //
+
+//gombok
+let toggleInputBtn = document.getElementById('toggle-input-btn');
+let toggleSettingsBtn = document.getElementById('toggle-settings-btn');
+let toggleHelpBtn = document.getElementById('toggle-help-btn');
+
+//window-k
+let inputWindow = document.getElementById('input-window');
+let settingsWindow = document.getElementById('settings-window');
+let helpWindow = document.getElementById('help-window');
+
+//toggle method
+document.addEventListener('click', e => {
+    switch (e.target) {
+        case toggleInputBtn:
+            if (inputWindow.classList.contains('hidden')) {
+                settingsWindow.classList.add('hidden');
+                helpWindow.classList.add('hidden');
+                inputWindow.classList.remove('hidden');
+            } else {
+                inputWindow.classList.add('hidden');
+            }
+            break;
+        case toggleSettingsBtn:
+            if (settingsWindow.classList.contains('hidden')) {
+                inputWindow.classList.add('hidden');
+                helpWindow.classList.add('hidden');
+                settingsWindow.classList.remove('hidden');
+            } else {
+                settingsWindow.classList.add('hidden');
+            }
+            break;
+        case toggleHelpBtn:
+            if (helpWindow.classList.contains('hidden')){
+                inputWindow.classList.add('hidden');
+                settingsWindow.classList.add('hidden');
+                helpWindow.classList.remove('hidden');
+            } else {
+                helpWindow.classList.add('hidden');
+            }
+    }
+});
+
+// pressing the Esc key closes all of the windows
+document.onkeydown = function(evt) {
+    evt = evt || window.event;
+    var isEscape = false;
+    if ("key" in evt) {
+        isEscape = (evt.key === "Escape" || evt.key === "Esc");
+    } else {
+        isEscape = (evt.keyCode === 27);
+    }
+    if (isEscape) {
+        helpWindow.classList.add('hidden');
+        settingsWindow.classList.add('hidden');
+        inputWindow.classList.add('hidden');
+    }
+};
+
+// -------------------- HIGHLIGHTER ------------------------ //
+
 let wordSelected = '';
 
 //container a gombok szamara
@@ -55,60 +116,6 @@ function closeButtonMenu() {
     buttonContainer.remove();
 }
 
-// letrehozza a foreszben a mondatszerkezetet, ezt a reszt jelentosen atirom
-createNewSentButton.addEventListener('click', () => {
-
-    if (inputSentence.value.trim() === '') {
-        return inputSentence.value = '';
-    }
-
-    //loop a tagomndatokra
-
-    let sentenceDiv = document.createElement('div');
-    container.append(sentenceDiv);
-    sentenceDiv.setAttribute('class', 'sentence-box');
-
-    let rankDiv = document.createElement('div');
-    sentenceDiv.append(rankDiv);
-    rankDiv.setAttribute('class', 'rank-box');
-
-    let subSentenceDiv = document.createElement('div');
-    sentenceDiv.append(subSentenceDiv);
-    subSentenceDiv.setAttribute('class', 'word-box');
-
-    // ki
-    /*let sentenceIndicatorDiv = document.createElement('div');
-    subSentenceDiv.append(sentenceIndicatorDiv);
-    sentenceIndicatorDiv.setAttribute('class', 'sentence-indicator');*/
-
-    //ezt atalakitani?? split /n -nel is!!!
-    let inputSentenceSplit = inputSentence.value.trim().split(' ');
-
-    //ki
-    /*let tryOut = document.createElement('div');
-    tryOut.setAttribute('class', 'try-out')
-    subSentenceDiv.append(tryOut);*/
-
-    for (let i = 0; i < inputSentenceSplit.length; i++) {
-        //lehet, h a wordcontainer nem is kell majd
-        /*let wordDivContainer = document.createElement('div');
-        subSentenceDiv.append(wordDivContainer);
-        wordDivContainer.setAttribute('class', 'word-container');*/
-
-        let wordDiv = document.createElement('div');
-        subSentenceDiv.append(wordDiv);
-        wordDiv.setAttribute('class', 'individual-word');
-        wordDiv.innerText = inputSentenceSplit[i];
-
-        //ki
-        /*let spaceBetween = document.createElement('div');
-        subSentenceDiv.append(spaceBetween);
-        spaceBetween.setAttribute('class', 'space-between')
-        spaceBetween.innerText = ' ';*/
-    }
-
-    inputSentence.value = '';
-});
 
 // a majdnem teljes oldalon talalhato kattra figyel, kivetel a beviteli mezo es a hozzatartozo gomb
 document.addEventListener('click', e => {
@@ -144,4 +151,4 @@ document.addEventListener('click', e => {
 
 // INIT
 
-initialize()
+initialize();
