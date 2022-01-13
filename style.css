@@ -29,6 +29,7 @@ h1, h2, h3 {
     position: fixed;
     top: 0%;
     left: 0%;
+    z-index: 1;
 }
 
 .options {
@@ -45,7 +46,8 @@ h1, h2, h3 {
     position: absolute;
     top: 10vh;
     left: 0%;
-    height: 70vh;
+    height: fit-content;
+    /*min-height: 70vh;*/
     width: 90%;
     background-color: rgba(0, 0, 0, 0.8);
     padding: 5%;
@@ -184,7 +186,7 @@ h1, h2, h3 {
     margin-top: 10%;
 }
 
-.sentence-box {
+.input-unit-container {
     width: 100%;
     height: fit-content;
     display: flex;
@@ -199,7 +201,13 @@ h1, h2, h3 {
     margin-right: 1%;
 }
 
-.word-box {
+.rank-box > div {
+    border: 1px solid black;
+    text-align: center;
+    height: 30%;
+}
+
+.sentence-box {
     min-height: 3em;
     min-width: 90%;
     display: inline-flex;
