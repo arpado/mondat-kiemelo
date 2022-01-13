@@ -21,8 +21,12 @@
     <div class="main"></div>
     
     <div class="option-window input-area hidden" id='input-window'>
-        <textarea name="" id="input-sentence" placeholder="Enter text here..." cols="50" rows="10"></textarea>
-        <button class="new">ADD SUB-SENTENCE</button>
+        <textarea name="input-sentence" id="input-sentence" placeholder="Enter text here..." cols="50" rows="10"></textarea>
+        <div id="input-btn-div">
+            <button id="lipsum">Generate Lipsum</button>
+            <button id="divided-lipsum">Generate #Lipsum#</button>
+            <button id="add-new-sentence">ADD SUB-SENTENCE</button>
+        </div>
     </div>
 
     <div class="option-window hidden" id='settings-window'>
@@ -50,7 +54,6 @@
             </div>
 
             <div class="toggle-theme"><p>Toggle Light/Dark Theme??</p></div>
-            
 
             <div class="font-size">
                 <label>Select Font Size</label>
@@ -97,7 +100,7 @@
                     <option value="%">%</option>
                     <option value="fr">fr</option>
                 </select>
-                <input type="color" name="word-border-color" id="word-border-color">
+                <input type="color" name="word-border-color" id="word-border-color" value="#000000">
                 <select name="word-border-style" id="word-border-style">
                     <option value="solid">Solid</option>
                     <option value="dotted">Dotted</option>
@@ -116,14 +119,16 @@
                     <option value="%">%</option>
                     <option value="fr">fr</option>
                 </select>
-                <input type="color" name="sentence-border-color" id="sentence-border-color">
+                <input type="color" name="sentence-border-color" id="sentence-border-color" value="#000000">
                 <select name="sentence-border-style" id="sentence-border-style">
-                    <option value=""></option>
+                    <option value="solid">Solid</option>
+                    <option value="dotted">Dotted</option>
+                    <option value="vavie">Wavie</option>
                 </select>
             </div>
 
 
-            <div class="word-box-color"><p>Select Background Color for the Word Container</p></div>
+            <div class="text-box-color"><p>Select Background Color for the Text Container</p></div>
         </div>
 
         <div class="btn-row">
@@ -139,6 +144,7 @@
         <p>Help will be available in this section later on</p>
     </div>
 
+    <script src="input.js"></script>
     <script src="settings.js"></script>
     <script src="scripts.js"></script>
 </body>
