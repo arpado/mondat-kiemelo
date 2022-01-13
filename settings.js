@@ -1,61 +1,4 @@
-//MENU
 
-//gombok
-let toggleInputBtn = document.getElementById('toggle-input-btn');
-let toggleSettingsBtn = document.getElementById('toggle-settings-btn');
-let toggleHelpBtn = document.getElementById('toggle-help-btn');
-
-//window-k
-let inputWindow = document.getElementById('input-window');
-let settingsWindow = document.getElementById('settings-window');
-let helpWindow = document.getElementById('help-window');
-
-//toggle method
-document.addEventListener('click', e => {
-    switch (e.target) {
-        case toggleInputBtn:
-            if (inputWindow.classList.contains('hidden')) {
-                settingsWindow.classList.add('hidden');
-                inputWindow.classList.remove('hidden');
-            } else {
-                inputWindow.classList.add('hidden');
-            }
-            break;
-        case toggleSettingsBtn:
-            if (settingsWindow.classList.contains('hidden')) {
-                inputWindow.classList.add('hidden');
-                helpWindow.classList.add('hidden');
-                settingsWindow.classList.remove('hidden');
-            } else {
-                settingsWindow.classList.add('hidden');
-            }
-            break;
-        case toggleHelpBtn:
-            if (helpWindow.classList.contains('hidden')){
-                inputWindow.classList.add('hidden');
-                settingsWindow.classList.add('hidden');
-                helpWindow.classList.remove('hidden');
-            } else {
-                helpWindow.classList.add('hidden');
-            }
-    }
-});
-
-// pressing the Esc key closes all of the windows
-document.onkeydown = function(evt) {
-    evt = evt || window.event;
-    var isEscape = false;
-    if ("key" in evt) {
-        isEscape = (evt.key === "Escape" || evt.key === "Esc");
-    } else {
-        isEscape = (evt.keyCode === 27);
-    }
-    if (isEscape) {
-        helpWindow.classList.add('hidden');
-        settingsWindow.classList.add('hidden');
-        inputWindow.classList.add('hidden');
-    }
-};
 
 // ----------------------- BALOLDAL -----------------------//
 
@@ -147,27 +90,12 @@ btnTextSection.addEventListener('keyup', e => {
 
 // ---------------------- JOBBOLDAL (PREFERENCES) --------------------------- //
 
-// main
-let mainWindow = document.querySelector('.main');
-
-function pushSettings() {
-
-}
-
-//ez mar letezik!!!
-function applyPreferences() {
-
-}
-
-function pullSettings() {
-    
-}
-
 // toggle background image
+//EZT MEG NEM MENTI LOCALBA!
 
 let backgroundImg = localStorage.getItem('backgroundImg');
 
-localStorage.setItem('backgroundImg', toggleBackgroundImageInput.value);
+//localStorage.setItem('backgroundImg', toggleBackgroundImageInput.value);
 
 function toggleBackgroundImage(status) {
     let body = document.querySelector('body')
@@ -179,138 +107,120 @@ function toggleBackgroundImage(status) {
 }
 
 
-
+// background img
 let toggleBackgroundImageInput = document.querySelector('#toggle-background-img');
 
-// fontsize
+// main
+let mainWindow = document.querySelector('.main');
 
+// fontsize
 let fontSizeInput = document.querySelector('#font-size');
 let fontSizeInputUnits = document.querySelector('#font-size-units');
 
-function pushFontSize() {
-    localStorage.setItem('fontSizeInputValue', fontSizeInput.value);
-    localStorage.setItem('fontSizeInputUnits', fontSizeInputUnits.value);
-}
-
-function setFontSize() {
-    mainWindow.style.fontSize = localStorage.getItem('fontSizeInputValue') + localStorage.getItem('fontSizeInputUnits');
-}
-
-function pullFontSize() {
-    fontSizeInput.value = localStorage.getItem('fontSizeInputValue');
-    fontSizeInputUnits.value = localStorage.getItem('fontSizeInputUnits');
-}
-
-
 //set font color
-
 let setFontColorInput = document.querySelector('#font-color');
 
-function pushFontColor() {
-    localStorage.setItem('fontColorInput', setFontColorInput.value);
-}
-
-function setFontColor() {
-    mainWindow.style.color = localStorage.getItem('fontColorInput');
-}
-
-function pullFontColor() {
-    setFontColorInput.value = localStorage.getItem('fontColorInput');
-}
-
-
 // set font family
-
 let setFontFamilyInput = document.querySelector('#font-family');
 
-function pushFontFamily() {
-    localStorage.setItem('fontFamilyInput', setFontFamilyInput.value)
-}
-
-function setFontFamily() {
-    mainWindow.style.fontFamily = localStorage.getItem('fontFamilyInput');
-}
-
-function pullFontFamily() {
-    setFontFamilyInput.value = localStorage.getItem('fontFamilyInput')
-}
-
 // btn font color
-
 let setBtnFontColorInput = document.querySelector('#btn-font-color');
 
-function pushBtnFontColor() {
-    localStorage.setItem('btnFontColor', setBtnFontColorInput.value);
-}
-
-function setBtnFontColor() {
-    buttonContainer.style.color = localStorage.getItem('btnFontColor');
-}
-
-function pullBtnFontColor() {
-    setBtnFontColorInput.value = localStorage.getItem('btnFontColor');
-}
-
-// btn font color live preview
-
-setFontColorInput.addEventListener('change', e => {
-    btnColorSection.children.style.color = e.target.value;
-});
 
 // word box border // ezt csekkolni
+let wordBoxCollection = document.getElementsByClassName('individual-word');
 
-let wordBoxBorder = document.querySelectorAll('individual-word');
+//let wordBox = document.querySelectorAll('.individual-word');
 let setWordBoxBorderNumInput = document.querySelector('#word-border-thickness-number');
 let setWordBoxBorderUnitInput = document.querySelector('#word-border-thickness-unit');
 let setWordBoxBorderStyleInput = document.querySelector('#word-border-color');
 let setWordBoxBorderColorInput = document.querySelector('#word-border-style');
 
-/* width | style | color */
-
-function  pushWordBoxBorder() {
-    localStorage.setItem('wordBoxBorderValueInput', setWordBoxBorderNumInput.value);
-    localStorage.setItem('WordBoxBorderUnitInput', setWordBoxBorderUnitInput.value);
-    localStorage.setItem('WordBoxBorderStyleInput', setWordBoxBorderStyleInput.value);
-    localStorage.setItem('WordBoxBorderColorInput', setWordBoxBorderColorInput.value);
-}
-
-function setWordBoxBorder() {
-    WordBoxBorder.style.border = localStorage.getItem('wordBoxBorder') + localStorage.getItem('WordBoxBorderUnitInput') + ' ' + localStorage.getItem('WordBoxBorderStyleInput') + ' ' + localStorage.getItem('WordBoxBorderColorInput');
-}
-
-function pullWordBoxBorder() {
-    setWordBoxBorderNumInput.value = localStorage.getItem('wordBoxBorderValueInput');
-    setWordBoxBorderUnitInput.value = localStorage.getItem('WordBoxBorderUnitInput');
-    setWordBoxBorderStyleInput.value = localStorage.getItem('WordBoxBorderStyleInput');
-    setWordBoxBorderColorInput.value = localStorage.getItem('WordBoxBorderColorInput');
-}
-
 // sentence box border
+let sentenceBoxCollection = document.getElementsByClassName('sentence-box');
+let setSentenceBoxBorderNumInput = document.querySelector('#sentence-border-thickness-number');
+let setSentenceBoxBorderUnitInput = document.querySelector('#sentence-border-thickness-unit');
+let setSentenceBoxBorderColorInput = document.querySelector('#sentence-border-color');
+let setSentenceBoxBorderStyleInput = document.querySelector('#sentence-border-style');
 
-let sentenceBox = document.querySelectorAll('.sentence-box')
 
-let setSentenceBoxBorderNumInput = document.querySelector('#sentence-border-thickness-number').value;
-let setSentenceBoxBorderUnitInput = document.querySelector('#sentence-border-thickness-unit').value;
-let setSentenceBoxBorderStyleInput = document.querySelector('#sentence-border-color').value;
-let setSentenceBoxBorderColorInput = document.querySelector('#sentence-border-style').value;
-
-function pushSentenceBoxBorder() {
-    localStorage.setItem('setSentenceBoxBorderNumInput', setSentenceBoxBorderNumInput);
-    localStorage.setItem('setSentenceBoxBorderUnitInput', setSentenceBoxBorderUnitInput);
-    localStorage.setItem('setSentenceBoxBorderStyleInput', setSentenceBoxBorderStyleInput);
-    localStorage.setItem('setSentenceBoxBorderColorInput', setSentenceBoxBorderColorInput);
+function pushSettings() {
+    //fontsize
+    localStorage.setItem('fontSizeInputValue', fontSizeInput.value);
+    localStorage.setItem('fontSizeInputUnits', fontSizeInputUnits.value);
+    // font color
+    localStorage.setItem('fontColorInput', setFontColorInput.value);
+    // font family
+    localStorage.setItem('fontFamilyInput', setFontFamilyInput.value);
+    // btn font color
+    localStorage.setItem('btnFontColor', setBtnFontColorInput.value);
+    // word box border
+    localStorage.setItem('wordBoxBorderValueInput', setWordBoxBorderNumInput.value);
+    localStorage.setItem('wordBoxBorderUnitInput', setWordBoxBorderUnitInput.value);
+    localStorage.setItem('wordBoxBorderStyleInput', setWordBoxBorderStyleInput.value);
+    localStorage.setItem('wordBoxBorderColorInput', setWordBoxBorderColorInput.value);
+    // sentence box border
+    localStorage.setItem('sentenceBoxBorderNumInput', setSentenceBoxBorderNumInput.value);
+    localStorage.setItem('sentenceBoxBorderUnitInput', setSentenceBoxBorderUnitInput.value);
+    localStorage.setItem('sentenceBoxBorderStyleInput', setSentenceBoxBorderStyleInput.value);
+    localStorage.setItem('sentenceBoxBorderColorInput', setSentenceBoxBorderColorInput.value);
 }
 
-function setSentenceBoxBorder() {
-    SentenceBoxBorderStyle = `${localStorage.getItem('setSentenceBoxBorderNumInput')}${localStorage.getItem('setSentenceBoxBorderUnitInput')} ${localStorage.getItem('setSentenceBoxBorderStyleInput')} ${localStorage.getItem('setSentenceBoxBorderColorInput')}`
+function applyPreferences() {
+    //fontsize
+    mainWindow.style.fontSize = localStorage.getItem('fontSizeInputValue') + localStorage.getItem('fontSizeInputUnits');
+    //font color
+    mainWindow.style.color = localStorage.getItem('fontColorInput');
+    // set font family
+    mainWindow.style.fontFamily = localStorage.getItem('fontFamilyInput');
+    // btn font color
+    buttonContainer.style.color = localStorage.getItem('btnFontColor');
+
+    //sentence box border ---- ez unit container
+    if (sentenceBoxCollection.length > 0) {
+        for (sentenceBox of sentenceBoxCollection) {
+            sentenceBox.style.border = `${localStorage.getItem('sentenceBoxBorderNumInput')}${localStorage.getItem('sentenceBoxBorderUnitInput')} ${localStorage.getItem('sentenceBoxBorderStyleInput')} ${localStorage.getItem('sentenceBoxBorderColorInput')}`;
+        }
+    }
+
+    // word box border
+    //let wordBoxCollection = document.getElementsByClassName('individual-word');
+    if (wordBoxCollection.length > 0) {
+        for (wordBox of wordBoxCollection) {
+            wordBox.style.border = `${localStorage.getItem('wordBoxBorderValueInput')}${localStorage.getItem('wordBoxBorderUnitInput')} ${localStorage.getItem('wordBoxBorderStyleInput')} ${localStorage.getItem('wordBoxBorderColorInput')}`;
+        }
+    }
+
 }
 
-function pullSentenceBoxBorder() {
-    setSentenceBoxBorderNumInput = localStorage.getItem('setSentenceBoxBorderNumInput');
-    setSentenceBoxBorderUnitInput = localStorage.getItem('setSentenceBoxBorderUnitInput');
-    setSentenceBoxBorderStyleInput = localStorage.getItem('setSentenceBoxBorderStyleInput');
-    setSentenceBoxBorderColorInput = localStorage.getItem('setSentenceBoxBorderColorInput');   
+function pullSettings() {
+    //fontsize
+    fontSizeInput.value = localStorage.getItem('fontSizeInputValue');
+    fontSizeInputUnits.value = localStorage.getItem('fontSizeInputUnits');
+    //font color
+    setFontColorInput.value = localStorage.getItem('fontColorInput');
+    // set font family
+    setFontFamilyInput.value = localStorage.getItem('fontFamilyInput');
+    // btn font color
+    setBtnFontColorInput.value = localStorage.getItem('btnFontColor');
+    // word box border
+    setWordBoxBorderNumInput.value = localStorage.getItem('wordBoxBorderValueInput');
+    setWordBoxBorderUnitInput.value = localStorage.getItem('wordBoxBorderUnitInput');
+    setWordBoxBorderStyleInput.value = localStorage.getItem('wordBoxBorderStyleInput');
+    setWordBoxBorderColorInput.value = localStorage.getItem('wordBoxBorderColorInput');
+    //sentence box border
+    setSentenceBoxBorderNumInput.value = localStorage.getItem('sentenceBoxBorderNumInput');
+    setSentenceBoxBorderUnitInput.value = localStorage.getItem('sentenceBoxBorderUnitInput');
+    setSentenceBoxBorderStyleInput.value = localStorage.getItem('sentenceBoxBorderStyleInput');
+    setSentenceBoxBorderColorInput.value = localStorage.getItem('sentenceBoxBorderColorInput'); 
 }
+
+// btn font color live preview
+//ez rosszul van bekotve
+
+setFontColorInput.addEventListener('change', e => {
+    btnColorSection.children.style.color = e.target.value;
+});
 
 // save pref
 
@@ -318,28 +228,12 @@ let savePreferences = document.querySelector('#save-preferences');
 
 savePreferences.addEventListener('click', (e) => {
     localStorage.clear();
-
-    //localStorage.setItem()
-    //localStorage.setItem('', '');
-    
-    //let localStorage.setItem('', '');
-    applyPreferences(backgroundImg);
+    pushSettings();
+    applyPreferences();
     saveButtons();
     loadButtons();
-
-    //setWordBoxBorder()
+    pullSettings();
 });
-
-function applyPreferences(backgroundImg) {
-    // az ertekeket a localstoragebol kell vennie
-    toggleBackgroundImage(backgroundImg);
-    /*setFontSize();
-    setFontColor();
-    setFontFamily();
-    setBtnFontColor();*/
-
-
-}
 
 // gombok mentese
 
@@ -359,12 +253,14 @@ function saveButtons() {
 // gombok hozzarendelese
 
 function loadButtons() {
+    //valami if-et, h ures array eseten ne dobjon hibat
     return sortedButtonArray = findLocalItems('button-').sort(compare);
 }
 
 //gombok kikeresese
 //ezt atirni, megerteni, h mi a fene
 //https://gist.github.com/n0m4dz/77f08d3de1b9115e905c
+//https://gist.github.com/ungoldman/7533774/revisions
 
 function findLocalItems (query) {
     var i, results = [];
@@ -398,12 +294,29 @@ function compare(a, b) {
 
 function initialize() {
     if (localStorage.length === 0) {
-        localStorage.setItem('fontSizeInputValue', '5');
-        localStorage.setItem('fontSizeInputUnits', 'em');
-        pullFontSize();
-        setFontSize();
+        // fintsize
+        localStorage.setItem('fontSizeInputValue', '1');
+        localStorage.setItem('fontSizeInputUnits', 'rem');
+        // font color
+        localStorage.setItem('fontColorInput', '#000000');
+        // font family
+        localStorage.setItem('fontFamilyInput', '"Arial, Helvetica, sans-serif"');
+        // btn font color
+        localStorage.setItem('btnFontColor', '#000000');
+        // word box border
+        localStorage.setItem('wordBoxBorderValueInput', '1');
+        localStorage.setItem('wordBoxBorderUnitInput', 'px');
+        localStorage.setItem('wordBoxBorderStyleInput', 'solid');
+        localStorage.setItem('wordBoxBorderColorInput', '#000000');
+        // sentence box border
+        localStorage.setItem('sentenceBoxBorderNumInput', '1');
+        localStorage.setItem('sentenceBoxBorderUnitInput', 'px');
+        localStorage.setItem('sentenceBoxBorderStyleInput', 'solid');
+        localStorage.setItem('sentenceBoxBorderColorInput', '#000000');
+        applyPreferences();
+        pullSettings();
     } else {
-        pullFontSize();
-        setFontSize();
+        applyPreferences();
+        pullSettings();
     }
 }
