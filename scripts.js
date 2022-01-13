@@ -45,9 +45,11 @@ document.addEventListener('click', e => {
 });
 
 // pressing the Esc key closes all of the windows
+
 document.onkeydown = function(evt) {
-    evt = evt || window.event;
+    //evt = evt || window.event;
     var isEscape = false;
+    console.log(evt)
     if ("key" in evt) {
         isEscape = (evt.key === "Escape" || evt.key === "Esc");
     } else {
