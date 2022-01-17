@@ -1,116 +1,200 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
     <title>Document</title>
 </head>
 
 <body>
     <header class="header">
-        <div class="title"><h1>Word Highlighter</h1></div>
+        <div class="title">
+            <h1>Word Highlighter</h1>
+        </div>
         <div class="options">
+            <div class="option-item clear-body" id="clear-body">Clear</div>
             <div class="option-item input" id='toggle-input-btn'>Input</div>
-            <div class="option-item load" id='toggle-load-btn'>Load</div>
+            <!--    <div class="option-item load" id='toggle-load-btn'>Load</div>   -->
             <div class="option-item settings" id='toggle-settings-btn'>Settings</div>
             <div class="option-item help" id='toggle-help-btn'>Help</div>
         </div>
     </header>
 
     <div class="main"></div>
-    
+
     <div class="option-window input-area hidden" id='input-window'>
-        <textarea name="input-sentence" id="input-sentence" placeholder="Enter text here..." cols="50" rows="10"></textarea>
+        <textarea name="input-sentence" id="input-sentence" placeholder="Enter text here..." cols="50"
+            rows="10"></textarea>
         <div id="input-btn-div">
             <button id="lipsum">Generate Lipsum</button>
             <button id="divided-lipsum">Generate #Lipsum#</button>
-            <button id="add-new-sentence">ADD SUB-SENTENCE</button>
+            <button id="clear-input">Clear Input</button>
+            <button id="add-new-sentence">Print Sentence</button>
+            <button id="add-new-sentence-and-close">Print Sentence and Close Input</button>
         </div>
     </div>
 
     <div class="option-window hidden" id='settings-window'>
-        <h2 class="settings-header">Settings<hr></h2>
+        <h2 class="settings-header">Settings
+            <hr>
+        </h2>
         <div class="column-left">
-                <h3 class="btn-selector-header">Select Buttons<hr class="short-hr"></h3>
-                <div class="preview-btn">
-                    <p>Preview</p>
-                    <button id="add-new-btn">Add new Button</button>
-                </div>
-                <div class="color-btn">
-                    <p>Button Color</p>
-                </div>
-                <div class="text-btn">
-                    <p>Button Text</p>
-                </div>
+            <h3 class="btn-selector-header">Select Buttons
+                <hr class="short-hr">
+            </h3>
+            <div class="preview-btn-section">
+                <p>Preview</p>
+                <button id="add-new-btn">Add new Button</button>
+            </div>
+            <div class="color-btn-section">
+                <p>Color</p>
+            </div>
+            <div class="text-btn-section">
+                <p>Text</p>
+            </div>
+            <div class="remove-btn-section">
+                <p>Remove</p>
+            </div>
         </div>
 
         <div class="column-right">
+            <h3 class="pref-selector-header">Background Preferences
+                <hr class="short-hr">
+            </h3>
 
-            <div class="toggle-background">
-                <label>Toggle Background Image
-                <input type="range" class="range-toggle" id="toggle-background-img" min="0" max="1"/>
-                </label>
+            <div class="toggle-background apart">
+                <div class="description">
+                    <label class="toggle-background-img" id="toggle-background-img-label">Toggle Background
+                        Image</label>
+                </div>
+                <div class="input">
+                    <input type="range" class="range-toggle toggle-background-img" id="toggle-background-img" min="0"
+                        max="1" />
+                </div>
             </div>
 
-            <div class="toggle-theme"><p>Toggle Light/Dark Theme??</p></div>
-
-            <div class="font-size">
-                <label>Select Font Size</label>
-                <input type="number" name="font-size" id="font-size">
-                <select name="font-size-units" id="font-size-units">
-                    <option value="rem">rem</option>
-                    <option value="em">em</option>
-                    <option value="px">px</option>
-                    <option value="mm">mm</option>
-                    <option value="%">%</option>
-                    <option value="fr">fr</option>
-                </select>
+            <div class="toggle-theme"><label>Toggle Light/Dark Theme??</label>
+                <div class="theme-selector" id="background-theme">
+                    <div class="apart">
+                        <div class="description">
+                            <input type="radio" name="background-theme" id="background-plain">
+                            <label for="background-plain">plain</label>
+                        </div>
+                        <div class="input">
+                            <input type="color" name="plain-color" class="number-input" id="plain-color">
+                        </div>
+                    </div>
+                    <div class="apart">
+                        <div class="description">
+                            <input type="radio" name="background-theme" id="background-linear-gradient">
+                            <label for="background-linear-gradient">linear gradient</label>
+                        </div>
+                        <div class="input">
+                            <input type="number" name="linear-degree" class="number-input" id="linear-degree" min="0"
+                                max="360">
+                            <input type="color" name="linear-color-1" class="style-input" id="linear-color-1">
+                            <input type="number" name="linear-perc-1" class="number-input" id="linear-perc-1">
+                            <input type="color" name="linear-color-2" class="style-input" id="linear-color-2">
+                            <input type="number" name="linear-perc-2" class="number-input" id="linear-perc-2">
+                        </div>
+                    </div>
+                    <div class="apart">
+                        <div class="description">
+                            <input type="radio" name="background-theme" id="background-circular-gradient">
+                            <label for="background-circular-gradient">circular gradient</label>
+                        </div>
+                        <div class="input">
+                            <input type="number" name="linear-degree" class="number-input" id="linear-degree" min="0"
+                                max="360">
+                            <input type="color" name="linear-color-1" class="style-input" id="linear-color-1">
+                            <input type="number" name="linear-perc-1" class="number-input" id="linear-perc-1">
+                            <input type="color" name="linear-color-2" class="style-input" id="linear-color-2">
+                            <input type="number" name="linear-perc-2" class="number-input" id="linear-perc-2">
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div class="font-color"><label>Select Font Color</label>
-                <input type="color" name="font-color" id="font-color" value="#000000">
+            <h3 class="pref-selector-header">Font Preferences
+                <hr class="short-hr">
+            </h3>
+
+            <div class="font-size apart">
+                <div class="description">
+                    <label>Select Font Size</label>
+                </div>
+                <div class="input">
+                    <input type="number" name="font-size" class="number-input" id="font-size">
+                    <select name="font-size-units" class="unit-input" id="font-size-units">
+                        <option value="rem">rem</option>
+                        <option value="em">em</option>
+                        <option value="px">px</option>
+                        <option value="mm">mm</option>
+                        <option value="%">%</option>
+                        <option value="fr">fr</option>
+                    </select>
+                </div>
             </div>
 
-            <div class="font-family"><label>Select Font Family</label>
+            <div class="apart">
+                <div class="font-color description"><label>Select Font Color</label>
+                </div>
+                <input type="color" name="font-color" class="input" id="font-color" value="#000000">
+            </div>
+
+            <div class="font-family apart">
+                <div class="description">
+                <label>Select Font Family</label>
+                </div>
+                <div class="input">
                 <select name="font-family" id="font-family">
                     <option value="">--Please choose an option--</option>
                     <option value="Arial, Helvetica, sans-serif">Arial</option>
                     <option value="Cambria, Cochin, Georgia, Times, 'Times New Roman', serif">Cambria</option>
                     <option value="Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">Impact</option>
                     <option value="'Times New Roman', Times, serif">Times New Roman</option>
-                    <option value="'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif">Trebuchet MS</option>
+                    <option
+                        value="'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif">
+                        Trebuchet MS</option>
                     <option value="Verdana, Geneva, Tahoma, sans-serif;">Verdana</option>
                 </select>
             </div>
+            </div>
 
-            <div class="text-color-btn">
+            <div class="text-color-btn apart">
+                <div class="description">
                 <label>Choose a Color for the Text on Buttons:</label>
+                </div>
+                <div class="input">
                 <input type="color" name="btn-font-color" id="btn-font-color" value="#000000">
             </div>
-
-            <div class="word-box-border"><label>Choose a border for the word-box</label>
-                <input type="number" name="word-border-thickness-number" id="word-border-thickness-number">
-                <select name="word-border-thickness-unit" id="word-border-thickness-unit">
-                    <option value="">--Please choose an option--</option>
-                    <option value="em">em</option>
-                    <option value="rem">rem</option>
-                    <option value="px">px</option>
-                    <option value="mm">mm</option>
-                    <option value="%">%</option>
-                    <option value="fr">fr</option>
-                </select>
-                <input type="color" name="word-border-color" id="word-border-color" value="#000000">
-                <select name="word-border-style" id="word-border-style">
-                    <option value="solid">Solid</option>
-                    <option value="dotted">Dotted</option>
-                    <option value="vavie">Wavie</option>
-                </select>
             </div>
 
-            <div class="sentence-box-border"><label>Choose a border for the sentence-box</label>
-                <input type="number" name="sentence-border-thickness-number" id="sentence-border-thickness-number">
-                <select name="sentence-border-thickness-unit" id="sentence-border-thickness-unit">
+            <h3 class="pref-selector-header">Sentence Box Preferences
+                <hr class="short-hr">
+            </h3>
+
+            <div class="toggle-sentence-box-border apart">
+                <div class="description">
+                <label for="toggle-sentence-box-border" id="toggle-sentence-box-border-label">Toggle Sentence Box Border</label>
+            </div>
+            <div class="input">
+                <input type="range" class="range-toggle" id="toggle-sentence-box-border" min="0" max="1" />
+            </div>
+            </div>
+
+            <div class="sentence-box-border apart">
+                <div class="decription">
+                <label>Choose a border for the sentence-box</label>
+            </div>
+            <div class="input">
+                <input type="number" name="sentence-border-thickness-number" class="number-input"
+                    id="sentence-border-thickness-number">
+                <select name="sentence-border-thickness-unit" class="unit-input" id="sentence-border-thickness-unit">
                     <option value="">--Please choose an option--</option>
                     <option value="em">em</option>
                     <option value="rem">rem</option>
@@ -126,9 +210,102 @@
                     <option value="vavie">Wavie</option>
                 </select>
             </div>
+            </div>
 
+            <h3 class="pref-selector-header">Word Box Preferences
+                <hr class="short-hr">
+            </h3>
 
-            <div class="text-box-color"><p>Select Background Color for the Text Container</p></div>
+            <div class="toggle-word-box-border apart">
+                <div class="description">
+                <label for="toggle-word-box-border">Toggle Word Box Border</label>
+            </div>
+            <div class="input">
+                <input type="range" class="range-toggle" id="toggle-word-box-border" min="0" max="1" />
+            </div>
+            </div>
+
+            <div class="word-box-border apart">
+                <div class="descrition">
+                <label>Choose a border for the word-box</label>
+            </div>
+            <div class="input">
+                <input type="number" name="word-border-thickness-number" class="number-input"
+                    id="word-border-thickness-number">
+                <select name="word-border-thickness-unit" class="unit-input" id="word-border-thickness-unit">
+                    <option value="">--Please choose an option--</option>
+                    <option value="em">em</option>
+                    <option value="rem">rem</option>
+                    <option value="px">px</option>
+                    <option value="mm">mm</option>
+                    <option value="%">%</option>
+                    <option value="fr">fr</option>
+                </select>
+                <input type="color" name="word-border-color" id="word-border-color" value="#000000">
+                <select name="word-border-style" id="word-border-style">
+                    <option value="solid">Solid</option>
+                    <option value="dotted">Dotted</option>
+                    <option value="vavie">Wavie</option>
+                </select>
+            </div>
+            </div>
+
+            <div class="word-box-color apart">
+                <div class="decription">
+                <label>Select Background Color for the Text Container</label>
+            </div>
+            <div class="input">
+                <input type="color" name="word-border-color" id="word-border-color" value="#000000">
+            </div>
+            </div>
+
+            <h3 class="pref-selector-header">Ranking Box Preferences
+                <hr class="short-hr">
+            </h3>
+
+            <div class="toggle-ranking-box apart">
+                <div class="description">
+                <label for="toggle-ranking-box">Toggle Rankings Box</label>
+            </div>
+            <div class="input">
+                <input type="range" class="range-toggle" id="toggle-ranking-box" min="0" max="1" />
+            </div>
+            </div>
+
+            <div class="toggle-ranking-box-border apart">
+                <div class="description">
+                <label for="toggle-ranking-box-border">Toggle Rankings Box Border</label>
+            </div>
+            <div class="input">
+                <input type="range" class="range-toggle" id="toggle-ranking-box-border" min="0" max="1" />
+            </div>
+            </div>
+
+            <div class="ranking-box-border apart">
+                <div class="description">
+                <label>Choose a border for the ranking-box</label>
+            </div>
+            <div class="input">
+                <input type="number" name="ranking-border-thickness-number" class="number-input"
+                    id="ranking-border-thickness-number">
+                <select name="ranking-border-thickness-unit" class="unit-input" id="ranking-border-thickness-unit">
+                    <option value="">--Please choose an option--</option>
+                    <option value="em">em</option>
+                    <option value="rem">rem</option>
+                    <option value="px">px</option>
+                    <option value="mm">mm</option>
+                    <option value="%">%</option>
+                    <option value="fr">fr</option>
+                </select>
+                <input type="color" name="ranking-border-color" id="ranking-border-color" value="#000000">
+                <select name="ranking-border-style" id="ranking-border-style">
+                    <option value="solid">Solid</option>
+                    <option value="dotted">Dotted</option>
+                    <option value="vavie">Wavie</option>
+                </select>
+            </div>
+            </div>
+
         </div>
 
         <div class="btn-row">
@@ -148,4 +325,5 @@
     <script src="settings.js"></script>
     <script src="scripts.js"></script>
 </body>
+
 </html>
