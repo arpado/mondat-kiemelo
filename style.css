@@ -4,8 +4,34 @@ body {
     font-weight: 600;
 }
 
+html {
+    overflow: hidden;
+}
+
+*::-webkit-scrollbar {
+    width: .5rem;
+    background-color: transparent;
+    
+}
+
+*::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.9);
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.9);
+    border-radius: 10px;
+    background-color: #F5F5F5;
+    margin: 0 5rem 0 .25rem;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 10px;
+}
+
+
+
 h1, h2, h3 {
     font-size: 1em;
+
 }
 
 .short-hr {
@@ -13,10 +39,13 @@ h1, h2, h3 {
     margin: auto;
 }
 
-.hidden {
+/*ennek alul kell lennie, van odalenn masolat, ez itt redundans*/
+/*.hidden {
     visibility: hidden;
     display: none;
-}
+    width: 1px;
+    height: 1px;
+}*/
 
 /* HEADER */
 
@@ -25,38 +54,57 @@ h1, h2, h3 {
     min-height: 10vh;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     background-color: darkgray;
     position: fixed;
     top: 0%;
     left: 0%;
     z-index: 1;
+    border-bottom: 1px black solid;
+    box-shadow: 0px 3px 3px 5px rgba(0, 0, 0, 0.5);
+}
+
+.title {
+    margin-left: 1rem;
 }
 
 .options {
     display: inline-flex;
+    margin-right: 1rem;
 }
 
 .option-item {
     margin: 0 1em 0 1em;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px black solid;
+    border-radius: 5px;
+}
+
+.shine {
+    box-shadow: inset 0 0 5px  white;
 }
 
 /* SETTINGS WINDOWS*/
 
 .option-window {
     position: absolute;
-    top: 10vh;
+    top: 0%;
     left: 0%;
-    height: fit-content;
+    height: 85vh;
     /*min-height: 70vh;*/
-    width: 90%;
+    width: 90vw;
     background-color: rgba(0, 0, 0, 0.8);
-    padding: 5%;
+    padding: 10vh 5vw 5vh 5vw;
     color: white;
 }
 
 /* TEXT INPUT */
 
 #input-sentence {
+    margin-top: 5vh;
     box-sizing: border-box;
     width: 100%;
     height: 90%;
@@ -84,7 +132,8 @@ h1, h2, h3 {
 #settings-window {
     display: grid;
     grid-template-columns: [column-left-end] minmax(0, 1fr) [column-middle] minmax(0, 1fr) [column-right-end];
-    grid-template-rows: [header] minmax(0, 1fr) [main] minmax(0, 5fr) [buttons] minmax(0, 1fr);
+    grid-template-rows: [header] minmax(0, .25fr) [main] minmax(0, 5fr) [buttons] minmax(0, .25fr);
+    grid-gap: 2rem;
 }
 
 .settings-header {
@@ -99,8 +148,12 @@ h1, h2, h3 {
     grid-column-start: column-left-end;
     grid-column-end: column-middle;
     display: grid;
-    grid-template-columns: [left-end] minmax(0, 1fr) [left-middle] minmax(0, 1fr) [right-middle] minmax(0, 1fr) [right-end];
-    grid-template-rows: [top] minmax(0, 1fr) [upper-middle] minmax(0, 5fr) [lower-middle] minmax(0, 1fr) [end];
+    grid-template-columns: [left-end] minmax(0, 2fr) [left-middle] minmax(0, 1fr) [middle-middle] minmax(0, 2fr) [right-middle] minmax(0, 1fr) [right-end];
+    grid-template-rows: [top] minmax(0, .25fr) [upper-middle] minmax(0, 5fr) [lower-middle] minmax(0, 1fr) [end];
+    grid-gap: .5rem;
+    
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 .btn-selector-header {
@@ -111,7 +164,11 @@ h1, h2, h3 {
     text-align: center;
 }
 
-.preview-btn {
+.pref-selector-header {
+    text-align: center;
+}
+
+.preview-btn-section {
     grid-row-start: upper-middle;
     grid-row-end: lower-middle;
     grid-column-start: left-end;
@@ -123,10 +180,26 @@ h1, h2, h3 {
     padding-right: .2em;
 }
 
-.color-btn {
+.color-btn-section {
     grid-row-start: upper-middle;
     grid-row-end: lower-middle;
     grid-column-start: left-middle;
+    grid-column-end: middle-middle;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    padding-left: .2em;
+    padding-right: .2em;
+}
+
+.color-btn-section > input {
+    height: 1.34rem;
+}
+
+.text-btn-section {
+    grid-row-start: upper-middle;
+    grid-row-end: lower-middle;
+    grid-column-start: middle-middle;
     grid-column-end: right-middle;
     text-align: center;
     display: flex;
@@ -135,7 +208,7 @@ h1, h2, h3 {
     padding-right: .2em;
 }
 
-.text-btn {
+.remove-btn-section {
     grid-row-start: upper-middle;
     grid-row-end: lower-middle;
     grid-column-start: right-middle;
@@ -147,6 +220,7 @@ h1, h2, h3 {
     padding-right: .2em;
 }
 
+/*ez itt rossz helyen van, meg elvileg felesleges is*/
 .text-color-btn {
     grid-row-start: lower-middle;
     grid-row-end: end;
@@ -158,6 +232,24 @@ h1, h2, h3 {
     grid-row-start: main;
     grid-column-start: column-middle;
     grid-column-end: column-right-end;
+    display: flex;
+    flex-direction: column;
+    overflow-x: auto;
+}
+
+.apart {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+}
+
+
+.column-right > * {
+    margin: .5rem;
+}
+
+.theme-selector > * {
+    margin: .5rem;
 }
 
 .range-toggle {
@@ -169,6 +261,19 @@ h1, h2, h3 {
     grid-row-start: buttons;
     grid-column-start: column-middle;
     grid-column-end: column-right-end;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.input {
+    height: fit-content;
+}
+
+.number-input, .unit-input, .style-input {
+    width: 50px;
+    text-align: right;
+    height: 100%;
 }
 
 
@@ -176,14 +281,21 @@ h1, h2, h3 {
 
 .main {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: flex-start;
     justify-content: flex-start;
     min-width: 98%;
     min-height: 90%;
     flex-wrap: wrap;
     margin: 1%;
-    margin-top: 10%;
+    position:absolute;
+    top: 8vh;
+    left:0px;
+    right:0px;
+    bottom:0px;
+    padding-top: 5vh;
+    overflow-y:auto; 
+    /*margin-top: 10%;*/
 }
 
 .input-unit-container {
@@ -197,14 +309,34 @@ h1, h2, h3 {
     min-height: 3em;
     min-width: 9%;
     display: inline-block;
-    border: 1px solid black;
+    /*border: 1px solid black;*/
     margin-right: 1%;
 }
 
 .rank-box > div {
-    border: 1px solid black;
+    /*border: 1px solid black;*/
     text-align: center;
+    justify-content: center;
     height: 30%;
+}
+
+.sentence-counter::-webkit-outer-spin-button,
+.sentence-counter::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+.sentence-counter {
+    -moz-appearance: textfield;
+    background:transparent; 
+    border:1px solid black;
+    text-align:center;
+    -webkit-appearance: none;
+    margin: 0;
+    -moz-appearance:textfield;
+    font-size: inherit;
+    color: inherit;
+    font-family: inherit;
+    font-weight: inherit;
 }
 
 .sentence-box {
@@ -214,7 +346,7 @@ h1, h2, h3 {
     /*margin: 2px;*/
     height: fit-content;
     flex-wrap: wrap;
-    border: 1px solid black;
+    /*border: 1px solid black;*/
 }
 
 /*.sentence-indicator {
@@ -240,7 +372,7 @@ h1, h2, h3 {
     display: inline-flex;
     /*white-space: pre-wrap;*/
     margin: .2em;
-    border: 1px solid black;
+    /*border: 1px solid black;*/
     border-radius: 3px;
     justify-content: center;
     align-items: center;
@@ -277,3 +409,12 @@ h1, h2, h3 {
     position: absolute;
 }*/
 
+.hidden {
+    visibility: hidden;
+    display: none;
+    width: 1px;
+    height: 1px;
+    position: absolute;
+    top: 0vh;
+    left: -100vw;
+}
