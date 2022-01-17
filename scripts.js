@@ -8,6 +8,7 @@ let toggleSettingsBtn = document.getElementById('toggle-settings-btn');
 let toggleHelpBtn = document.getElementById('toggle-help-btn');
 
 //window-k
+let clearBody = document.getElementById('clear-body');
 let inputWindow = document.getElementById('input-window');
 let settingsWindow = document.getElementById('settings-window');
 let helpWindow = document.getElementById('help-window');
@@ -17,30 +18,35 @@ document.addEventListener('click', e => {
     switch (e.target) {
         case toggleInputBtn:
             if (inputWindow.classList.contains('hidden')) {
-                settingsWindow.classList.add('hidden');
-                helpWindow.classList.add('hidden');
-                inputWindow.classList.remove('hidden');
+                openMenu(inputWindow, settingsWindow, helpWindow);
+                shine(toggleInputBtn, toggleSettingsBtn, toggleHelpBtn);
             } else {
-                inputWindow.classList.add('hidden');
+                closeMenuRemoveShine(inputWindow, toggleInputBtn);
             }
             break;
         case toggleSettingsBtn:
             if (settingsWindow.classList.contains('hidden')) {
-                inputWindow.classList.add('hidden');
-                helpWindow.classList.add('hidden');
-                settingsWindow.classList.remove('hidden');
+                openMenu(settingsWindow, inputWindow, helpWindow);
+                shine(toggleSettingsBtn, toggleInputBtn, toggleHelpBtn);
             } else {
-                settingsWindow.classList.add('hidden');
+                closeMenuRemoveShine(settingsWindow, toggleSettingsBtn);
             }
             break;
         case toggleHelpBtn:
             if (helpWindow.classList.contains('hidden')){
-                inputWindow.classList.add('hidden');
-                settingsWindow.classList.add('hidden');
-                helpWindow.classList.remove('hidden');
+                openMenu(helpWindow, inputWindow, settingsWindow);
+                shine(toggleHelpBtn, toggleInputBtn, toggleSettingsBtn);
             } else {
-                helpWindow.classList.add('hidden');
+                closeMenuRemoveShine(helpWindow, toggleHelpBtn);
             }
+            break;
+        case clearBody:
+            if (container.innerHTML !== '') {
+                if (window.confirm('Are you sure you wish to delete all input?')) {
+                    container.innerHTML = '';
+                }
+            }
+            break;
     }
 });
 
@@ -49,7 +55,6 @@ document.addEventListener('click', e => {
 document.onkeydown = function(evt) {
     //evt = evt || window.event;
     var isEscape = false;
-    console.log(evt)
     if ("key" in evt) {
         isEscape = (evt.key === "Escape" || evt.key === "Esc");
     } else {
@@ -61,6 +66,25 @@ document.onkeydown = function(evt) {
         inputWindow.classList.add('hidden');
     }
 };
+
+function openMenu(selected, ...args) {
+    selected.classList.remove('hidden');
+    for (elem of args) {
+        elem.classList.add('hidden');
+    }
+}
+
+function shine(selected, ...rest) {
+    selected.classList.add('shine');
+    for (elem of rest) {
+        elem.classList.remove('shine');
+    }
+}
+
+function closeMenuRemoveShine(menu, button) {
+    menu.classList.add('hidden');
+    button.classList.remove('shine');
+}
 
 // -------------------- HIGHLIGHTER ------------------------ //
 
@@ -120,7 +144,7 @@ function closeButtonMenu() {
 
 
 // a majdnem teljes oldalon talalhato kattra figyel, kivetel a beviteli mezo es a hozzatartozo gomb
-document.addEventListener('click', e => {
+container.addEventListener('click', e => {
 
     //ha meg lenne nyitva a gombsav, akkor lecsukja eloszor
     if (buttonContainer) {
@@ -131,7 +155,7 @@ document.addEventListener('click', e => {
     if (e.target.classList.contains('individual-word')) {
         // ez a clearSelect csak biztonsagbol van itt, elvileg redundans
         clearSelectedWord();
-        makeButtons(e.pageX, e.pageY, sortedButtonArray);
+        makeButtons(e.layerX, e.layerY, sortedButtonArray);
         e.target.setAttribute('id', 'wordSelected');
     } 
     
