@@ -81,16 +81,17 @@
                 <div class="theme-selector" id="background-theme">
                     <div class="apart">
                         <div class="description">
-                            <input type="radio" name="background-theme" id="background-plain">
+                            <input type="radio" name="background-theme" class="background-radio" id="background-plain">
                             <label for="background-plain">plain</label>
                         </div>
                         <div class="input">
                             <input type="color" name="plain-color" class="number-input" id="plain-color">
                         </div>
                     </div>
+                    <!--
                     <div class="apart">
                         <div class="description">
-                            <input type="radio" name="background-theme" id="background-linear-gradient">
+                            <input type="radio" name="background-theme" class="background-radio" id="background-linear-gradient">
                             <label for="background-linear-gradient">linear gradient</label>
                         </div>
                         <div class="input">
@@ -104,16 +105,30 @@
                     </div>
                     <div class="apart">
                         <div class="description">
-                            <input type="radio" name="background-theme" id="background-circular-gradient">
-                            <label for="background-circular-gradient">circular gradient</label>
+                            <input type="radio" name="background-theme" class="background-radio" id="background-radial-gradient">
+                            <label for="background-radial-gradient">Radial gradient</label>
                         </div>
                         <div class="input">
-                            <input type="number" name="linear-degree" class="number-input" id="linear-degree" min="0"
+                            <input type="number" name="radial-degree" class="number-input" id="radial-degree" min="0"
                                 max="360">
                             <input type="color" name="linear-color-1" class="style-input" id="linear-color-1">
                             <input type="number" name="linear-perc-1" class="number-input" id="linear-perc-1">
                             <input type="color" name="linear-color-2" class="style-input" id="linear-color-2">
                             <input type="number" name="linear-perc-2" class="number-input" id="linear-perc-2">
+                        </div>
+                    </div>
+                    -->
+                    <div class="apart">
+                        <div class="description">
+                            <input type="radio" name="background-theme" class="background-radio" id="background-user-gradient">
+                            <label for="background-user-gradient">User set gradient</label>
+                        </div>
+                        <div class="input">
+                            <select name="background-user-gradient" id="background-user-gradient-select">
+                                <option value="linear-gradient">linear-gradient</option>
+                                <option value="radial-gradient">radial-gradient</option>
+                            </select>
+                            <input type="text" name="background-user-gradient" id="background-user-gradient-text">
                         </div>
                     </div>
                 </div>
@@ -140,6 +155,25 @@
                 </div>
             </div>
 
+            <div class="font-weight apart">
+                <div class="description">
+                    <label>Select Font Weight</label>
+                </div>
+                <div class="input">
+                    <select name="font-weight" class="unit-input" id="font-weight">
+                        <option value="100">100</option>
+                        <option value="200">200</option>
+                        <option value="300">300</option>
+                        <option value="400">400</option>
+                        <option value="500">500</option>
+                        <option value="600">600</option>
+                        <option value="700">700</option>
+                        <option value="800">800</option>
+                        <option value="900">900</option>
+                    </select>
+                </div>
+            </div>
+
             <div class="apart">
                 <div class="font-color description"><label>Select Font Color</label>
                 </div>
@@ -148,30 +182,30 @@
 
             <div class="font-family apart">
                 <div class="description">
-                <label>Select Font Family</label>
+                    <label>Select Font Family</label>
                 </div>
                 <div class="input">
-                <select name="font-family" id="font-family">
-                    <option value="">--Please choose an option--</option>
-                    <option value="Arial, Helvetica, sans-serif">Arial</option>
-                    <option value="Cambria, Cochin, Georgia, Times, 'Times New Roman', serif">Cambria</option>
-                    <option value="Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">Impact</option>
-                    <option value="'Times New Roman', Times, serif">Times New Roman</option>
-                    <option
-                        value="'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif">
-                        Trebuchet MS</option>
-                    <option value="Verdana, Geneva, Tahoma, sans-serif;">Verdana</option>
-                </select>
-            </div>
+                    <select name="font-family" id="font-family">
+                        <option value="">--Please choose an option--</option>
+                        <option value="Arial, Helvetica, sans-serif">Arial</option>
+                        <option value="Cambria, Cochin, Georgia, Times, 'Times New Roman', serif">Cambria</option>
+                        <option value="Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">Impact</option>
+                        <option value="'Times New Roman', Times, serif">Times New Roman</option>
+                        <option
+                            value="'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif">
+                            Trebuchet MS</option>
+                        <option value="Verdana, Geneva, Tahoma, sans-serif;">Verdana</option>
+                    </select>
+                </div>
             </div>
 
             <div class="text-color-btn apart">
                 <div class="description">
-                <label>Choose a Color for the Text on Buttons:</label>
+                    <label>Choose a Color for the Text on Buttons:</label>
                 </div>
                 <div class="input">
-                <input type="color" name="btn-font-color" id="btn-font-color" value="#000000">
-            </div>
+                    <input type="color" name="btn-font-color" id="btn-font-color" value="#000000">
+                </div>
             </div>
 
             <h3 class="pref-selector-header">Sentence Box Preferences
@@ -180,36 +214,38 @@
 
             <div class="toggle-sentence-box-border apart">
                 <div class="description">
-                <label for="toggle-sentence-box-border" id="toggle-sentence-box-border-label">Toggle Sentence Box Border</label>
-            </div>
-            <div class="input">
-                <input type="range" class="range-toggle" id="toggle-sentence-box-border" min="0" max="1" />
-            </div>
+                    <label for="toggle-sentence-box-border" id="toggle-sentence-box-border-label">Toggle Sentence Box
+                        Border</label>
+                </div>
+                <div class="input">
+                    <input type="range" class="range-toggle" id="toggle-sentence-box-border" min="0" max="1" />
+                </div>
             </div>
 
             <div class="sentence-box-border apart">
                 <div class="decription">
-                <label>Choose a border for the sentence-box</label>
-            </div>
-            <div class="input">
-                <input type="number" name="sentence-border-thickness-number" class="number-input"
-                    id="sentence-border-thickness-number">
-                <select name="sentence-border-thickness-unit" class="unit-input" id="sentence-border-thickness-unit">
-                    <option value="">--Please choose an option--</option>
-                    <option value="em">em</option>
-                    <option value="rem">rem</option>
-                    <option value="px">px</option>
-                    <option value="mm">mm</option>
-                    <option value="%">%</option>
-                    <option value="fr">fr</option>
-                </select>
-                <input type="color" name="sentence-border-color" id="sentence-border-color" value="#000000">
-                <select name="sentence-border-style" id="sentence-border-style">
-                    <option value="solid">Solid</option>
-                    <option value="dotted">Dotted</option>
-                    <option value="vavie">Wavie</option>
-                </select>
-            </div>
+                    <label>Choose a border for the sentence-box</label>
+                </div>
+                <div class="input">
+                    <input type="number" name="sentence-border-thickness-number" class="number-input"
+                        id="sentence-border-thickness-number">
+                    <select name="sentence-border-thickness-unit" class="unit-input"
+                        id="sentence-border-thickness-unit">
+                        <option value="">--Please choose an option--</option>
+                        <option value="em">em</option>
+                        <option value="rem">rem</option>
+                        <option value="px">px</option>
+                        <option value="mm">mm</option>
+                        <option value="%">%</option>
+                        <option value="fr">fr</option>
+                    </select>
+                    <input type="color" name="sentence-border-color" id="sentence-border-color" value="#000000">
+                    <select name="sentence-border-style" id="sentence-border-style">
+                        <option value="solid">Solid</option>
+                        <option value="dotted">Dotted</option>
+                        <option value="vavie">Wavie</option>
+                    </select>
+                </div>
             </div>
 
             <h3 class="pref-selector-header">Word Box Preferences
@@ -218,45 +254,45 @@
 
             <div class="toggle-word-box-border apart">
                 <div class="description">
-                <label for="toggle-word-box-border">Toggle Word Box Border</label>
-            </div>
-            <div class="input">
-                <input type="range" class="range-toggle" id="toggle-word-box-border" min="0" max="1" />
-            </div>
+                    <label for="toggle-word-box-border">Toggle Word Box Border</label>
+                </div>
+                <div class="input">
+                    <input type="range" class="range-toggle" id="toggle-word-box-border" min="0" max="1" />
+                </div>
             </div>
 
             <div class="word-box-border apart">
                 <div class="descrition">
-                <label>Choose a border for the word-box</label>
-            </div>
-            <div class="input">
-                <input type="number" name="word-border-thickness-number" class="number-input"
-                    id="word-border-thickness-number">
-                <select name="word-border-thickness-unit" class="unit-input" id="word-border-thickness-unit">
-                    <option value="">--Please choose an option--</option>
-                    <option value="em">em</option>
-                    <option value="rem">rem</option>
-                    <option value="px">px</option>
-                    <option value="mm">mm</option>
-                    <option value="%">%</option>
-                    <option value="fr">fr</option>
-                </select>
-                <input type="color" name="word-border-color" id="word-border-color" value="#000000">
-                <select name="word-border-style" id="word-border-style">
-                    <option value="solid">Solid</option>
-                    <option value="dotted">Dotted</option>
-                    <option value="vavie">Wavie</option>
-                </select>
-            </div>
+                    <label>Choose a border for the word-box</label>
+                </div>
+                <div class="input">
+                    <input type="number" name="word-border-thickness-number" class="number-input"
+                        id="word-border-thickness-number">
+                    <select name="word-border-thickness-unit" class="unit-input" id="word-border-thickness-unit">
+                        <option value="">--Please choose an option--</option>
+                        <option value="em">em</option>
+                        <option value="rem">rem</option>
+                        <option value="px">px</option>
+                        <option value="mm">mm</option>
+                        <option value="%">%</option>
+                        <option value="fr">fr</option>
+                    </select>
+                    <input type="color" name="word-border-color" id="word-border-color" value="#000000">
+                    <select name="word-border-style" id="word-border-style">
+                        <option value="solid">Solid</option>
+                        <option value="dotted">Dotted</option>
+                        <option value="vavie">Wavie</option>
+                    </select>
+                </div>
             </div>
 
             <div class="word-box-color apart">
                 <div class="decription">
-                <label>Select Background Color for the Text Container</label>
-            </div>
-            <div class="input">
-                <input type="color" name="word-border-color" id="word-border-color" value="#000000">
-            </div>
+                    <label>Select Background Color for the Text Container</label>
+                </div>
+                <div class="input">
+                    <input type="color" name="word-border-color" id="word-border-color" value="#000000">
+                </div>
             </div>
 
             <h3 class="pref-selector-header">Ranking Box Preferences
@@ -265,45 +301,45 @@
 
             <div class="toggle-ranking-box apart">
                 <div class="description">
-                <label for="toggle-ranking-box">Toggle Rankings Box</label>
-            </div>
-            <div class="input">
-                <input type="range" class="range-toggle" id="toggle-ranking-box" min="0" max="1" />
-            </div>
+                    <label for="toggle-ranking-box">Toggle Rankings Box</label>
+                </div>
+                <div class="input">
+                    <input type="range" class="range-toggle" id="toggle-ranking-box" min="0" max="1" />
+                </div>
             </div>
 
             <div class="toggle-ranking-box-border apart">
                 <div class="description">
-                <label for="toggle-ranking-box-border">Toggle Rankings Box Border</label>
-            </div>
-            <div class="input">
-                <input type="range" class="range-toggle" id="toggle-ranking-box-border" min="0" max="1" />
-            </div>
+                    <label for="toggle-ranking-box-border">Toggle Rankings Box Border</label>
+                </div>
+                <div class="input">
+                    <input type="range" class="range-toggle" id="toggle-ranking-box-border" min="0" max="1" />
+                </div>
             </div>
 
             <div class="ranking-box-border apart">
                 <div class="description">
-                <label>Choose a border for the ranking-box</label>
-            </div>
-            <div class="input">
-                <input type="number" name="ranking-border-thickness-number" class="number-input"
-                    id="ranking-border-thickness-number">
-                <select name="ranking-border-thickness-unit" class="unit-input" id="ranking-border-thickness-unit">
-                    <option value="">--Please choose an option--</option>
-                    <option value="em">em</option>
-                    <option value="rem">rem</option>
-                    <option value="px">px</option>
-                    <option value="mm">mm</option>
-                    <option value="%">%</option>
-                    <option value="fr">fr</option>
-                </select>
-                <input type="color" name="ranking-border-color" id="ranking-border-color" value="#000000">
-                <select name="ranking-border-style" id="ranking-border-style">
-                    <option value="solid">Solid</option>
-                    <option value="dotted">Dotted</option>
-                    <option value="vavie">Wavie</option>
-                </select>
-            </div>
+                    <label>Choose a border for the ranking-box</label>
+                </div>
+                <div class="input">
+                    <input type="number" name="ranking-border-thickness-number" class="number-input"
+                        id="ranking-border-thickness-number">
+                    <select name="ranking-border-thickness-unit" class="unit-input" id="ranking-border-thickness-unit">
+                        <option value="">--Please choose an option--</option>
+                        <option value="em">em</option>
+                        <option value="rem">rem</option>
+                        <option value="px">px</option>
+                        <option value="mm">mm</option>
+                        <option value="%">%</option>
+                        <option value="fr">fr</option>
+                    </select>
+                    <input type="color" name="ranking-border-color" id="ranking-border-color" value="#000000">
+                    <select name="ranking-border-style" id="ranking-border-style">
+                        <option value="solid">Solid</option>
+                        <option value="dotted">Dotted</option>
+                        <option value="vavie">Wavie</option>
+                    </select>
+                </div>
             </div>
 
         </div>
