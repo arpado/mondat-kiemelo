@@ -140,16 +140,34 @@ let settingsRightColumn = document.querySelector('.column-right');
 //EZT MEG NEM MENTI LOCALBA!
 
 let backgroundImg = localStorage.getItem('backgroundImg');
+let radioBtnCollection = document.querySelectorAll('.background-radio');
 
 //localStorage.setItem('backgroundImg', toggleBackgroundImageInput.value);
+let body = document.querySelector('body');
 
 function toggleBackgroundImage() {
-    let body = document.querySelector('body');
+    
     if(localStorage.getItem('toggleBackgroundImageInput') === '1') {
         body.style.backgroundImage = 'url("img/parchment.jpeg")';
     } else {
         body.style.backgroundImage = 'none';
-    }
+        switch (localStorage.getItem('backgroundTypeSelector')) {
+            case ('background-plain'):
+                body.style.background = localStorage.getItem('backgroundColorPlain');
+                break;
+            /*case ('background-linear-gradient'):
+                console.log('poop')
+                body.style.background = `linear-gradient(${localStorage.getItem('backgroundColorLinearDegree')}deg, ${localStorage.getItem('backgroundColorLinearColor1')} ${localStorage.getItem('backgroundColorLinearPerc1')}%, ${localStorage.getItem('backgroundColorLinearColor2')} ${localStorage.getItem('backgroundColorLinearPerc2')}%)`;
+                break;
+            case ('background-radial-gradient'):
+                console.log('poop2')
+                break;*/
+            case ('background-user-gradient'):
+                console.log('poop')
+                body.style.background = `${localStorage.getItem('backgroundColorUserGradient')}(${localStorage.getItem('backgroundColorUserText')})`;
+                break;
+            }
+        }
 }
 
 // theme selector
@@ -161,9 +179,39 @@ let mainWindow = document.querySelector('.main');
 // background img
 let toggleBackgroundImageInput = document.querySelector('#toggle-background-img');
 
+// background type selector
+let backgroundTypeSelector = () => {
+    for (elem of radioBtnCollection) {
+        if (elem.checked) {
+            return elem.id;
+        }
+    }
+}
+
+//background color plain
+let backgroundColorPlain = document.querySelector('#plain-color');
+
+/*
+// background color linear
+let backgroundColorLinearDegree = document.querySelector('#linear-degree');
+let backgroundColorLinearColor1 = document.querySelector('#linear-color-1');
+let backgroundColorLinearPerc1 = document.querySelector('#linear-perc-1');
+let backgroundColorLinearColor2 = document.querySelector('#linear-color-2');
+let backgroundColorLinearPerc2 = document.querySelector('#linear-perc-2');
+
+//backgorund color radial
+let backgroundColorRadial = document.querySelector('#radial-degree');
+*/
+
+let backgroundColorUserGradient = document.querySelector('#background-user-gradient-select');
+let backgroundColorUserText = document.querySelector('#background-user-gradient-text');
+
 // fontsize
 let fontSizeInput = document.querySelector('#font-size');
 let fontSizeInputUnits = document.querySelector('#font-size-units');
+
+//font weight
+let fontWeight = document.querySelector('#font-weight');
 
 //set font color
 let setFontColorInput = document.querySelector('#font-color');
@@ -210,9 +258,27 @@ let rankingBoxBorderStyleInput = document.querySelector('#ranking-border-style')
 function pushSettings() {
     //background img
     localStorage.setItem('toggleBackgroundImageInput', toggleBackgroundImageInput.value);
+    // BackgroundType
+    localStorage.setItem('backgroundTypeSelector', backgroundTypeSelector())
+
+    // background color plain
+    localStorage.setItem('backgroundColorPlain', backgroundColorPlain.value);
+    /*
+    // background color linear
+    localStorage.setItem('backgroundColorLinearDegree', backgroundColorLinearDegree.value);
+    localStorage.setItem('backgroundColorLinearColor1', backgroundColorLinearColor1.value);
+    localStorage.setItem('backgroundColorLinearPerc1', backgroundColorLinearPerc1.value);
+    localStorage.setItem('backgroundColorLinearColor2', backgroundColorLinearColor2.value);
+    localStorage.setItem('backgroundColorLinearPerc2', backgroundColorLinearPerc2.value);
+    */
+    // background user gradient
+    localStorage.setItem('backgroundColorUserGradient', backgroundColorUserGradient.value);
+    localStorage.setItem('backgroundColorUserText', backgroundColorUserText.value);
     //fontsize
     localStorage.setItem('fontSizeInputValue', fontSizeInput.value);
     localStorage.setItem('fontSizeInputUnits', fontSizeInputUnits.value);
+    // font weight
+    localStorage.setItem('fontWeight', fontWeight.value);
     // font color
     localStorage.setItem('fontColorInput', setFontColorInput.value);
     // font family
@@ -243,8 +309,36 @@ function pushSettings() {
 function applyPreferences() {
     //background img
     toggleBackgroundImage();
+    //ide egy if, h melyik volt chekkolva
+    //background color plain
+    //body.style.background = localStorage.getItem('backgroundColorPlain');
+    // background color linear
+    switch (localStorage.getItem('backgroundTypeSelector')) {
+        case 'background-plain':
+            disableInput('toggle', backgroundColorUserGradient, backgroundColorUserText);
+            enableInput ('toggle', backgroundColorPlain);
+            break;
+        /*
+        case 'background-linear-gradient':
+            disableInput('toggle', backgroundColorPlain, backgroundColorRadial);
+            enableInput ('toggle', backgroundColorLinearDegree, backgroundColorLinearColor1, backgroundColorLinearPerc1, backgroundColorLinearColor2, backgroundColorLinearPerc2);
+            break;
+    
+        case 'background-radial-gradient':
+            disableInput('toggle', backgroundColorPlain, backgroundColorLinearDegree, backgroundColorLinearColor1, backgroundColorLinearPerc1, backgroundColorLinearColor2, backgroundColorLinearPerc2);
+            enableInput ('toggle', backgroundColorRadial);
+            break;
+        */
+        case 'background-user-gradient':
+            disableInput('toggle',  backgroundColorPlain);
+            enableInput ('toggle', backgroundColorUserGradient, backgroundColorUserText);
+            break;
+    }
+    
     //fontsize
     mainWindow.style.fontSize = localStorage.getItem('fontSizeInputValue') + localStorage.getItem('fontSizeInputUnits');
+    //font weight
+    mainWindow.style.fontWeight = localStorage.getItem('fontWeight');
     //font color
     mainWindow.style.color = localStorage.getItem('fontColorInput');
     // set font family
@@ -349,9 +443,31 @@ function toggleBorder(collection, toggleValue, borderValue, borderUnit, color, s
 function pullSettings() {
     //background img
     toggleBackgroundImageInput.value = localStorage.getItem('toggleBackgroundImageInput');
+    //background type
+    /*for (elem of radioBtnCollection){
+    if (elem.id === localStorage.getItem('backgroundTypeSelector')){
+        elem.id = elem.checked;
+    }
+    }*/
+    document.querySelector(`#${localStorage.getItem('backgroundTypeSelector')}`).checked = true;
+    // background color plain
+    backgroundColorPlain.value = localStorage.getItem('backgroundColorPlain');
+    //background color linear
+    /*
+    backgroundColorLinearDegree.value = localStorage.getItem('backgroundColorLinearDegree');
+    backgroundColorLinearColor1.value = localStorage.getItem('backgroundColorLinearColor1');
+    backgroundColorLinearPerc1.value = localStorage.getItem('backgroundColorLinearPerc1');
+    backgroundColorLinearColor2.value = localStorage.getItem('backgroundColorLinearColor2');
+    backgroundColorLinearPerc2.value = localStorage.getItem('backgroundColorLinearPerc2');
+    */
+    // backgrund color user
+    backgroundColorUserGradient.value = localStorage.getItem('backgroundColorUserGradient');
+    backgroundColorUserText.value = localStorage.getItem('backgroundColorUserText');
     //fontsize
     fontSizeInput.value = localStorage.getItem('fontSizeInputValue');
     fontSizeInputUnits.value = localStorage.getItem('fontSizeInputUnits');
+    //font weight
+    fontWeight.value = localStorage.getItem('fontWeight');
     //font color
     setFontColorInput.value = localStorage.getItem('fontColorInput');
     // set font family
@@ -398,6 +514,27 @@ settingsRightColumn.addEventListener('click', e => {
                 toggleBackgroundImageInput.value = '0';
             }
             break;
+
+        case 'background-plain':
+            disableInput('toggle', backgroundColorUserGradient, backgroundColorUserText);
+            enableInput ('toggle', backgroundColorPlain);
+            break;
+        /*
+        case 'background-linear-gradient':
+            disableInput('toggle', backgroundColorPlain, backgroundColorRadial);
+            enableInput ('toggle', backgroundColorLinearDegree, backgroundColorLinearColor1, backgroundColorLinearPerc1, backgroundColorLinearColor2, backgroundColorLinearPerc2);
+            break;
+    
+        case 'background-radial-gradient':
+            disableInput('toggle', backgroundColorPlain, backgroundColorLinearDegree, backgroundColorLinearColor1, backgroundColorLinearPerc1, backgroundColorLinearColor2, backgroundColorLinearPerc2);
+            enableInput ('toggle', backgroundColorRadial);
+            break;
+        */
+       case 'background-radial-gradient':
+            disableInput('toggle',  backgroundColorPlain);
+            enableInput ('toggle', backgroundColorUserGradient, backgroundColorUserText);
+            break;
+
         /*case 'toggle-sentence-box-border-label':
 
             if(sentenceBoxBorderToggle.value === '0') {
@@ -479,7 +616,7 @@ function enableInput (toggle, ...args) {
 }
 
 function disableInputOnStart() {
-    if(localStorage.getItem('sentenceBoxBorderToggle') === '0') {
+    if (localStorage.getItem('sentenceBoxBorderToggle') === '0') {
         disableInput(sentenceBoxBorderToggle, setSentenceBoxBorderValueInput, setSentenceBoxBorderUnitInput, setSentenceBoxBorderColorInput, setSentenceBoxBorderStyleInput);
     }
     if (localStorage.getItem('wordBoxBorderToggle') === '0') {
@@ -611,17 +748,20 @@ function initialize() {
         localStorage.setItem('rankingBoxBorderUnitInput', 'px');
         localStorage.setItem('rankingBoxBorderStyleInput', 'solid');
         localStorage.setItem('rankingBoxBorderColorInput', '#000000');
-        applyPreferences();
+        pullSettings();
+        
     
         loadButtons();
         fillPreviewBtns();
-        pullSettings();
-    } else {
-        disableInputOnStart();
         applyPreferences();
+    } else {
+
+        disableInputOnStart();
+        
         
         loadButtons();
         fillPreviewBtns();
         pullSettings();
+        applyPreferences();
     }
 }
