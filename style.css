@@ -10,8 +10,7 @@ html {
 
 *::-webkit-scrollbar {
     width: .5rem;
-    background-color: transparent;
-    
+    background-color: transparent; 
 }
 
 *::-webkit-scrollbar-track {
@@ -81,6 +80,10 @@ h1, h2, h3 {
     justify-content: center;
     border: 1px black solid;
     border-radius: 5px;
+}
+
+.option-item:hover {
+    cursor: pointer;
 }
 
 .shine {
