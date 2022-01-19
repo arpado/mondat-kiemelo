@@ -53,7 +53,6 @@ document.addEventListener('click', e => {
 // pressing the Esc key closes all of the windows
 
 document.onkeydown = function(evt) {
-    //evt = evt || window.event;
     var isEscape = false;
     if ("key" in evt) {
         isEscape = (evt.key === "Escape" || evt.key === "Esc");
@@ -93,17 +92,6 @@ let wordSelected = '';
 //container a gombok szamara
 let buttonContainer = document.createElement('div');
 buttonContainer.setAttribute('class', 'button-container');
-
-//let buttonContent = ['red', 'blue', 'green'];
-// buttoncontent 
-//let numberOfButtons = 6;
-
-// id-t megtalani
-//let buttonId = buttonArray[i].key;
-// kell egz szortirozas regexel a id-ra, uj arraybe sorbarakni oket
-
-//let buttonColor = buttonArray[i].val.color;
-//let buttonText = buttonArray[i].val.text;
 
 // legordulo gombsavot letrehozza
 function makeButtons(locX, locY, sortedButtonArray) {
