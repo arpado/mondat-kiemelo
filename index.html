@@ -120,7 +120,8 @@
                     -->
                     <div class="apart">
                         <div class="description">
-                            <input type="radio" name="background-theme" class="background-radio" id="background-user-gradient">
+                            <input type="radio" name="background-theme" class="background-radio"
+                                id="background-user-gradient">
                             <label for="background-user-gradient">User set gradient</label>
                         </div>
                         <div class="input">
@@ -286,12 +287,21 @@
                 </div>
             </div>
 
-            <div class="word-box-color apart">
+            <div class="toggle-word-box-background apart">
+                <div class="description">
+                    <label for="toggle-word-box-background">Toggle Word Box Background</label>
+                </div>
+                <div class="input">
+                    <input type="range" class="range-toggle" id="toggle-word-box-background" min="0" max="1" />
+                </div>
+            </div>
+
+            <div class="word-box-background-color apart">
                 <div class="decription">
                     <label>Select Background Color for the Text Container</label>
                 </div>
                 <div class="input">
-                    <input type="color" name="word-border-color" id="word-border-color" value="#000000">
+                    <input type="color" name="word-box-background-color" id="word-box-background-color" value="#000000">
                 </div>
             </div>
 
@@ -358,6 +368,7 @@
     </div>
 
     <script src="input.js"></script>
+    <script src="initializer.js"></script>
     <script src="settings.js"></script>
     <script src="scripts.js"></script>
 </body>
