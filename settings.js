@@ -9,21 +9,6 @@ let btnColorSection = document.querySelector('.color-btn-section');
 let btnTextSection = document.querySelector('.text-btn-section');
 let removeBtnSection = document.querySelector('.remove-btn-section');
 
-// HTML templates
-
-//let ColorSelectorTemplate = `<input type="color" value="#ff0000">`;
-/*`
-<select name="colors" class="color-select">
-<option value="">--Please choose an option--</option>
-<option value="red">Red</option>
-<option value="green">Green</option>
-<option value="blue">Blue</option>
-<option value="cyan">Cyan</option>
-<option value="magenta">Magenta</option>
-<option value="yellow">Yellow</option>
-</select>
-`;*/
-
 // btn hozzaadas
 
 let addNewBtnBtn = document.getElementById('add-new-btn');
@@ -31,31 +16,6 @@ let lineNumber = 1;
 
 addNewBtnBtn.addEventListener('click', e => {
     createPreviewBtn(lineNumber);
-    /*let newBtn = document.createElement('button');
-    let newColorSelector = document.createElement('input');
-    let setNewBtnText = document.createElement('input');
-    let removeBtn = document.createElement('button');
-    //add input & select attributes later
-    //add class later
-    newBtn.setAttribute('id', `button-${lineNumber}`);
-    newBtn.setAttribute('class', 'preview-btn');
-    previewBtnSection.insertBefore(newBtn, addNewBtnBtn);
-    newBtn.innerText = 'Preview';
-
-    btnColorSection.append(newColorSelector);
-    newColorSelector.setAttribute('id', `color-selector-${lineNumber}`);
-    //color pickernek inkabb colorpickert
-    //newColorSelector.innerHTML = ColorSelectorTemplate;
-    newColorSelector.setAttribute('type', 'color');
-    newColorSelector.setAttribute('value', '#ffffff');
-
-    btnTextSection.append(setNewBtnText);
-    setNewBtnText.setAttribute('id', `text-input-${lineNumber}`);
-
-    removeBtnSection.append(removeBtn);
-    removeBtn.setAttribute('id', `remove-button-${lineNumber}`);
-    removeBtn.setAttribute('class', 'removeBtn');
-    removeBtn.innerHTML = '<i class="fas fa-trash-alt"></i>';*/
     lineNumber++;
 });
 
@@ -104,31 +64,101 @@ btnTextSection.addEventListener('keyup', e => {
     getIdNum(e.target.id);
     let newBtn = document.querySelector(`#button-${idNumber}`);
     if (e.target.value !== '') {
-    newBtn.innerText = e.target.value;
+        newBtn.innerText = e.target.value;
     } else {
         newBtn.innerText = 'Preview';
     }
 });
 
-//Egy kulon oszlopba remove
 // btn remove
 
 removeBtnSection.addEventListener('click', e => {
-    // console.log(previewBtnSection.children.item(index))
-    // console.log(previewBtnSection.children)
-    // console.log(index)
     if (e.target.classList.contains('removeBtn')) {
-    console.log(e.target)
-    //document.querySelector(`#${e.target.id}`).remove();
-    //console.log(e.target.id)
-    getIdNum(e.target.id);
-    //console.log(idNumber)
-    document.getElementById(`button-${idNumber}`).remove();
-    document.getElementById(`color-selector-${idNumber}`).remove();
-    document.getElementById(`text-input-${idNumber}`).remove();
-    document.getElementById(`remove-button-${idNumber}`).remove();
+        getIdNum(e.target.id);
+        document.getElementById(`button-${idNumber}`).remove();
+        document.getElementById(`color-selector-${idNumber}`).remove();
+        document.getElementById(`text-input-${idNumber}`).remove();
+        document.getElementById(`remove-button-${idNumber}`).remove();
     }
 });
+
+// gombok mentese
+
+function saveButtons() {
+    let collection = document.querySelectorAll('.preview-btn');
+    collection.forEach(element => {
+        if (element.style.background === '') {
+            element.style.background = '#ffffff';
+        }
+        localStorage.setItem(element.id, JSON.stringify({
+            text: element.innerText,
+            color: element.style.background
+        }))
+    });
+}
+
+// gombok hozzarendelese
+
+function loadButtons() {
+    //valami if-et, h ures array eseten ne dobjon hibat
+    return sortedButtonArray = findLocalItems('button-').sort(compare);
+}
+
+//gombok kikeresese
+//ezt atirni, megerteni, h mi a fene
+//https://gist.github.com/n0m4dz/77f08d3de1b9115e905c
+//https://gist.github.com/ungoldman/7533774/revisions
+
+function findLocalItems(query) {
+    var i, results = [];
+    for (i in localStorage) {
+        if (localStorage.hasOwnProperty(i)) {
+            if (i.match(query) || (!query && typeof i === 'string')) {
+                value = JSON.parse(localStorage.getItem(i));
+                results.push({ key: i, val: value });
+            }
+        }
+    }
+    return results;
+}
+
+// compare a gombok sortjahoz
+
+function compare(a, b) {
+    if (a.key < b.key) {
+        return -1;
+    }
+    if (a.key > b.key) {
+        return 1;
+    }
+    return 0;
+}
+
+// szinalakito rgb -> hex
+
+function componentToHex(c) {
+    var hex = c.toString(16);
+    return hex.length == 1 ? "0" + hex : hex;
+}
+
+function rgbToHex(r, g, b) {
+    return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+}
+
+//localstoregaebol feltolti a savot
+
+function fillPreviewBtns() {
+    for (elem of sortedButtonArray) {
+        let rgb = elem.val.color.slice(4, -1).split(',');
+        let r = parseInt(rgb[0]);
+        let g = parseInt(rgb[1]);
+        let b = parseInt(rgb[2]);
+        let colorHex = rgbToHex(r, g, b);
+        createPreviewBtn(getIdNum(elem.key), elem.val.text, colorHex);
+    }
+    return lineNumber = sortedButtonArray.length + 1;
+}
+
 
 // ---------------------- JOBBOLDAL (PREFERENCES) --------------------------- //
 
@@ -146,8 +176,8 @@ let radioBtnCollection = document.querySelectorAll('.background-radio');
 let body = document.querySelector('body');
 
 function toggleBackgroundImage() {
-    
-    if(localStorage.getItem('toggleBackgroundImageInput') === '1') {
+
+    if (localStorage.getItem('toggleBackgroundImageInput') === '1') {
         body.style.backgroundImage = 'url("img/parchment.jpeg")';
     } else {
         body.style.backgroundImage = 'none';
@@ -166,8 +196,8 @@ function toggleBackgroundImage() {
                 console.log('poop')
                 body.style.background = `${localStorage.getItem('backgroundColorUserGradient')}(${localStorage.getItem('backgroundColorUserText')})`;
                 break;
-            }
         }
+    }
 }
 
 // theme selector
@@ -203,44 +233,55 @@ let backgroundColorLinearPerc2 = document.querySelector('#linear-perc-2');
 let backgroundColorRadial = document.querySelector('#radial-degree');
 */
 
+
+//background user grandient
 let backgroundColorUserGradient = document.querySelector('#background-user-gradient-select');
 let backgroundColorUserText = document.querySelector('#background-user-gradient-text');
 
+// font inputs
 // fontsize
 let fontSizeInput = document.querySelector('#font-size');
 let fontSizeInputUnits = document.querySelector('#font-size-units');
-
 //font weight
 let fontWeight = document.querySelector('#font-weight');
-
 //set font color
-let setFontColorInput = document.querySelector('#font-color');
-
+let fontColor = document.querySelector('#font-color');
 // set font family
-let setFontFamilyInput = document.querySelector('#font-family');
-
+let fontFamily = document.querySelector('#font-family')
 // btn font color
-let setBtnFontColorInput = document.querySelector('#btn-font-color');
+let btnFontColor = document.querySelector('#btn-font-color');
+
+let fontPrefs = [fontSizeInput, fontSizeInputUnits, fontWeight, fontColor, fontFamily, btnFontColor];
 
 // sentence box border toggle
 let sentenceBoxBorderToggle = document.querySelector('#toggle-sentence-box-border');
 
 // sentence box border
+let sentenceBoxBorderValue = document.querySelector('#sentence-border-thickness-number');
+let sentenceBoxBorderUnit = document.querySelector('#sentence-border-thickness-unit');
+let sentenceBoxBorderColor = document.querySelector('#sentence-border-color');
+let sentenceBoxBorderStyle = document.querySelector('#sentence-border-style');
+
+// ezt lehet, h dinamikusan kene hivni majd
 let sentenceBoxCollection = document.getElementsByClassName('sentence-box');
-let setSentenceBoxBorderValueInput = document.querySelector('#sentence-border-thickness-number');
-let setSentenceBoxBorderUnitInput = document.querySelector('#sentence-border-thickness-unit');
-let setSentenceBoxBorderColorInput = document.querySelector('#sentence-border-color');
-let setSentenceBoxBorderStyleInput = document.querySelector('#sentence-border-style');
+
+let sentencePrefs = [sentenceBoxBorderToggle, sentenceBoxBorderValue, sentenceBoxBorderUnit, sentenceBoxBorderColor, sentenceBoxBorderStyle];
 
 // word box border toggle
 let wordBoxBorderToggle = document.querySelector('#toggle-word-box-border');
-
 // word box border
+let wordBoxBorderValue = document.querySelector('#word-border-thickness-number');
+let wordBoxBorderUnit = document.querySelector('#word-border-thickness-unit');
+let wordBoxBorderColor = document.querySelector('#word-border-color');
+let wordBoxBorderStyle = document.querySelector('#word-border-style');
+//word box background toggle
+let wordBoxBackgroundToggle = document.querySelector('#toggle-word-box-background');
+let wordBoxBackground = document.querySelector('#word-box-background-color');
+
+//ezt is dinamikusan
 let wordBoxCollection = document.getElementsByClassName('individual-word');
-let setWordBoxBorderValueInput = document.querySelector('#word-border-thickness-number');
-let setWordBoxBorderUnitInput = document.querySelector('#word-border-thickness-unit');
-let setWordBoxBorderColorInput = document.querySelector('#word-border-color');
-let setWordBoxBorderStyleInput = document.querySelector('#word-border-style');
+
+let wordBoxPrefs = [wordBoxBorderToggle, wordBoxBorderValue, wordBoxBorderUnit, wordBoxBorderColor, wordBoxBorderStyle, wordBoxBackgroundToggle, wordBoxBackground];
 
 // ranking box toggle
 let rankingBoxToggle = document.querySelector('#toggle-ranking-box');
@@ -249,18 +290,34 @@ let rankingBoxToggle = document.querySelector('#toggle-ranking-box');
 let rankingBoxBorderToggle = document.querySelector('#toggle-ranking-box-border');
 
 //ranking box border
+
+let rankingBoxBorderValue = document.querySelector('#ranking-border-thickness-number');
+let rankingBoxBorderUnit = document.querySelector('#ranking-border-thickness-unit');
+let rankingBoxBorderColor = document.querySelector('#ranking-border-color');
+let rankingBoxBorderStyle = document.querySelector('#ranking-border-style');
+
+let rankingBoxPrefs = [rankingBoxToggle, rankingBoxBorderToggle, rankingBoxBorderValue, rankingBoxBorderUnit, rankingBoxBorderColor, rankingBoxBorderStyle];
+
+//dinamikusan
 let rankingBoxCollection = document.querySelectorAll('.rank-box');
-let rankingBoxBorderValueInput = document.querySelector('#ranking-border-thickness-number');
-let rankingBoxBorderUnitInput = document.querySelector('#ranking-border-thickness-unit');
-let rankingBoxBorderColorInput = document.querySelector('#ranking-border-color');
-let rankingBoxBorderStyleInput = document.querySelector('#ranking-border-style');
+
+let settings = [fontPrefs, sentencePrefs, wordBoxPrefs, rankingBoxPrefs].flat(Infinity);
+
+// --------------------------- PUSH -------------------------------//
 
 function pushSettings() {
-    //background img
-    localStorage.setItem('toggleBackgroundImageInput', toggleBackgroundImageInput.value);
+    // nem megy, elóbb objektumot kell belőle csinálnom, utána tudom csak a nevét használni, meg obj.node-ba bele a query-t, aztán működni fog
+    /*for (element of settings) {
+        localStorage.setItem(element.toString(), element.value); 
+    }*/
+
     // BackgroundType
     localStorage.setItem('backgroundTypeSelector', backgroundTypeSelector())
 
+    
+    //background img
+    localStorage.setItem('toggleBackgroundImageInput', toggleBackgroundImageInput.value);
+    
     // background color plain
     localStorage.setItem('backgroundColorPlain', backgroundColorPlain.value);
     /*
@@ -297,6 +354,9 @@ function pushSettings() {
     localStorage.setItem('wordBoxBorderUnitInput', setWordBoxBorderUnitInput.value);
     localStorage.setItem('wordBoxBorderStyleInput', setWordBoxBorderStyleInput.value);
     localStorage.setItem('wordBoxBorderColorInput', setWordBoxBorderColorInput.value);
+    localStorage.setItem('wordBoxBackgroundToggle', wordBoxBackgroundToggle.value);
+    localStorage.setItem('wordBoxBackground', wordBoxBackground.value);
+
     // rankings box toggle & border
     localStorage.setItem('rankingBoxToggle', rankingBoxToggle.value);
     localStorage.setItem('rankingBoxBorderToggle', rankingBoxBorderToggle.value);
@@ -304,7 +364,10 @@ function pushSettings() {
     localStorage.setItem('rankingBoxBorderUnitInput', rankingBoxBorderUnitInput.value);
     localStorage.setItem('rankingBoxBorderColorInput', rankingBoxBorderColorInput.value);
     localStorage.setItem('rankingBoxBorderStyleInput', rankingBoxBorderStyleInput.value);
+    
 }
+
+// ------------------------- APPLY -----------------------------//
 
 function applyPreferences() {
     //background img
@@ -316,7 +379,7 @@ function applyPreferences() {
     switch (localStorage.getItem('backgroundTypeSelector')) {
         case 'background-plain':
             disableInput('toggle', backgroundColorUserGradient, backgroundColorUserText);
-            enableInput ('toggle', backgroundColorPlain);
+            enableInput('toggle', backgroundColorPlain);
             break;
         /*
         case 'background-linear-gradient':
@@ -330,11 +393,11 @@ function applyPreferences() {
             break;
         */
         case 'background-user-gradient':
-            disableInput('toggle',  backgroundColorPlain);
-            enableInput ('toggle', backgroundColorUserGradient, backgroundColorUserText);
+            disableInput('toggle', backgroundColorPlain);
+            enableInput('toggle', backgroundColorUserGradient, backgroundColorUserText);
             break;
     }
-    
+
     //fontsize
     mainWindow.style.fontSize = localStorage.getItem('fontSizeInputValue') + localStorage.getItem('fontSizeInputUnits');
     //font weight
@@ -346,34 +409,20 @@ function applyPreferences() {
     // btn font color
     buttonContainer.style.color = localStorage.getItem('btnFontColor');
 
-    // word box border
-
-    toggleBorder(wordBoxCollection, 'wordBoxBorderToggle', 'wordBoxBorderValueInput', 'wordBoxBorderUnitInput', 'wordBoxBorderStyleInput', 'wordBoxBorderColorInput');
-
-    //let wordBoxCollection = document.getElementsByClassName('individual-word');
-    /*if (wordBoxCollection.length > 0 && localStorage.getItem('wordBoxBorderToggle') === '1') {
-        for (wordBox of wordBoxCollection) {
-            wordBox.style.border = `${localStorage.getItem('wordBoxBorderValueInput')}${localStorage.getItem('wordBoxBorderUnitInput')} ${localStorage.getItem('wordBoxBorderStyleInput')} ${localStorage.getItem('wordBoxBorderColorInput')}`;
-        } 
-    } else if (localStorage.getItem('wordBoxBorderToggle') === '0') {
-        for (wordBox of wordBoxCollection) {
-            wordBox.style.border = '0px';
-        }
-    } */
-
     //sentence box border ---- ez unit container - elvileg rendben, de csekkolni
 
     toggleBorder(sentenceBoxCollection, 'sentenceBoxBorderToggle', 'sentenceBoxBorderValueInput', 'sentenceBoxBorderUnitInput', 'sentenceBoxBorderStyleInput', 'sentenceBoxBorderColorInput');
 
-    /*if (sentenceBoxCollection.length > 0 && localStorage.getItem('sentenceBoxBorderToggle') === '1') {
-        for (sentenceBox of sentenceBoxCollection) {
-            sentenceBox.style.border = `${localStorage.getItem('sentenceBoxBorderValueInput')}${localStorage.getItem('sentenceBoxBorderUnitInput')} ${localStorage.getItem('sentenceBoxBorderStyleInput')} ${localStorage.getItem('sentenceBoxBorderColorInput')}`;
-        }
-    } else if (localStorage.getItem('sentenceBoxBorderToggle') === '0') {
-        for (sentenceBox of sentenceBoxCollection) {
-            sentenceBox.style.border = '0px';
-        }
-    }*/
+    // word box border
+
+    toggleBorder(wordBoxCollection, 'wordBoxBorderToggle', 'wordBoxBorderValueInput', 'wordBoxBorderUnitInput', 'wordBoxBorderStyleInput', 'wordBoxBorderColorInput');
+
+    // word box highlight
+    if (localStorage.getItem('wordBoxBackgroundToggle') === '1') {
+        enableInput('toggle', wordBoxBackground)
+    } else {
+        disableInput('toggle', wordBoxBackground)
+    }
 
     //toggle ranking box EZ ITT NEM JO
 
@@ -399,13 +448,13 @@ function applyPreferences() {
             lowerRankDiv.innerText = 'Later'
             counter++;
         }*/
-       
-       // document.querySelectorAll('.rank-box').classList.remove('hidden');
+
+        // document.querySelectorAll('.rank-box').classList.remove('hidden');
 
         for (element of rankingBoxCollection) {
             element.classList.remove('hidden');
         }
-        
+
     } else if (rankingBoxCollection.length > 0 && localStorage.getItem('rankingBoxToggle') === '0') {
         for (element of rankingBoxCollection) {
             element.classList.add('hidden');
@@ -416,16 +465,6 @@ function applyPreferences() {
     // ranking box border
 
     toggleBorder(rankingBoxCollection, 'rankingBoxBorderToggle', 'rankingBoxBorderValueInput', 'rankingBoxBorderUnitInput', 'rankingBoxBorderStyleInput', 'rankingBoxBorderColorInput');
-
-    /*if (rankingBoxCollection.length > 0 && localStorage.getItem('rankingBoxBorderToggle') === '1') {
-        for (rankingBox of rankingBoxCollection) {
-            rankingBox.style.border = `${localStorage.getItem('rankingBoxBorderValueInput')}${localStorage.getItem('rankingBoxBorderUnitInput')} ${localStorage.getItem('rankingBoxBorderStyleInput')} ${localStorage.getItem('rankingBoxBorderColorInput')}`;
-        }
-    } else if (localStorage.getItem('rankingBoxBorderToggle') === '0') {
-        for (rankingBox of rankingBoxCollection) {
-            rankingBox.style.border = '0px';
-        }
-    }*/
 }
 
 function toggleBorder(collection, toggleValue, borderValue, borderUnit, color, style) {
@@ -440,16 +479,27 @@ function toggleBorder(collection, toggleValue, borderValue, borderUnit, color, s
     }
 }
 
+// ------------------------ PULL ----------------------------//
+
 function pullSettings() {
+
+    /*for (elem of Object.keys(localStorage)) {
+        //document.querySelector(`#${elem}`)
+        elem.value = localStorage.getItem('elem'); 
+        console.log(elem)
+    }*/
+
+    /*for (elem of settings) {
+        elem.value = localStorage.getItem('elem');
+    }*/
+
+    //background type
+    document.querySelector(`#${localStorage.getItem('backgroundTypeSelector')}`).checked = true;
+    
+    
     //background img
     toggleBackgroundImageInput.value = localStorage.getItem('toggleBackgroundImageInput');
-    //background type
-    /*for (elem of radioBtnCollection){
-    if (elem.id === localStorage.getItem('backgroundTypeSelector')){
-        elem.id = elem.checked;
-    }
-    }*/
-    document.querySelector(`#${localStorage.getItem('backgroundTypeSelector')}`).checked = true;
+
     // background color plain
     backgroundColorPlain.value = localStorage.getItem('backgroundColorPlain');
     //background color linear
@@ -460,6 +510,7 @@ function pullSettings() {
     backgroundColorLinearColor2.value = localStorage.getItem('backgroundColorLinearColor2');
     backgroundColorLinearPerc2.value = localStorage.getItem('backgroundColorLinearPerc2');
     */
+    
     // backgrund color user
     backgroundColorUserGradient.value = localStorage.getItem('backgroundColorUserGradient');
     backgroundColorUserText.value = localStorage.getItem('backgroundColorUserText');
@@ -469,40 +520,42 @@ function pullSettings() {
     //font weight
     fontWeight.value = localStorage.getItem('fontWeight');
     //font color
-    setFontColorInput.value = localStorage.getItem('fontColorInput');
+    fontColor.value = localStorage.getItem('fontColorInput');
     // set font family
-    setFontFamilyInput.value = localStorage.getItem('fontFamilyInput');
+    fontFamily.value = localStorage.getItem('fontFamilyInput');
     // btn font color
-    setBtnFontColorInput.value = localStorage.getItem('btnFontColor');
+    btnFontColor.value = localStorage.getItem('btnFontColor');
     // word box border toggle
     wordBoxBorderToggle.value = localStorage.getItem('wordBoxBorderToggle');
     //sentence box toggle & border
     sentenceBoxBorderToggle.value = localStorage.getItem('sentenceBoxBorderToggle');
-    setSentenceBoxBorderValueInput.value = localStorage.getItem('sentenceBoxBorderValueInput');
-    setSentenceBoxBorderUnitInput.value = localStorage.getItem('sentenceBoxBorderUnitInput');
-    setSentenceBoxBorderStyleInput.value = localStorage.getItem('sentenceBoxBorderStyleInput');
-    setSentenceBoxBorderColorInput.value = localStorage.getItem('sentenceBoxBorderColorInput'); 
+    sentenceBoxBorderValue.value = localStorage.getItem('sentenceBoxBorderValue');
+    sentenceBoxBorderUnit.value = localStorage.getItem('sentenceBoxBorderUnit');
+    sentenceBoxBorderStyle.value = localStorage.getItem('sentenceBoxBorderStyle');
+    sentenceBoxBorderColor.value = localStorage.getItem('sentenceBoxBorderColor');
     // word box toggle & border
     wordBoxBorderToggle.value = localStorage.getItem('wordBoxBorderToggle');
-    setWordBoxBorderValueInput.value = localStorage.getItem('wordBoxBorderValueInput');
-    setWordBoxBorderUnitInput.value = localStorage.getItem('wordBoxBorderUnitInput');
-    setWordBoxBorderStyleInput.value = localStorage.getItem('wordBoxBorderStyleInput');
-    setWordBoxBorderColorInput.value = localStorage.getItem('wordBoxBorderColorInput');
+    wordBoxBorderValue.value = localStorage.getItem('wordBoxBorderValue');
+    wordBoxBorderUnit.value = localStorage.getItem('wordBoxBorderUnit');
+    wordBoxBorderStyle.value = localStorage.getItem('wordBoxBorderStyle');
+    wordBoxBorderColor.value = localStorage.getItem('wordBoxBorderColor');
+    wordBoxBackgroundToggle.value = localStorage.getItem('wordBoxBackgroundToggle');
+    wordBoxBackground.value = localStorage.getItem('wordBoxBackground');
     // rankings box toggle & border
     rankingBoxToggle.value = localStorage.getItem('rankingBoxToggle');
     rankingBoxBorderToggle.value = localStorage.getItem('rankingBoxBorderToggle');
-    rankingBoxBorderValueInput.value = localStorage.getItem('rankingBoxBorderValueInput');
-    rankingBoxBorderUnitInput.value = localStorage.getItem('rankingBoxBorderUnitInput');
-    rankingBoxBorderColorInput.value = localStorage.getItem('rankingBoxBorderColorInput');
-    rankingBoxBorderStyleInput.value = localStorage.getItem('rankingBoxBorderStyleInput');
+    rankingBoxBorderValue.value = localStorage.getItem('rankingBoxBorderValue');
+    rankingBoxBorderUnit.value = localStorage.getItem('rankingBoxBorderUnit');
+    rankingBoxBorderColor.value = localStorage.getItem('rankingBoxBorderColor');
+    rankingBoxBorderStyle.value = localStorage.getItem('rankingBoxBorderStyle');  
 }
 
 // btn font color live preview
 //ez rosszul van bekotve
 
-setFontColorInput.addEventListener('change', e => {
+/*setFontColorInput.addEventListener('change', e => {
     btnColorSection.children.style.color = e.target.value;
-});
+});*/
 
 settingsRightColumn.addEventListener('click', e => {
     console.log(e.target.id)
@@ -517,7 +570,7 @@ settingsRightColumn.addEventListener('click', e => {
 
         case 'background-plain':
             disableInput('toggle', backgroundColorUserGradient, backgroundColorUserText);
-            enableInput ('toggle', backgroundColorPlain);
+            enableInput('toggle', backgroundColorPlain);
             break;
         /*
         case 'background-linear-gradient':
@@ -530,72 +583,34 @@ settingsRightColumn.addEventListener('click', e => {
             enableInput ('toggle', backgroundColorRadial);
             break;
         */
-       case 'background-radial-gradient':
-            disableInput('toggle',  backgroundColorPlain);
-            enableInput ('toggle', backgroundColorUserGradient, backgroundColorUserText);
+        case 'background-radial-gradient':
+            disableInput('toggle', backgroundColorPlain);
+            enableInput('toggle', backgroundColorUserGradient, backgroundColorUserText);
             break;
 
-        /*case 'toggle-sentence-box-border-label':
-
-            if(sentenceBoxBorderToggle.value === '0') {
-                sentenceBoxBorderToggle.value = '1';
-                setSentenceBoxBorderValueInput.removeAttribute('disabled');
-                setSentenceBoxBorderUnitInput.removeAttribute('disabled');
-                setSentenceBoxBorderColorInput.removeAttribute('disabled');
-                setSentenceBoxBorderStyleInput.removeAttribute('disabled');
-            } else {
-                sentenceBoxBorderToggle.value = '0';
-                setSentenceBoxBorderValueInput.setAttribute('disabled', true);
-                setSentenceBoxBorderUnitInput.setAttribute('disabled', true);
-                setSentenceBoxBorderColorInput.setAttribute('disabled', true);
-                setSentenceBoxBorderStyleInput.setAttribute('disabled', true);
-            }
-        break;*/
         case 'toggle-sentence-box-border':
-            if(sentenceBoxBorderToggle.value === '0') {
+            if (sentenceBoxBorderToggle.value === '0') {
                 disableInput(sentenceBoxBorderToggle, setSentenceBoxBorderValueInput, setSentenceBoxBorderUnitInput, setSentenceBoxBorderColorInput, setSentenceBoxBorderStyleInput);
-                /*console.log(sentenceBoxBorderToggle.value)
-                sentenceBoxBorderToggle.value = '1';
-                console.log(sentenceBoxBorderToggle.value)
-                setSentenceBoxBorderValueInput.removeAttribute('disabled');
-                setSentenceBoxBorderUnitInput.removeAttribute('disabled');
-                setSentenceBoxBorderColorInput.removeAttribute('disabled');
-                setSentenceBoxBorderStyleInput.removeAttribute('disabled');*/
             } else {
                 enableInput(sentenceBoxBorderToggle, setSentenceBoxBorderValueInput, setSentenceBoxBorderUnitInput, setSentenceBoxBorderColorInput, setSentenceBoxBorderStyleInput);
-                /*console.log(sentenceBoxBorderToggle.value)
-                sentenceBoxBorderToggle.value = '0';
-                console.log(sentenceBoxBorderToggle.value)
-                setSentenceBoxBorderValueInput.setAttribute('disabled', true);
-                setSentenceBoxBorderUnitInput.setAttribute('disabled', true);
-                setSentenceBoxBorderColorInput.setAttribute('disabled', true);
-                setSentenceBoxBorderStyleInput.setAttribute('disabled', true);*/
             }
-        break;
+            break;
+
         case 'toggle-word-box-border':
             if (wordBoxBorderToggle.value === '0') {
                 disableInput(wordBoxBorderToggle, setWordBoxBorderValueInput, setWordBoxBorderUnitInput, setWordBoxBorderColorInput, setWordBoxBorderStyleInput);
-                /*wordBoxBorderToggle.value = '1';
-                setWordBoxBorderValueInput.removeAttribute('disabled');
-                setWordBoxBorderUnitInput.removeAttribute('disabled');
-                setWordBoxBorderColorInput.removeAttribute('disabled');
-                setWordBoxBorderStyleInput.removeAttribute('disabled');*/
             } else {
                 enableInput(wordBoxBorderToggle, setWordBoxBorderValueInput, setWordBoxBorderUnitInput, setWordBoxBorderColorInput, setWordBoxBorderStyleInput);
-                /*wordBoxBorderToggle.value = '0';
-                setWordBoxBorderValueInput.setAttribute('disabled', true);
-                setWordBoxBorderUnitInput.setAttribute('disabled', true);
-                setWordBoxBorderColorInput.setAttribute('disabled', true);
-                setWordBoxBorderStyleInput.setAttribute('disabled', true);*/
             }
-        break;
+            break;
+
         case 'toggle-ranking-box-border':
             if (rankingBoxBorderToggle.value === '0') {
                 disableInput(rankingBoxBorderToggle, rankingBoxBorderValueInput, rankingBoxBorderUnitInput, rankingBoxBorderColorInput, rankingBoxBorderStyleInput);
             } else {
                 enableInput(rankingBoxBorderToggle, rankingBoxBorderValueInput, rankingBoxBorderUnitInput, rankingBoxBorderColorInput, rankingBoxBorderStyleInput);
             }
-        break;
+            break;
     }
 });
 
@@ -608,7 +623,7 @@ function disableInput(toggle, ...args) {
     }
 }
 
-function enableInput (toggle, ...args) {
+function enableInput(toggle, ...args) {
     //toggle.value = '1';
     for (arg of args) {
         arg.removeAttribute('disabled');
@@ -631,137 +646,9 @@ let savePreferences = document.querySelector('#save-preferences');
 
 savePreferences.addEventListener('click', (e) => {
     localStorage.clear();
-    pushSettings();
+    pushSettings(settings);
     applyPreferences();
     saveButtons();
     loadButtons();
-    pullSettings();
+    pullSettings(settings);
 });
-
-// gombok mentese
-
-function saveButtons() {
-    let collection = document.querySelectorAll('.preview-btn');
-    collection.forEach(element => {
-        if (element.style.background === '') {
-            element.style.background = '#ffffff';
-        }
-        //let color = document.querySelector(`${#color-selector-getIdNum(element)}`)
-        localStorage.setItem(element.id, JSON.stringify({
-            text : element.innerText, 
-            color : element.style.background
-        }))
-    });
-}
-
-// gombok hozzarendelese
-
-function loadButtons() {
-    //valami if-et, h ures array eseten ne dobjon hibat
-    return sortedButtonArray = findLocalItems('button-').sort(compare);
-}
-
-//gombok kikeresese
-//ezt atirni, megerteni, h mi a fene
-//https://gist.github.com/n0m4dz/77f08d3de1b9115e905c
-//https://gist.github.com/ungoldman/7533774/revisions
-
-function findLocalItems (query) {
-    var i, results = [];
-    for (i in localStorage) {
-      if (localStorage.hasOwnProperty(i)) {
-        if (i.match(query) || (!query && typeof i === 'string')) {
-          value = JSON.parse(localStorage.getItem(i));
-          results.push({key:i,val:value});
-        }
-      }
-    }
-    return results;
-}
-
-// compare a gombok sortjahoz
-
-function compare(a, b) {
-    if (a.key < b.key){
-      return -1;
-    }
-    if (a.key > b.key){
-      return 1;
-    }
-    return 0;
-}
-
-function componentToHex(c) {
-    var hex = c.toString(16);
-    return hex.length == 1 ? "0" + hex : hex;
-}
-
-function rgbToHex(r, g, b) {
-    return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
-}
-
-function fillPreviewBtns() {
-    for (elem of sortedButtonArray) {
-        let rgb = elem.val.color.slice(4, -1).split(',');
-        let r = parseInt(rgb[0]);
-        let g = parseInt(rgb[1]);
-        let b = parseInt(rgb[2]);
-        let colorHex = rgbToHex(r, g, b);
-        createPreviewBtn(getIdNum(elem.key), elem.val.text, colorHex);
-    }
-    return lineNumber = sortedButtonArray.length + 1;
-}
-
-
-// if localstorage.length === 0 -> setDefaultPref
-
-
-function initialize() {
-    if (localStorage.length === 0) {
-        // background
-        localStorage.setItem('toggleBackgroundImageInput', '1');
-        // fontsize
-        localStorage.setItem('fontSizeInputValue', '1');
-        localStorage.setItem('fontSizeInputUnits', 'rem');
-        // font color
-        localStorage.setItem('fontColorInput', '#000000');
-        // font family
-        localStorage.setItem('fontFamilyInput', '"Arial, Helvetica, sans-serif"');
-        // btn font color
-        localStorage.setItem('btnFontColor', '#000000');
-        // word box toggle & border
-        localStorage.setItem('wordBoxBorderToggle', '1');
-        localStorage.setItem('wordBoxBorderValueInput', '1');
-        localStorage.setItem('wordBoxBorderUnitInput', 'px');
-        localStorage.setItem('wordBoxBorderStyleInput', 'solid');
-        localStorage.setItem('wordBoxBorderColorInput', '#000000');
-        // sentence box toggle & border
-        localStorage.setItem('sentenceBoxBorderToggle', '1');
-        localStorage.setItem('sentenceBoxBorderValueInput', '1');
-        localStorage.setItem('sentenceBoxBorderUnitInput', 'px');
-        localStorage.setItem('sentenceBoxBorderStyleInput', 'solid');
-        localStorage.setItem('sentenceBoxBorderColorInput', '#000000');
-        // word ranking box toggle & border
-        localStorage.setItem('rankingBoxToggle', '1');
-        localStorage.setItem('rankingBoxBorderToggle', '1');
-        localStorage.setItem('rankingBoxBorderValueInput', '1');
-        localStorage.setItem('rankingBoxBorderUnitInput', 'px');
-        localStorage.setItem('rankingBoxBorderStyleInput', 'solid');
-        localStorage.setItem('rankingBoxBorderColorInput', '#000000');
-        pullSettings();
-        
-    
-        loadButtons();
-        fillPreviewBtns();
-        applyPreferences();
-    } else {
-
-        disableInputOnStart();
-        
-        
-        loadButtons();
-        fillPreviewBtns();
-        pullSettings();
-        applyPreferences();
-    }
-}
