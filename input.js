@@ -40,10 +40,6 @@ function addNewSentence() {
         return inputSentence.value = '';
     }
 
-    //loop a tagomndatokra
-
-
-
     //ide a sub-sentence loop
     let inputSuperSentence = inputSentence.value.trim().split('#')
 
@@ -59,7 +55,6 @@ function addNewSentence() {
 
     let upperRankDiv = document.createElement('div');
     rankDiv.append(upperRankDiv);
-    //ID NEM JO - csekkolni, valszeg jo
     upperRankDiv.innerHTML = `<input type="number" name="sentence-rank" class="number-input sentence-counter" id="sentence-rank-${sentenceCounter}">`;
     sentenceCounter++;
 
@@ -83,27 +78,13 @@ function addNewSentence() {
         subSentenceDiv.style.border = `${localStorage.getItem('sentenceBoxBorderValueInput')}${localStorage.getItem('sentenceBoxBorderUnitInput')} ${localStorage.getItem('sentenceBoxBorderStyleInput')} ${localStorage.getItem('sentenceBoxBorderColorInput')}`;
     }
 
-    // ki
-    /*let sentenceIndicatorDiv = document.createElement('div');
-    subSentenceDiv.append(sentenceIndicatorDiv);
-    sentenceIndicatorDiv.setAttribute('class', 'sentence-indicator');*/
-
     //ezt atalakitani?? split /n -nel is!!!
     let splitRegEx = /\s|\n|\t/g
     let inputSentenceSplit = inputSuperSentence[i].trim().split(splitRegEx);
 
-    //ki
-    /*let tryOut = document.createElement('div');
-    tryOut.setAttribute('class', 'try-out')
-    subSentenceDiv.append(tryOut);*/
-
     for (let j = 0; j < inputSentenceSplit.length; j++) {
-        //lehet, h a wordcontainer nem is kell majd
-        /*let wordDivContainer = document.createElement('div');
-        subSentenceDiv.append(wordDivContainer);
-        wordDivContainer.setAttribute('class', 'word-container');*/
-        if (inputSentenceSplit[j] !== '') {
 
+        if (inputSentenceSplit[j] !== '') {
             let wordDiv = document.createElement('div');
             subSentenceDiv.append(wordDiv);
             wordDiv.setAttribute('class', 'individual-word');
@@ -112,11 +93,6 @@ function addNewSentence() {
                 wordDiv.style.border = `${localStorage.getItem('wordBoxBorderValueInput')}${localStorage.getItem('wordBoxBorderUnitInput')} ${localStorage.getItem('wordBoxBorderStyleInput')} ${localStorage.getItem('wordBoxBorderColorInput')}`;
             }
         }
-        //ki
-        /*let spaceBetween = document.createElement('div');
-        subSentenceDiv.append(spaceBetween);
-        spaceBetween.setAttribute('class', 'space-between')
-        spaceBetween.innerText = ' ';*/
     }
 }
 
