@@ -66,16 +66,21 @@ function addNewSentence() {
     rankDiv.append(lowerRankDiv);
     lowerRankDiv.innerText = i + 1;
 
-    toggleBorder(rankingBoxCollection, 'rankingBoxBorderToggle', 'rankingBoxBorderValueInput', 'rankingBoxBorderUnitInput', 'rankingBoxBorderStyleInput', 'rankingBoxBorderColorInput');
+    
     if (localStorage.getItem('rankingBoxToggle') === '0') {
         rankDiv.classList.add('hidden');
+    } else {
+        if (localStorage.getItem('rankingBoxBorderToggle') === '1') {
+           // toggleBorder(rankingBoxCollection, 'rankingBoxBorderToggle', 'rankingBoxBorderValue', 'rankingBoxBorderUnit', 'rankingBoxBorderStyle', 'rankingBoxBorderColor');
+            rankDiv.style.border = `${localStorage.getItem('rankingBoxBorderValue')}${localStorage.getItem('rankingBoxBorderUnit')} ${localStorage.getItem('rankingBoxBorderColor')} ${localStorage.getItem('rankingBoxBorderStyle')}`; 
+        }
     }
 
     let subSentenceDiv = document.createElement('div');
     sentenceDiv.append(subSentenceDiv);
     subSentenceDiv.setAttribute('class', 'sentence-box');
     if (localStorage.getItem('sentenceBoxBorderToggle') === '1') {
-        subSentenceDiv.style.border = `${localStorage.getItem('sentenceBoxBorderValueInput')}${localStorage.getItem('sentenceBoxBorderUnitInput')} ${localStorage.getItem('sentenceBoxBorderStyleInput')} ${localStorage.getItem('sentenceBoxBorderColorInput')}`;
+        subSentenceDiv.style.border = `${localStorage.getItem('sentenceBoxBorderValue')}${localStorage.getItem('sentenceBoxBorderUnit')} ${localStorage.getItem('sentenceBoxBorderStyle')} ${localStorage.getItem('sentenceBoxBorderColor')}`;
     }
 
     //ezt atalakitani?? split /n -nel is!!!
@@ -90,7 +95,7 @@ function addNewSentence() {
             wordDiv.setAttribute('class', 'individual-word');
             wordDiv.innerText = inputSentenceSplit[j].trim();
             if (localStorage.getItem('wordBoxBorderToggle') === '1') {
-                wordDiv.style.border = `${localStorage.getItem('wordBoxBorderValueInput')}${localStorage.getItem('wordBoxBorderUnitInput')} ${localStorage.getItem('wordBoxBorderStyleInput')} ${localStorage.getItem('wordBoxBorderColorInput')}`;
+                wordDiv.style.border = `${localStorage.getItem('wordBoxBorderValue')}${localStorage.getItem('wordBoxBorderUnit')} ${localStorage.getItem('wordBoxBorderStyle')} ${localStorage.getItem('wordBoxBorderColor')}`;
             }
         }
     }
