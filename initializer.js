@@ -4,11 +4,12 @@ function initialize() {
         localStorage.setItem('toggleBackgroundImageInput', '1');
         // background type
         localStorage.setItem('backgroundTypeSelector', 'background-plain');
-        
-
+        localStorage.setItem('backgroundColorPlain', '#0000ff');
+        localStorage.setItem('backgroundColorUserGradient', 'linear-gradient');
+        localStorage.setItem('backgroundColorUserText', '45deg, blue, red');
         // fontsize
-        localStorage.setItem('fontSizeInput', '1');
-        localStorage.setItem('fontSizeInputUnits', 'rem');
+        localStorage.setItem('fontSizeValue', '1');
+        localStorage.setItem('fontSizeUnits', 'rem');
         // font weight
         localStorage.setItem('fontWeight', '500');
         // font color
@@ -30,8 +31,7 @@ function initialize() {
         localStorage.setItem('wordBoxBorderStyle', 'solid');
         localStorage.setItem('wordBoxBorderColor', '#000000');
         localStorage.setItem('wordBoxBackgroundToggle', '1');
-        
-
+        localStorage.setItem('wordBoxBackground', '#ffffff');
         // word ranking box toggle & border
         localStorage.setItem('rankingBoxToggle', '1');
         localStorage.setItem('rankingBoxBorderToggle', '1');
@@ -39,15 +39,24 @@ function initialize() {
         localStorage.setItem('rankingBoxBorderUnit', 'px');
         localStorage.setItem('rankingBoxBorderStyle', 'solid');
         localStorage.setItem('rankingBoxBorderColor', '#000000');
-        applyPreferences();
+
+        // BTN!
+        localStorage.setItem('button-1', '{"text":"Subject","color":"rgb(255, 0, 0)"}');
+        localStorage.setItem('button-2', '{"text":"Predicate","color":"rgb(0, 0, 255)"}');
+        localStorage.setItem('button-3', '{"text":"Object","color":"rgb(0, 255, 0)"}');
+        localStorage.setItem('button-4', '{"text":"Complement","color":"rgb(255, 255, 0)"}');
+
+       
         loadButtons();
         fillPreviewBtns();
         pullSettings();
+        applyPreferences();
     } else {
         disableInputOnStart();
-        applyPreferences();
+        
         loadButtons();
         fillPreviewBtns();
         pullSettings();
+        applyPreferences();
     }
 }
