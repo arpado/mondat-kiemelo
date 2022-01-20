@@ -240,8 +240,8 @@ let backgroundColorUserText = document.querySelector('#background-user-gradient-
 
 // font inputs
 // fontsize
-let fontSizeInput = document.querySelector('#font-size');
-let fontSizeInputUnits = document.querySelector('#font-size-units');
+let fontSizeValue = document.querySelector('#font-size');
+let fontSizeUnits = document.querySelector('#font-size-units');
 //font weight
 let fontWeight = document.querySelector('#font-weight');
 //set font color
@@ -251,7 +251,7 @@ let fontFamily = document.querySelector('#font-family')
 // btn font color
 let btnFontColor = document.querySelector('#btn-font-color');
 
-let fontPrefs = [fontSizeInput, fontSizeInputUnits, fontWeight, fontColor, fontFamily, btnFontColor];
+let fontPrefs = [fontSizeValue, fontSizeUnits, fontWeight, fontColor, fontFamily, btnFontColor];
 
 // sentence box border toggle
 let sentenceBoxBorderToggle = document.querySelector('#toggle-sentence-box-border');
@@ -278,7 +278,7 @@ let wordBoxBorderStyle = document.querySelector('#word-border-style');
 let wordBoxBackgroundToggle = document.querySelector('#toggle-word-box-background');
 let wordBoxBackground = document.querySelector('#word-box-background-color');
 
-//ezt is dinamikusan
+//ezt is dinamikusan, de ha igen akkor applyban
 let wordBoxCollection = document.getElementsByClassName('individual-word');
 
 let wordBoxPrefs = [wordBoxBorderToggle, wordBoxBorderValue, wordBoxBorderUnit, wordBoxBorderColor, wordBoxBorderStyle, wordBoxBackgroundToggle, wordBoxBackground];
@@ -332,38 +332,38 @@ function pushSettings() {
     localStorage.setItem('backgroundColorUserGradient', backgroundColorUserGradient.value);
     localStorage.setItem('backgroundColorUserText', backgroundColorUserText.value);
     //fontsize
-    localStorage.setItem('fontSizeInputValue', fontSizeInput.value);
-    localStorage.setItem('fontSizeInputUnits', fontSizeInputUnits.value);
+    localStorage.setItem('fontSizeValue', fontSizeValue.value);
+    localStorage.setItem('fontSizeUnits', fontSizeUnits.value);
     // font weight
     localStorage.setItem('fontWeight', fontWeight.value);
     // font color
-    localStorage.setItem('fontColorInput', setFontColorInput.value);
+    localStorage.setItem('fontColor', fontColor.value);
     // font family
-    localStorage.setItem('fontFamilyInput', setFontFamilyInput.value);
+    localStorage.setItem('fontFamily', fontFamily.value);
     // btn font color
-    localStorage.setItem('btnFontColor', setBtnFontColorInput.value);
+    localStorage.setItem('btnFontColor', btnFontColor.value);
     // sentence box toggle & border
     localStorage.setItem('sentenceBoxBorderToggle', sentenceBoxBorderToggle.value);
-    localStorage.setItem('sentenceBoxBorderValueInput', setSentenceBoxBorderValueInput.value);
-    localStorage.setItem('sentenceBoxBorderUnitInput', setSentenceBoxBorderUnitInput.value);
-    localStorage.setItem('sentenceBoxBorderStyleInput', setSentenceBoxBorderStyleInput.value);
-    localStorage.setItem('sentenceBoxBorderColorInput', setSentenceBoxBorderColorInput.value);
+    localStorage.setItem('sentenceBoxBorderValue', sentenceBoxBorderValue.value);
+    localStorage.setItem('sentenceBoxBorderUnit', sentenceBoxBorderUnit.value);
+    localStorage.setItem('sentenceBoxBorderStyle', sentenceBoxBorderStyle.value);
+    localStorage.setItem('sentenceBoxBorderColor', sentenceBoxBorderColor.value);
     // word box toggle & border
     localStorage.setItem('wordBoxBorderToggle', wordBoxBorderToggle.value);
-    localStorage.setItem('wordBoxBorderValueInput', setWordBoxBorderValueInput.value);
-    localStorage.setItem('wordBoxBorderUnitInput', setWordBoxBorderUnitInput.value);
-    localStorage.setItem('wordBoxBorderStyleInput', setWordBoxBorderStyleInput.value);
-    localStorage.setItem('wordBoxBorderColorInput', setWordBoxBorderColorInput.value);
+    localStorage.setItem('wordBoxBorderValue', wordBoxBorderValue.value);
+    localStorage.setItem('wordBoxBorderUnit', wordBoxBorderUnit.value);
+    localStorage.setItem('wordBoxBorderStyle', wordBoxBorderStyle.value);
+    localStorage.setItem('wordBoxBorderColor', wordBoxBorderColor.value);
     localStorage.setItem('wordBoxBackgroundToggle', wordBoxBackgroundToggle.value);
     localStorage.setItem('wordBoxBackground', wordBoxBackground.value);
 
     // rankings box toggle & border
     localStorage.setItem('rankingBoxToggle', rankingBoxToggle.value);
     localStorage.setItem('rankingBoxBorderToggle', rankingBoxBorderToggle.value);
-    localStorage.setItem('rankingBoxBorderValueInput', rankingBoxBorderValueInput.value);
-    localStorage.setItem('rankingBoxBorderUnitInput', rankingBoxBorderUnitInput.value);
-    localStorage.setItem('rankingBoxBorderColorInput', rankingBoxBorderColorInput.value);
-    localStorage.setItem('rankingBoxBorderStyleInput', rankingBoxBorderStyleInput.value);
+    localStorage.setItem('rankingBoxBorderValue', rankingBoxBorderValue.value);
+    localStorage.setItem('rankingBoxBorderUnit', rankingBoxBorderUnit.value);
+    localStorage.setItem('rankingBoxBorderColor', rankingBoxBorderColor.value);
+    localStorage.setItem('rankingBoxBorderStyle', rankingBoxBorderStyle.value);
     
 }
 
@@ -399,29 +399,40 @@ function applyPreferences() {
     }
 
     //fontsize
-    mainWindow.style.fontSize = localStorage.getItem('fontSizeInputValue') + localStorage.getItem('fontSizeInputUnits');
+    mainWindow.style.fontSize = localStorage.getItem('fontSizeValue') + localStorage.getItem('fontSizeUnits');
     //font weight
     mainWindow.style.fontWeight = localStorage.getItem('fontWeight');
     //font color
-    mainWindow.style.color = localStorage.getItem('fontColorInput');
+    mainWindow.style.color = localStorage.getItem('fontColor');
     // set font family
-    mainWindow.style.fontFamily = localStorage.getItem('fontFamilyInput');
+    mainWindow.style.fontFamily = localStorage.getItem('fontFamily');
     // btn font color
-    buttonContainer.style.color = localStorage.getItem('btnFontColor');
+    let previewBtn = document.querySelectorAll('.preview-btn');
+    if (previewBtn.length > 0) {
+        for (elem of previewBtn) {
+            elem.style.color = localStorage.getItem('btnFontColor');
+        }
+    }
 
     //sentence box border ---- ez unit container - elvileg rendben, de csekkolni
 
-    toggleBorder(sentenceBoxCollection, 'sentenceBoxBorderToggle', 'sentenceBoxBorderValueInput', 'sentenceBoxBorderUnitInput', 'sentenceBoxBorderStyleInput', 'sentenceBoxBorderColorInput');
+    toggleBorder(sentenceBoxCollection, 'sentenceBoxBorderToggle', 'sentenceBoxBorderValue', 'sentenceBoxBorderUnit', 'sentenceBoxBorderStyle', 'sentenceBoxBorderColor');
 
     // word box border
 
-    toggleBorder(wordBoxCollection, 'wordBoxBorderToggle', 'wordBoxBorderValueInput', 'wordBoxBorderUnitInput', 'wordBoxBorderStyleInput', 'wordBoxBorderColorInput');
+    toggleBorder(wordBoxCollection, 'wordBoxBorderToggle', 'wordBoxBorderValue', 'wordBoxBorderUnit', 'wordBoxBorderStyle', 'wordBoxBorderColor');
 
     // word box highlight
     if (localStorage.getItem('wordBoxBackgroundToggle') === '1') {
-        enableInput('toggle', wordBoxBackground)
+        enableInput('toggle', wordBoxBackground);
+        for (elem of wordBoxCollection) {
+            elem.style.background = localStorage.getItem('wordBoxBackground')
+        }
     } else {
-        disableInput('toggle', wordBoxBackground)
+        disableInput('toggle', wordBoxBackground);
+        for (elem of wordBoxCollection) {
+            elem.style.background = 'transparent';
+        }
     }
 
     //toggle ranking box EZ ITT NEM JO
@@ -464,7 +475,7 @@ function applyPreferences() {
 
     // ranking box border
 
-    toggleBorder(rankingBoxCollection, 'rankingBoxBorderToggle', 'rankingBoxBorderValueInput', 'rankingBoxBorderUnitInput', 'rankingBoxBorderStyleInput', 'rankingBoxBorderColorInput');
+    toggleBorder(rankingBoxCollection, 'rankingBoxBorderToggle', 'rankingBoxBorderValue', 'rankingBoxBorderUnit', 'rankingBoxBorderStyle', 'rankingBoxBorderColor');
 }
 
 function toggleBorder(collection, toggleValue, borderValue, borderUnit, color, style) {
@@ -515,14 +526,14 @@ function pullSettings() {
     backgroundColorUserGradient.value = localStorage.getItem('backgroundColorUserGradient');
     backgroundColorUserText.value = localStorage.getItem('backgroundColorUserText');
     //fontsize
-    fontSizeInput.value = localStorage.getItem('fontSizeInputValue');
-    fontSizeInputUnits.value = localStorage.getItem('fontSizeInputUnits');
+    fontSizeValue.value = localStorage.getItem('fontSizeValue');
+    fontSizeUnits.value = localStorage.getItem('fontSizeUnits');
     //font weight
     fontWeight.value = localStorage.getItem('fontWeight');
     //font color
-    fontColor.value = localStorage.getItem('fontColorInput');
+    fontColor.value = localStorage.getItem('fontColor');
     // set font family
-    fontFamily.value = localStorage.getItem('fontFamilyInput');
+    fontFamily.value = localStorage.getItem('fontFamily');
     // btn font color
     btnFontColor.value = localStorage.getItem('btnFontColor');
     // word box border toggle
@@ -583,32 +594,39 @@ settingsRightColumn.addEventListener('click', e => {
             enableInput ('toggle', backgroundColorRadial);
             break;
         */
-        case 'background-radial-gradient':
+        case 'background-user-gradient':
             disableInput('toggle', backgroundColorPlain);
             enableInput('toggle', backgroundColorUserGradient, backgroundColorUserText);
             break;
 
         case 'toggle-sentence-box-border':
             if (sentenceBoxBorderToggle.value === '0') {
-                disableInput(sentenceBoxBorderToggle, setSentenceBoxBorderValueInput, setSentenceBoxBorderUnitInput, setSentenceBoxBorderColorInput, setSentenceBoxBorderStyleInput);
+                disableInput(sentenceBoxBorderToggle, sentenceBoxBorderValue, sentenceBoxBorderUnit, sentenceBoxBorderColor, sentenceBoxBorderStyle);
             } else {
-                enableInput(sentenceBoxBorderToggle, setSentenceBoxBorderValueInput, setSentenceBoxBorderUnitInput, setSentenceBoxBorderColorInput, setSentenceBoxBorderStyleInput);
+                enableInput(sentenceBoxBorderToggle, sentenceBoxBorderValue, sentenceBoxBorderUnit, sentenceBoxBorderColor, sentenceBoxBorderStyle);
             }
             break;
 
         case 'toggle-word-box-border':
             if (wordBoxBorderToggle.value === '0') {
-                disableInput(wordBoxBorderToggle, setWordBoxBorderValueInput, setWordBoxBorderUnitInput, setWordBoxBorderColorInput, setWordBoxBorderStyleInput);
+                disableInput(wordBoxBorderToggle, wordBoxBorderValue, wordBoxBorderUnit, wordBoxBorderColor, wordBoxBorderStyle);
             } else {
-                enableInput(wordBoxBorderToggle, setWordBoxBorderValueInput, setWordBoxBorderUnitInput, setWordBoxBorderColorInput, setWordBoxBorderStyleInput);
+                enableInput(wordBoxBorderToggle, wordBoxBorderValue, wordBoxBorderUnit, wordBoxBorderColor, wordBoxBorderStyle);
             }
             break;
+        
+        case 'toggle-word-box-background':
+            if (wordBoxBackgroundToggle.value === '0') {
+                disableInput('toggle', wordBoxBackground);
+            } else {
+                enableInput('toggle', wordBoxBackground);
+            }
 
         case 'toggle-ranking-box-border':
             if (rankingBoxBorderToggle.value === '0') {
-                disableInput(rankingBoxBorderToggle, rankingBoxBorderValueInput, rankingBoxBorderUnitInput, rankingBoxBorderColorInput, rankingBoxBorderStyleInput);
+                disableInput(rankingBoxBorderToggle, rankingBoxBorderValue, rankingBoxBorderUnit, rankingBoxBorderColor, rankingBoxBorderStyle);
             } else {
-                enableInput(rankingBoxBorderToggle, rankingBoxBorderValueInput, rankingBoxBorderUnitInput, rankingBoxBorderColorInput, rankingBoxBorderStyleInput);
+                enableInput(rankingBoxBorderToggle, rankingBoxBorderValue, rankingBoxBorderUnit, rankingBoxBorderColor, rankingBoxBorderStyle);
             }
             break;
     }
@@ -632,13 +650,13 @@ function enableInput(toggle, ...args) {
 
 function disableInputOnStart() {
     if (localStorage.getItem('sentenceBoxBorderToggle') === '0') {
-        disableInput(sentenceBoxBorderToggle, setSentenceBoxBorderValueInput, setSentenceBoxBorderUnitInput, setSentenceBoxBorderColorInput, setSentenceBoxBorderStyleInput);
+        disableInput(sentenceBoxBorderToggle, sentenceBoxBorderValue, sentenceBoxBorderUnit, sentenceBoxBorderColor, sentenceBoxBorderStyle);
     }
     if (localStorage.getItem('wordBoxBorderToggle') === '0') {
-        disableInput(wordBoxBorderToggle, setWordBoxBorderValueInput, setWordBoxBorderUnitInput, setWordBoxBorderColorInput, setWordBoxBorderStyleInput);
+        disableInput(wordBoxBorderToggle, wordBoxBorderValue, wordBoxBorderUnit, wordBoxBorderColor, wordBoxBorderStyle);
     }
     if (localStorage.getItem('rankingBoxToggle') === '0' || localStorage.getItem('rankingBoxBorderToggle') === '0') {
-        disableInput(rankingBoxBorderToggle, rankingBoxBorderValueInput, rankingBoxBorderUnitInput, rankingBoxBorderColorInput, rankingBoxBorderStyleInput);
+        disableInput(rankingBoxBorderToggle, rankingBoxBorderValue, rankingBoxBorderUnit, rankingBoxBorderColor, rankingBoxBorderStyle);
     }
 }
 
@@ -647,8 +665,9 @@ let savePreferences = document.querySelector('#save-preferences');
 savePreferences.addEventListener('click', (e) => {
     localStorage.clear();
     pushSettings(settings);
-    applyPreferences();
+    
     saveButtons();
     loadButtons();
     pullSettings(settings);
+    applyPreferences();
 });
