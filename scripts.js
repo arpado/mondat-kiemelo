@@ -105,6 +105,7 @@ function makeButtons(locX, locY, sortedButtonArray) {
         button.setAttribute('id', `${sortedButtonArray[i].key}-main`);
         button.innerText = sortedButtonArray[i].val.text;
         button.style.background = sortedButtonArray[i].val.color;
+        button.style.color = localStorage.getItem('btnFontColor');
         buttonContainer.append(button);
     }
 
