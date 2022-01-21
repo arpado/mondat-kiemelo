@@ -1,7 +1,7 @@
 function initialize() {
     if (localStorage.length === 0) {
         // background
-        localStorage.setItem('toggleBackgroundImageInput', '1');
+        localStorage.setItem('toggleBackgroundImage', '1');
         // background type
         localStorage.setItem('backgroundTypeSelector', 'background-plain');
         localStorage.setItem('backgroundColorPlain', '#0000ff');
