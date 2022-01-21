@@ -15,7 +15,7 @@ function initialize() {
         // font color
         localStorage.setItem('fontColor', '#000000');
         // font family
-        localStorage.setItem('fontFamily', '"Arial, Helvetica, sans-serif"');
+        localStorage.setItem('fontFamily', 'Arial, Helvetica, sans-serif');
         // btn font color
         localStorage.setItem('btnFontColor', '#000000');
         // sentence box toggle & border
