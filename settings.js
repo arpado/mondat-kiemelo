@@ -185,13 +185,7 @@ function toggleBackgroundImageFunction() {
             case ('background-plain'):
                 body.style.background = localStorage.getItem('backgroundColorPlain');
                 break;
-            /*case ('background-linear-gradient'):
-                console.log('poop')
-                body.style.background = `linear-gradient(${localStorage.getItem('backgroundColorLinearDegree')}deg, ${localStorage.getItem('backgroundColorLinearColor1')} ${localStorage.getItem('backgroundColorLinearPerc1')}%, ${localStorage.getItem('backgroundColorLinearColor2')} ${localStorage.getItem('backgroundColorLinearPerc2')}%)`;
-                break;
-            case ('background-radial-gradient'):
-                console.log('poop2')
-                break;*/
+
             case ('background-user-gradient'):
                 console.log('poop')
                 body.style.background = `${localStorage.getItem('backgroundColorUserGradient')}(${localStorage.getItem('backgroundColorUserText')})`;
@@ -199,16 +193,6 @@ function toggleBackgroundImageFunction() {
         }
     }
 }
-
-// theme selector
-let themeSelector = document.querySelector('.theme-selector');
-
-// main
-let mainWindow = document.querySelector('.main');
-
-// background img
-//let toggleBackgroundImageInput = document.querySelector('#toggle-background-img');
-let toggleBackgroundImage = new Input('toggleBackgroundImage', '#toggle-background-img');
 
 // background type selector
 let backgroundTypeSelector = () => {
@@ -219,190 +203,81 @@ let backgroundTypeSelector = () => {
     }
 }
 
-//background color plain
-//let backgroundColorPlain = document.querySelector('#plain-color');
+// theme selector
+let themeSelector = document.querySelector('.theme-selector');
+
+// main
+let mainWindow = document.querySelector('.main');
+
+// --------------------------- INPUT FIELDS ------------------------------//
+
+// background inputs
+// background img
+let toggleBackgroundImage = new Input('toggleBackgroundImage', '#toggle-background-img');
+// background color plain
 let backgroundColorPlain = new Input('backgroundColorPlain', '#plain-color');
-
-/*
-// background color linear
-let backgroundColorLinearDegree = document.querySelector('#linear-degree');
-let backgroundColorLinearColor1 = document.querySelector('#linear-color-1');
-let backgroundColorLinearPerc1 = document.querySelector('#linear-perc-1');
-let backgroundColorLinearColor2 = document.querySelector('#linear-color-2');
-let backgroundColorLinearPerc2 = document.querySelector('#linear-perc-2');
-
-//backgorund color radial
-let backgroundColorRadial = document.querySelector('#radial-degree');
-*/
-
-
-//background user grandient
-//let backgroundColorUserGradient = document.querySelector('#background-user-gradient-select');
-//let backgroundColorUserText = document.querySelector('#background-user-gradient-text');
+// background user grandient
 let backgroundColorUserGradient = new Input('backgroundColorUserGradient', '#background-user-gradient-select');
 let backgroundColorUserText = new Input('backgroundColorUserText', '#background-user-gradient-text');
-
-let backgroundPrefs = [toggleBackgroundImage, backgroundColorPlain, backgroundColorUserGradient, backgroundColorUserText];
-
 // font inputs
 // fontsize
-//let fontSizeValue = document.querySelector('#font-size');
-//let fontSizeUnits = document.querySelector('#font-size-units');
 let fontSizeValue = new Input('fontSizeValue', '#font-size');
 let fontSizeUnits = new Input('fontSizeUnits', '#font-size-units');
-
-//font weight
-//let fontWeight = document.querySelector('#font-weight');
-let fontWeight = new Input ('fontWeight', '#font-weight');
-
-//set font color
-//let fontColor = document.querySelector('#font-color');
+// font weight
+let fontWeight = new Input('fontWeight', '#font-weight');
+// set font color
 let fontColor = new Input('fontColor', '#font-color');
-
 // set font family
-//let fontFamily = document.querySelector('#font-family')
 let fontFamily = new Input('fontFamily', '#font-family');
-
 // btn font color
-//let btnFontColor = document.querySelector('#btn-font-color');
 let btnFontColor = new Input('btnFontColor', '#btn-font-color');
-
-let fontPrefs = [fontSizeValue, fontSizeUnits, fontWeight, fontColor, fontFamily, btnFontColor];
-
 // sentence box border toggle
-//let sentenceBoxBorderToggle = document.querySelector('#toggle-sentence-box-border');
 let sentenceBoxBorderToggle = new Input('sentenceBoxBorderToggle', '#toggle-sentence-box-border');
-
 // sentence box border
-//let sentenceBoxBorderValue = document.querySelector('#sentence-border-thickness-number');
-//let sentenceBoxBorderUnit = document.querySelector('#sentence-border-thickness-unit');
-//let sentenceBoxBorderColor = document.querySelector('#sentence-border-color');
-//let sentenceBoxBorderStyle = document.querySelector('#sentence-border-style');
 let sentenceBoxBorderValue = new Input('sentenceBoxBorderValue', '#sentence-border-thickness-number');
 let sentenceBoxBorderUnit = new Input('sentenceBoxBorderUnit', '#sentence-border-thickness-unit');
 let sentenceBoxBorderColor = new Input('sentenceBoxBorderColor', '#sentence-border-color');
 let sentenceBoxBorderStyle = new Input('sentenceBoxBorderStyle', '#sentence-border-style');
-
-
-// ezt lehet, h dinamikusan kene hivni majd
-let sentenceBoxCollection = document.getElementsByClassName('sentence-box');
-
-let sentencePrefs = [sentenceBoxBorderToggle, sentenceBoxBorderValue, sentenceBoxBorderUnit, sentenceBoxBorderColor, sentenceBoxBorderStyle];
-
 // word box border toggle
-//let wordBoxBorderToggle = document.querySelector('#toggle-word-box-border');
 let wordBoxBorderToggle = new Input('wordBoxBorderToggle', '#toggle-word-box-border');
-
 // word box border
-//let wordBoxBorderValue = document.querySelector('#word-border-thickness-number');
-//let wordBoxBorderUnit = document.querySelector('#word-border-thickness-unit');
-//let wordBoxBorderColor = document.querySelector('#word-border-color');
-//let wordBoxBorderStyle = document.querySelector('#word-border-style');
 let wordBoxBorderValue = new Input('wordBoxBorderValue', '#word-border-thickness-number');
 let wordBoxBorderUnit = new Input('wordBoxBorderUnit', '#word-border-thickness-unit');
 let wordBoxBorderColor = new Input('wordBoxBorderColor', '#word-border-color');
 let wordBoxBorderStyle = new Input('wordBoxBorderStyle', '#word-border-style');
-
-//word box background toggle
-//let wordBoxBackgroundToggle = document.querySelector('#toggle-word-box-background');
-//let wordBoxBackground = document.querySelector('#word-box-background-color');
+// word box background toggle
 let wordBoxBackgroundToggle = new Input('wordBoxBackgroundToggle', '#toggle-word-box-background');
 let wordBoxBackground = new Input('wordBoxBackground', '#word-box-background-color');
-
-//ezt is dinamikusan, de ha igen akkor applyban
-let wordBoxCollection = document.getElementsByClassName('individual-word');
-
-let wordBoxPrefs = [wordBoxBorderToggle, wordBoxBorderValue, wordBoxBorderUnit, wordBoxBorderColor, wordBoxBorderStyle, wordBoxBackgroundToggle, wordBoxBackground];
-
 // ranking box toggle
-//let rankingBoxToggle = document.querySelector('#toggle-ranking-box');
 let rankingBoxToggle = new Input('rankingBoxToggle', '#toggle-ranking-box');
-
 // ranking box border toggle
-//let rankingBoxBorderToggle = document.querySelector('#toggle-ranking-box-border');
 let rankingBoxBorderToggle = new Input('rankingBoxBorderToggle', '#toggle-ranking-box-border');
-
-//ranking box border
-
-//let rankingBoxBorderValue = document.querySelector('#ranking-border-thickness-number');
-//let rankingBoxBorderUnit = document.querySelector('#ranking-border-thickness-unit');
-//let rankingBoxBorderColor = document.querySelector('#ranking-border-color');
-//let rankingBoxBorderStyle = document.querySelector('#ranking-border-style');
+// ranking box border
 let rankingBoxBorderValue = new Input('rankingBoxBorderValue', '#ranking-border-thickness-number');
 let rankingBoxBorderUnit = new Input('rankingBoxBorderUnit', '#ranking-border-thickness-unit');
 let rankingBoxBorderColor = new Input('rankingBoxBorderColor', '#ranking-border-color');
 let rankingBoxBorderStyle = new Input('rankingBoxBorderStyle', '#ranking-border-style');
 
+// pref combined
+let backgroundPrefs = [toggleBackgroundImage, backgroundColorPlain, backgroundColorUserGradient, backgroundColorUserText];
+let fontPrefs = [fontSizeValue, fontSizeUnits, fontWeight, fontColor, fontFamily, btnFontColor];
+let sentencePrefs = [sentenceBoxBorderToggle, sentenceBoxBorderValue, sentenceBoxBorderUnit, sentenceBoxBorderColor, sentenceBoxBorderStyle];
+let wordBoxPrefs = [wordBoxBorderToggle, wordBoxBorderValue, wordBoxBorderUnit, wordBoxBorderColor, wordBoxBorderStyle, wordBoxBackgroundToggle, wordBoxBackground];
 let rankingBoxPrefs = [rankingBoxToggle, rankingBoxBorderToggle, rankingBoxBorderValue, rankingBoxBorderUnit, rankingBoxBorderColor, rankingBoxBorderStyle];
 
-//dinamikusan
-let rankingBoxCollection = document.querySelectorAll('.rank-box');
-
 let settings = [backgroundPrefs, fontPrefs, sentencePrefs, wordBoxPrefs, rankingBoxPrefs].flat(Infinity);
+
+// ezt lehet, h dinamikusan kene hivni majd
+let sentenceBoxCollection = document.getElementsByClassName('sentence-box');
+let wordBoxCollection = document.getElementsByClassName('individual-word');
+let rankingBoxCollection = document.querySelectorAll('.rank-box');
 
 // --------------------------- PUSH -------------------------------//
 
 function pushSettings() {
-    // nem megy, elóbb objektumot kell belőle csinálnom, utána tudom csak a nevét használni, meg obj.node-ba bele a query-t, aztán működni fog
     for (element of settings) {
         element.intoLS()
     }
-
-    /*
-    // BackgroundType
-    localStorage.setItem('backgroundTypeSelector', backgroundTypeSelector())
-
-    
-    //background img
-    localStorage.setItem('toggleBackgroundImage', toggleBackgroundImage.value);
-    
-    // background color plain
-    localStorage.setItem('backgroundColorPlain', backgroundColorPlain.value);
-    /*
-    // background color linear
-    localStorage.setItem('backgroundColorLinearDegree', backgroundColorLinearDegree.value);
-    localStorage.setItem('backgroundColorLinearColor1', backgroundColorLinearColor1.value);
-    localStorage.setItem('backgroundColorLinearPerc1', backgroundColorLinearPerc1.value);
-    localStorage.setItem('backgroundColorLinearColor2', backgroundColorLinearColor2.value);
-    localStorage.setItem('backgroundColorLinearPerc2', backgroundColorLinearPerc2.value);
-    
-    // background user gradient
-    localStorage.setItem('backgroundColorUserGradient', backgroundColorUserGradient.value);
-    localStorage.setItem('backgroundColorUserText', backgroundColorUserText.value);
-    //fontsize
-    localStorage.setItem('fontSizeValue', fontSizeValue.value);
-    localStorage.setItem('fontSizeUnits', fontSizeUnits.value);
-    // font weight
-    localStorage.setItem('fontWeight', fontWeight.value);
-    // font color
-    localStorage.setItem('fontColor', fontColor.value);
-    // font family
-    localStorage.setItem('fontFamily', fontFamily.value);
-    // btn font color
-    localStorage.setItem('btnFontColor', btnFontColor.value);
-    // sentence box toggle & border
-    localStorage.setItem('sentenceBoxBorderToggle', sentenceBoxBorderToggle.value);
-    localStorage.setItem('sentenceBoxBorderValue', sentenceBoxBorderValue.value);
-    localStorage.setItem('sentenceBoxBorderUnit', sentenceBoxBorderUnit.value);
-    localStorage.setItem('sentenceBoxBorderStyle', sentenceBoxBorderStyle.value);
-    localStorage.setItem('sentenceBoxBorderColor', sentenceBoxBorderColor.value);
-    // word box toggle & border
-    localStorage.setItem('wordBoxBorderToggle', wordBoxBorderToggle.value);
-    localStorage.setItem('wordBoxBorderValue', wordBoxBorderValue.value);
-    localStorage.setItem('wordBoxBorderUnit', wordBoxBorderUnit.value);
-    localStorage.setItem('wordBoxBorderStyle', wordBoxBorderStyle.value);
-    localStorage.setItem('wordBoxBorderColor', wordBoxBorderColor.value);
-    localStorage.setItem('wordBoxBackgroundToggle', wordBoxBackgroundToggle.value);
-    localStorage.setItem('wordBoxBackground', wordBoxBackground.value);
-
-    // rankings box toggle & border
-    localStorage.setItem('rankingBoxToggle', rankingBoxToggle.value);
-    localStorage.setItem('rankingBoxBorderToggle', rankingBoxBorderToggle.value);
-    localStorage.setItem('rankingBoxBorderValue', rankingBoxBorderValue.value);
-    localStorage.setItem('rankingBoxBorderUnit', rankingBoxBorderUnit.value);
-    localStorage.setItem('rankingBoxBorderColor', rankingBoxBorderColor.value);
-    localStorage.setItem('rankingBoxBorderStyle', rankingBoxBorderStyle.value);
-    */
 }
 
 // ------------------------- APPLY -----------------------------//
@@ -413,26 +288,17 @@ function applyPreferences() {
     //ide egy if, h melyik volt chekkolva
     //background color plain
     //body.style.background = localStorage.getItem('backgroundColorPlain');
+
     // background color linear
     switch (localStorage.getItem('backgroundTypeSelector')) {
         case 'background-plain':
-            disableInput('toggle', backgroundColorUserGradient, backgroundColorUserText);
-            enableInput('toggle', backgroundColorPlain);
+            disableInput(backgroundColorUserGradient, backgroundColorUserText);
+            enableInput(backgroundColorPlain);
             break;
-        /*
-        case 'background-linear-gradient':
-            disableInput('toggle', backgroundColorPlain, backgroundColorRadial);
-            enableInput ('toggle', backgroundColorLinearDegree, backgroundColorLinearColor1, backgroundColorLinearPerc1, backgroundColorLinearColor2, backgroundColorLinearPerc2);
-            break;
-    
-        case 'background-radial-gradient':
-            disableInput('toggle', backgroundColorPlain, backgroundColorLinearDegree, backgroundColorLinearColor1, backgroundColorLinearPerc1, backgroundColorLinearColor2, backgroundColorLinearPerc2);
-            enableInput ('toggle', backgroundColorRadial);
-            break;
-        */
+
         case 'background-user-gradient':
-            disableInput('toggle', backgroundColorPlain);
-            enableInput('toggle', backgroundColorUserGradient, backgroundColorUserText);
+            disableInput(backgroundColorPlain);
+            enableInput(backgroundColorUserGradient, backgroundColorUserText);
             break;
     }
 
@@ -462,12 +328,12 @@ function applyPreferences() {
 
     // word box highlight
     if (localStorage.getItem('wordBoxBackgroundToggle') === '1') {
-        enableInput('toggle', wordBoxBackground);
+        enableInput(wordBoxBackground);
         for (elem of wordBoxCollection) {
             elem.style.background = localStorage.getItem('wordBoxBackground')
         }
     } else {
-        disableInput('toggle', wordBoxBackground);
+        disableInput(wordBoxBackground);
         for (elem of wordBoxCollection) {
             elem.style.background = 'transparent';
         }
@@ -478,32 +344,9 @@ function applyPreferences() {
     rankingBoxCollection = document.querySelectorAll('.rank-box');
 
     if (rankingBoxCollection.length > 0 && localStorage.getItem('rankingBoxToggle') === '1') {
-
-        /*let counter = 1;
-        let sentenceDivCollection = document.querySelectorAll('.input-unit-container')
-        for (element of sentenceDivCollection) {
-            let rankDiv = document.createElement('div');
-            element.prepend(rankDiv);
-            rankDiv.setAttribute('class', 'rank-box');
-
-            let upperRankDiv = document.createElement('div');
-            rankDiv.append(upperRankDiv);
-            upperRankDiv.innerText = counter;
-            let arrow = document.createElement('div');
-            rankDiv.append(arrow);
-            arrow.innerText = '->'
-            let lowerRankDiv = document.createElement('div');
-            rankDiv.append(lowerRankDiv);
-            lowerRankDiv.innerText = 'Later'
-            counter++;
-        }*/
-
-        // document.querySelectorAll('.rank-box').classList.remove('hidden');
-
         for (element of rankingBoxCollection) {
             element.classList.remove('hidden');
         }
-
     } else if (rankingBoxCollection.length > 0 && localStorage.getItem('rankingBoxToggle') === '0') {
         for (element of rankingBoxCollection) {
             element.classList.add('hidden');
@@ -531,68 +374,14 @@ function toggleBorder(collection, toggleValue, borderValue, borderUnit, color, s
 // ------------------------ PULL ----------------------------//
 
 function pullSettings() {
-
     for (element of settings) {
-        setValue();
+        element.setValue();
     }
-
     //background type
     //document.querySelector(`#${localStorage.getItem('backgroundTypeSelector')}`).checked = true;
-    
-    /*
-    //background img
-    toggleBackgroundImage.value = localStorage.getItem('toggleBackgroundImage');
-
-    // background color plain
-    backgroundColorPlain.value = localStorage.getItem('backgroundColorPlain');
-    //background color linear
-    /*
-    backgroundColorLinearDegree.value = localStorage.getItem('backgroundColorLinearDegree');
-    backgroundColorLinearColor1.value = localStorage.getItem('backgroundColorLinearColor1');
-    backgroundColorLinearPerc1.value = localStorage.getItem('backgroundColorLinearPerc1');
-    backgroundColorLinearColor2.value = localStorage.getItem('backgroundColorLinearColor2');
-    backgroundColorLinearPerc2.value = localStorage.getItem('backgroundColorLinearPerc2');
-    
-    
-    // backgrund color user
-    backgroundColorUserGradient.value = localStorage.getItem('backgroundColorUserGradient');
-    backgroundColorUserText.value = localStorage.getItem('backgroundColorUserText');
-    //fontsize
-    fontSizeValue.value = localStorage.getItem('fontSizeValue');
-    fontSizeUnits.value = localStorage.getItem('fontSizeUnits');
-    //font weight
-    fontWeight.value = localStorage.getItem('fontWeight');
-    //font color
-    fontColor.value = localStorage.getItem('fontColor');
-    // set font family
-    fontFamily.value = localStorage.getItem('fontFamily');
-    // btn font color
-    btnFontColor.value = localStorage.getItem('btnFontColor');
-    // word box border toggle
-    wordBoxBorderToggle.value = localStorage.getItem('wordBoxBorderToggle');
-    //sentence box toggle & border
-    sentenceBoxBorderToggle.value = localStorage.getItem('sentenceBoxBorderToggle');
-    sentenceBoxBorderValue.value = localStorage.getItem('sentenceBoxBorderValue');
-    sentenceBoxBorderUnit.value = localStorage.getItem('sentenceBoxBorderUnit');
-    sentenceBoxBorderStyle.value = localStorage.getItem('sentenceBoxBorderStyle');
-    sentenceBoxBorderColor.value = localStorage.getItem('sentenceBoxBorderColor');
-    // word box toggle & border
-    wordBoxBorderToggle.value = localStorage.getItem('wordBoxBorderToggle');
-    wordBoxBorderValue.value = localStorage.getItem('wordBoxBorderValue');
-    wordBoxBorderUnit.value = localStorage.getItem('wordBoxBorderUnit');
-    wordBoxBorderStyle.value = localStorage.getItem('wordBoxBorderStyle');
-    wordBoxBorderColor.value = localStorage.getItem('wordBoxBorderColor');
-    wordBoxBackgroundToggle.value = localStorage.getItem('wordBoxBackgroundToggle');
-    wordBoxBackground.value = localStorage.getItem('wordBoxBackground');
-    // rankings box toggle & border
-    rankingBoxToggle.value = localStorage.getItem('rankingBoxToggle');
-    rankingBoxBorderToggle.value = localStorage.getItem('rankingBoxBorderToggle');
-    rankingBoxBorderValue.value = localStorage.getItem('rankingBoxBorderValue');
-    rankingBoxBorderUnit.value = localStorage.getItem('rankingBoxBorderUnit');
-    rankingBoxBorderColor.value = localStorage.getItem('rankingBoxBorderColor');
-    rankingBoxBorderStyle.value = localStorage.getItem('rankingBoxBorderStyle');  
-    */
 }
+
+// event listnerek changere
 
 // btn font color live preview
 //ez rosszul van bekotve
@@ -616,66 +405,54 @@ settingsRightColumn.addEventListener('click', e => {
             disableInput('toggle', backgroundColorUserGradient, backgroundColorUserText);
             enableInput('toggle', backgroundColorPlain);
             break;
-        /*
-        case 'background-linear-gradient':
-            disableInput('toggle', backgroundColorPlain, backgroundColorRadial);
-            enableInput ('toggle', backgroundColorLinearDegree, backgroundColorLinearColor1, backgroundColorLinearPerc1, backgroundColorLinearColor2, backgroundColorLinearPerc2);
-            break;
-    
-        case 'background-radial-gradient':
-            disableInput('toggle', backgroundColorPlain, backgroundColorLinearDegree, backgroundColorLinearColor1, backgroundColorLinearPerc1, backgroundColorLinearColor2, backgroundColorLinearPerc2);
-            enableInput ('toggle', backgroundColorRadial);
-            break;
-        */
+
         case 'background-user-gradient':
-            disableInput('toggle', backgroundColorPlain);
-            enableInput('toggle', backgroundColorUserGradient, backgroundColorUserText);
+            disableInput(backgroundColorPlain);
+            enableInput(backgroundColorUserGradient, backgroundColorUserText);
             break;
 
         case 'toggle-sentence-box-border':
             if (sentenceBoxBorderToggle.value === '0') {
-                disableInput(sentenceBoxBorderToggle, sentenceBoxBorderValue, sentenceBoxBorderUnit, sentenceBoxBorderColor, sentenceBoxBorderStyle);
+                disableInput(sentenceBoxBorderValue, sentenceBoxBorderUnit, sentenceBoxBorderColor, sentenceBoxBorderStyle);
             } else {
-                enableInput(sentenceBoxBorderToggle, sentenceBoxBorderValue, sentenceBoxBorderUnit, sentenceBoxBorderColor, sentenceBoxBorderStyle);
+                enableInput(sentenceBoxBorderValue, sentenceBoxBorderUnit, sentenceBoxBorderColor, sentenceBoxBorderStyle);
             }
             break;
 
         case 'toggle-word-box-border':
             if (wordBoxBorderToggle.value === '0') {
-                disableInput(wordBoxBorderToggle, wordBoxBorderValue, wordBoxBorderUnit, wordBoxBorderColor, wordBoxBorderStyle);
+                disableInput(wordBoxBorderValue, wordBoxBorderUnit, wordBoxBorderColor, wordBoxBorderStyle);
             } else {
-                enableInput(wordBoxBorderToggle, wordBoxBorderValue, wordBoxBorderUnit, wordBoxBorderColor, wordBoxBorderStyle);
+                enableInput(wordBoxBorderValue, wordBoxBorderUnit, wordBoxBorderColor, wordBoxBorderStyle);
             }
             break;
         
         case 'toggle-word-box-background':
             if (wordBoxBackgroundToggle.value === '0') {
-                disableInput('toggle', wordBoxBackground);
+                disableInput(wordBoxBackground);
             } else {
-                enableInput('toggle', wordBoxBackground);
+                enableInput(wordBoxBackground);
             }
 
         case 'toggle-ranking-box-border':
             if (rankingBoxBorderToggle.value === '0') {
-                disableInput(rankingBoxBorderToggle, rankingBoxBorderValue, rankingBoxBorderUnit, rankingBoxBorderColor, rankingBoxBorderStyle);
+                disableInput(rankingBoxBorderValue, rankingBoxBorderUnit, rankingBoxBorderColor, rankingBoxBorderStyle);
             } else {
-                enableInput(rankingBoxBorderToggle, rankingBoxBorderValue, rankingBoxBorderUnit, rankingBoxBorderColor, rankingBoxBorderStyle);
+                enableInput(rankingBoxBorderValue, rankingBoxBorderUnit, rankingBoxBorderColor, rankingBoxBorderStyle);
             }
             break;
     }
 });
 
-// save pref
+// enable-disable
 
-function disableInput(toggle, ...args) {
-    //toggle.value = '0';
+function disableInput(...args) {
     for (arg of args) {
         arg.node.setAttribute('disabled', true);
     }
 }
 
-function enableInput(toggle, ...args) {
-    //toggle.value = '1';
+function enableInput(...args) {
     for (arg of args) {
         arg.node.removeAttribute('disabled');
     }
@@ -683,15 +460,17 @@ function enableInput(toggle, ...args) {
 
 function disableInputOnStart() {
     if (localStorage.getItem('sentenceBoxBorderToggle') === '0') {
-        disableInput(sentenceBoxBorderToggle, sentenceBoxBorderValue, sentenceBoxBorderUnit, sentenceBoxBorderColor, sentenceBoxBorderStyle);
+        disableInput(sentenceBoxBorderValue, sentenceBoxBorderUnit, sentenceBoxBorderColor, sentenceBoxBorderStyle);
     }
     if (localStorage.getItem('wordBoxBorderToggle') === '0') {
-        disableInput(wordBoxBorderToggle, wordBoxBorderValue, wordBoxBorderUnit, wordBoxBorderColor, wordBoxBorderStyle);
+        disableInput(wordBoxBorderValue, wordBoxBorderUnit, wordBoxBorderColor, wordBoxBorderStyle);
     }
     if (localStorage.getItem('rankingBoxToggle') === '0' || localStorage.getItem('rankingBoxBorderToggle') === '0') {
-        disableInput(rankingBoxBorderToggle, rankingBoxBorderValue, rankingBoxBorderUnit, rankingBoxBorderColor, rankingBoxBorderStyle);
+        disableInput(rankingBoxBorderValue, rankingBoxBorderUnit, rankingBoxBorderColor, rankingBoxBorderStyle);
     }
 }
+
+// save pref
 
 let savePreferences = document.querySelector('#save-preferences');
 
