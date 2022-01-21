@@ -175,7 +175,7 @@ let radioBtnCollection = document.querySelectorAll('.background-radio');
 //localStorage.setItem('backgroundImg', toggleBackgroundImageInput.value);
 let body = document.querySelector('body');
 
-function toggleBackgroundImage() {
+function toggleBackgroundImageFunction() {
 
     if (localStorage.getItem('toggleBackgroundImageInput') === '1') {
         body.style.backgroundImage = 'url("img/parchment.jpeg")';
@@ -207,7 +207,8 @@ let themeSelector = document.querySelector('.theme-selector');
 let mainWindow = document.querySelector('.main');
 
 // background img
-let toggleBackgroundImageInput = document.querySelector('#toggle-background-img');
+//let toggleBackgroundImageInput = document.querySelector('#toggle-background-img');
+let toggleBackgroundImage = new Input('toggleBackgroundImage', '#toggle-background-img');
 
 // background type selector
 let backgroundTypeSelector = () => {
@@ -219,7 +220,8 @@ let backgroundTypeSelector = () => {
 }
 
 //background color plain
-let backgroundColorPlain = document.querySelector('#plain-color');
+//let backgroundColorPlain = document.querySelector('#plain-color');
+let backgroundColorPlain = new Input('backgroundColorPlain', '#plain-color');
 
 /*
 // background color linear
@@ -235,32 +237,52 @@ let backgroundColorRadial = document.querySelector('#radial-degree');
 
 
 //background user grandient
-let backgroundColorUserGradient = document.querySelector('#background-user-gradient-select');
-let backgroundColorUserText = document.querySelector('#background-user-gradient-text');
+//let backgroundColorUserGradient = document.querySelector('#background-user-gradient-select');
+//let backgroundColorUserText = document.querySelector('#background-user-gradient-text');
+let backgroundColorUserGradient = new Input('backgroundColorUserGradient', '#background-user-gradient-select');
+let backgroundColorUserText = new Input('backgroundColorUserText', '#background-user-gradient-text');
+
+let backgroundPrefs = [toggleBackgroundImage, backgroundColorPlain, backgroundColorUserGradient, backgroundColorUserText];
 
 // font inputs
 // fontsize
-let fontSizeValue = document.querySelector('#font-size');
-let fontSizeUnits = document.querySelector('#font-size-units');
+//let fontSizeValue = document.querySelector('#font-size');
+//let fontSizeUnits = document.querySelector('#font-size-units');
+let fontSizeValue = new Input('fontSizeValue', '#font-size');
+let fontSizeUnits = new Input('fontSizeUnits', '#font-size-units');
+
 //font weight
-let fontWeight = document.querySelector('#font-weight');
+//let fontWeight = document.querySelector('#font-weight');
+let fontWeight = new Input ('fontWeight', '#font-weight');
+
 //set font color
-let fontColor = document.querySelector('#font-color');
+//let fontColor = document.querySelector('#font-color');
+let fontColor = new Input('fontColor', '#font-color');
+
 // set font family
-let fontFamily = document.querySelector('#font-family')
+//let fontFamily = document.querySelector('#font-family')
+let fontFamily = new Input('fontFamily', '#font-family');
+
 // btn font color
-let btnFontColor = document.querySelector('#btn-font-color');
+//let btnFontColor = document.querySelector('#btn-font-color');
+let btnFontColor = new Input('btnFontColor', '#btn-font-color');
 
 let fontPrefs = [fontSizeValue, fontSizeUnits, fontWeight, fontColor, fontFamily, btnFontColor];
 
 // sentence box border toggle
-let sentenceBoxBorderToggle = document.querySelector('#toggle-sentence-box-border');
+//let sentenceBoxBorderToggle = document.querySelector('#toggle-sentence-box-border');
+let sentenceBoxBorderToggle = new Input('sentenceBoxBorderToggle', '#toggle-sentence-box-border');
 
 // sentence box border
-let sentenceBoxBorderValue = document.querySelector('#sentence-border-thickness-number');
-let sentenceBoxBorderUnit = document.querySelector('#sentence-border-thickness-unit');
-let sentenceBoxBorderColor = document.querySelector('#sentence-border-color');
-let sentenceBoxBorderStyle = document.querySelector('#sentence-border-style');
+//let sentenceBoxBorderValue = document.querySelector('#sentence-border-thickness-number');
+//let sentenceBoxBorderUnit = document.querySelector('#sentence-border-thickness-unit');
+//let sentenceBoxBorderColor = document.querySelector('#sentence-border-color');
+//let sentenceBoxBorderStyle = document.querySelector('#sentence-border-style');
+let sentenceBoxBorderValue = new Input('sentenceBoxBorderValue', '#sentence-border-thickness-number');
+let sentenceBoxBorderUnit = new Input('sentenceBoxBorderUnit', '#sentence-border-thickness-unit');
+let sentenceBoxBorderColor = new Input('sentenceBoxBorderColor', '#sentence-border-color');
+let sentenceBoxBorderStyle = new Input('sentenceBoxBorderStyle', '#sentence-border-style');
+
 
 // ezt lehet, h dinamikusan kene hivni majd
 let sentenceBoxCollection = document.getElementsByClassName('sentence-box');
@@ -268,15 +290,24 @@ let sentenceBoxCollection = document.getElementsByClassName('sentence-box');
 let sentencePrefs = [sentenceBoxBorderToggle, sentenceBoxBorderValue, sentenceBoxBorderUnit, sentenceBoxBorderColor, sentenceBoxBorderStyle];
 
 // word box border toggle
-let wordBoxBorderToggle = document.querySelector('#toggle-word-box-border');
+//let wordBoxBorderToggle = document.querySelector('#toggle-word-box-border');
+let wordBoxBorderToggle = new Input('wordBoxBorderToggle', '#toggle-word-box-border');
+
 // word box border
-let wordBoxBorderValue = document.querySelector('#word-border-thickness-number');
-let wordBoxBorderUnit = document.querySelector('#word-border-thickness-unit');
-let wordBoxBorderColor = document.querySelector('#word-border-color');
-let wordBoxBorderStyle = document.querySelector('#word-border-style');
+//let wordBoxBorderValue = document.querySelector('#word-border-thickness-number');
+//let wordBoxBorderUnit = document.querySelector('#word-border-thickness-unit');
+//let wordBoxBorderColor = document.querySelector('#word-border-color');
+//let wordBoxBorderStyle = document.querySelector('#word-border-style');
+let wordBoxBorderValue = new Input('wordBoxBorderValue', '#word-border-thickness-number');
+let wordBoxBorderUnit = new Input('wordBoxBorderUnit', '#word-border-thickness-unit');
+let wordBoxBorderColor = new Input('wordBoxBorderColor', '#word-border-color');
+let wordBoxBorderStyle = new Input('wordBoxBorderStyle', '#word-border-style');
+
 //word box background toggle
-let wordBoxBackgroundToggle = document.querySelector('#toggle-word-box-background');
-let wordBoxBackground = document.querySelector('#word-box-background-color');
+//let wordBoxBackgroundToggle = document.querySelector('#toggle-word-box-background');
+//let wordBoxBackground = document.querySelector('#word-box-background-color');
+let wordBoxBackgroundToggle = new Input('wordBoxBackgroundToggle', '#toggle-word-box-background');
+let wordBoxBackground = new Input('wordBoxBackground', '#word-box-background-color');
 
 //ezt is dinamikusan, de ha igen akkor applyban
 let wordBoxCollection = document.getElementsByClassName('individual-word');
@@ -284,39 +315,46 @@ let wordBoxCollection = document.getElementsByClassName('individual-word');
 let wordBoxPrefs = [wordBoxBorderToggle, wordBoxBorderValue, wordBoxBorderUnit, wordBoxBorderColor, wordBoxBorderStyle, wordBoxBackgroundToggle, wordBoxBackground];
 
 // ranking box toggle
-let rankingBoxToggle = document.querySelector('#toggle-ranking-box');
+//let rankingBoxToggle = document.querySelector('#toggle-ranking-box');
+let rankingBoxToggle = new Input('rankingBoxToggle', '#toggle-ranking-box');
 
 // ranking box border toggle
-let rankingBoxBorderToggle = document.querySelector('#toggle-ranking-box-border');
+//let rankingBoxBorderToggle = document.querySelector('#toggle-ranking-box-border');
+let rankingBoxBorderToggle = new Input('rankingBoxBorderToggle', '#toggle-ranking-box-border');
 
 //ranking box border
 
-let rankingBoxBorderValue = document.querySelector('#ranking-border-thickness-number');
-let rankingBoxBorderUnit = document.querySelector('#ranking-border-thickness-unit');
-let rankingBoxBorderColor = document.querySelector('#ranking-border-color');
-let rankingBoxBorderStyle = document.querySelector('#ranking-border-style');
+//let rankingBoxBorderValue = document.querySelector('#ranking-border-thickness-number');
+//let rankingBoxBorderUnit = document.querySelector('#ranking-border-thickness-unit');
+//let rankingBoxBorderColor = document.querySelector('#ranking-border-color');
+//let rankingBoxBorderStyle = document.querySelector('#ranking-border-style');
+let rankingBoxBorderValue = new Input('rankingBoxBorderValue', '#ranking-border-thickness-number');
+let rankingBoxBorderUnit = new Input('rankingBoxBorderUnit', '#ranking-border-thickness-unit');
+let rankingBoxBorderColor = new Input('rankingBoxBorderColor', '#ranking-border-color');
+let rankingBoxBorderStyle = new Input('rankingBoxBorderStyle', '#ranking-border-style');
 
 let rankingBoxPrefs = [rankingBoxToggle, rankingBoxBorderToggle, rankingBoxBorderValue, rankingBoxBorderUnit, rankingBoxBorderColor, rankingBoxBorderStyle];
 
 //dinamikusan
 let rankingBoxCollection = document.querySelectorAll('.rank-box');
 
-let settings = [fontPrefs, sentencePrefs, wordBoxPrefs, rankingBoxPrefs].flat(Infinity);
+let settings = [backgroundPrefs, fontPrefs, sentencePrefs, wordBoxPrefs, rankingBoxPrefs].flat(Infinity);
 
 // --------------------------- PUSH -------------------------------//
 
 function pushSettings() {
     // nem megy, elóbb objektumot kell belőle csinálnom, utána tudom csak a nevét használni, meg obj.node-ba bele a query-t, aztán működni fog
-    /*for (element of settings) {
-        localStorage.setItem(element.toString(), element.value); 
-    }*/
+    for (element of settings) {
+        element.intoLS()
+    }
 
+    /*
     // BackgroundType
     localStorage.setItem('backgroundTypeSelector', backgroundTypeSelector())
 
     
     //background img
-    localStorage.setItem('toggleBackgroundImageInput', toggleBackgroundImageInput.value);
+    localStorage.setItem('toggleBackgroundImage', toggleBackgroundImage.value);
     
     // background color plain
     localStorage.setItem('backgroundColorPlain', backgroundColorPlain.value);
@@ -327,7 +365,7 @@ function pushSettings() {
     localStorage.setItem('backgroundColorLinearPerc1', backgroundColorLinearPerc1.value);
     localStorage.setItem('backgroundColorLinearColor2', backgroundColorLinearColor2.value);
     localStorage.setItem('backgroundColorLinearPerc2', backgroundColorLinearPerc2.value);
-    */
+    
     // background user gradient
     localStorage.setItem('backgroundColorUserGradient', backgroundColorUserGradient.value);
     localStorage.setItem('backgroundColorUserText', backgroundColorUserText.value);
@@ -364,14 +402,14 @@ function pushSettings() {
     localStorage.setItem('rankingBoxBorderUnit', rankingBoxBorderUnit.value);
     localStorage.setItem('rankingBoxBorderColor', rankingBoxBorderColor.value);
     localStorage.setItem('rankingBoxBorderStyle', rankingBoxBorderStyle.value);
-    
+    */
 }
 
 // ------------------------- APPLY -----------------------------//
 
 function applyPreferences() {
     //background img
-    toggleBackgroundImage();
+    toggleBackgroundImageFunction();
     //ide egy if, h melyik volt chekkolva
     //background color plain
     //body.style.background = localStorage.getItem('backgroundColorPlain');
@@ -494,22 +532,16 @@ function toggleBorder(collection, toggleValue, borderValue, borderUnit, color, s
 
 function pullSettings() {
 
-    /*for (elem of Object.keys(localStorage)) {
-        //document.querySelector(`#${elem}`)
-        elem.value = localStorage.getItem('elem'); 
-        console.log(elem)
-    }*/
-
-    /*for (elem of settings) {
-        elem.value = localStorage.getItem('elem');
-    }*/
+    for (element of settings) {
+        setValue();
+    }
 
     //background type
-    document.querySelector(`#${localStorage.getItem('backgroundTypeSelector')}`).checked = true;
+    //document.querySelector(`#${localStorage.getItem('backgroundTypeSelector')}`).checked = true;
     
-    
+    /*
     //background img
-    toggleBackgroundImageInput.value = localStorage.getItem('toggleBackgroundImageInput');
+    toggleBackgroundImage.value = localStorage.getItem('toggleBackgroundImage');
 
     // background color plain
     backgroundColorPlain.value = localStorage.getItem('backgroundColorPlain');
@@ -520,7 +552,7 @@ function pullSettings() {
     backgroundColorLinearPerc1.value = localStorage.getItem('backgroundColorLinearPerc1');
     backgroundColorLinearColor2.value = localStorage.getItem('backgroundColorLinearColor2');
     backgroundColorLinearPerc2.value = localStorage.getItem('backgroundColorLinearPerc2');
-    */
+    
     
     // backgrund color user
     backgroundColorUserGradient.value = localStorage.getItem('backgroundColorUserGradient');
@@ -559,6 +591,7 @@ function pullSettings() {
     rankingBoxBorderUnit.value = localStorage.getItem('rankingBoxBorderUnit');
     rankingBoxBorderColor.value = localStorage.getItem('rankingBoxBorderColor');
     rankingBoxBorderStyle.value = localStorage.getItem('rankingBoxBorderStyle');  
+    */
 }
 
 // btn font color live preview
@@ -637,14 +670,14 @@ settingsRightColumn.addEventListener('click', e => {
 function disableInput(toggle, ...args) {
     //toggle.value = '0';
     for (arg of args) {
-        arg.setAttribute('disabled', true);
+        arg.node.setAttribute('disabled', true);
     }
 }
 
 function enableInput(toggle, ...args) {
     //toggle.value = '1';
     for (arg of args) {
-        arg.removeAttribute('disabled');
+        arg.node.removeAttribute('disabled');
     }
 }
 
