@@ -17,5 +17,3 @@ class Input {
     }
 
 }
-
-let something = new Input();
