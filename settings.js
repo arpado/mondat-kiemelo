@@ -1,4 +1,7 @@
-
+// body
+let body = document.querySelector('body');
+// main
+let mainWindow = document.querySelector('.main');
 
 // ----------------------- BALOLDAL -----------------------//
 
@@ -166,36 +169,10 @@ function fillPreviewBtns() {
 
 let settingsRightColumn = document.querySelector('.column-right');
 
-// toggle background image
-//EZT MEG NEM MENTI LOCALBA!
-
-let backgroundImg = localStorage.getItem('backgroundImg');
+// background selector radio buttons
 let radioBtnCollection = document.querySelectorAll('.background-radio');
-
-//localStorage.setItem('backgroundImg', toggleBackgroundImageInput.value);
-let body = document.querySelector('body');
-
-function toggleBackgroundImageFunction() {
-
-    if (localStorage.getItem('toggleBackgroundImageInput') === '1') {
-        body.style.backgroundImage = 'url("img/parchment.jpeg")';
-    } else {
-        body.style.backgroundImage = 'none';
-        switch (localStorage.getItem('backgroundTypeSelector')) {
-            case ('background-plain'):
-                body.style.background = localStorage.getItem('backgroundColorPlain');
-                break;
-
-            case ('background-user-gradient'):
-                console.log('poop')
-                body.style.background = `${localStorage.getItem('backgroundColorUserGradient')}(${localStorage.getItem('backgroundColorUserText')})`;
-                break;
-        }
-    }
-}
-
 // background type selector
-let backgroundTypeSelector = () => {
+let getBackgroundTypeSelector = () => {
     for (elem of radioBtnCollection) {
         if (elem.checked) {
             return elem.id;
@@ -203,17 +180,11 @@ let backgroundTypeSelector = () => {
     }
 }
 
-// theme selector
-let themeSelector = document.querySelector('.theme-selector');
-
-// main
-let mainWindow = document.querySelector('.main');
-
 // --------------------------- INPUT FIELDS ------------------------------//
 
-// background inputs
 // background img
 let toggleBackgroundImage = new Input('toggleBackgroundImage', '#toggle-background-img');
+let backgroundTypeSelector = new Input('backgroundTypeSelector', getBackgroundTypeSelector())
 // background color plain
 let backgroundColorPlain = new Input('backgroundColorPlain', '#plain-color');
 // background user grandient
@@ -278,59 +249,69 @@ function pushSettings() {
     for (element of settings) {
         element.intoLS()
     }
+    backgroundTypeSelector.node = getBackgroundTypeSelector();
+    localStorage.setItem('backgroundTypeSelector', backgroundTypeSelector.node);
 }
 
 // ------------------------- APPLY -----------------------------//
 
+
 function applyPreferences() {
-    //background img
-    toggleBackgroundImageFunction();
-    //ide egy if, h melyik volt chekkolva
-    //background color plain
-    //body.style.background = localStorage.getItem('backgroundColorPlain');
+    // background
+    if (toggleBackgroundImage.fromLS() === '1') {
+        body.style.backgroundImage = 'url("img/parchment.jpeg")';
+        disableInput(backgroundColorPlain, backgroundColorUserGradient, backgroundColorUserText);
 
-    // background color linear
-    switch (localStorage.getItem('backgroundTypeSelector')) {
-        case 'background-plain':
-            disableInput(backgroundColorUserGradient, backgroundColorUserText);
-            enableInput(backgroundColorPlain);
-            break;
+    } else {
+        body.style.backgroundImage = 'none';
+        switch (backgroundTypeSelector.fromLS()) {
+            case 'background-plain':
+                body.style.background = backgroundColorPlain.fromLS();
+                console.log('POOP')
+                disableInput(backgroundColorUserGradient, backgroundColorUserText);
+                enableInput(backgroundColorPlain);
+                //backgroundTypeSelector.
+                localStorage.setItem('backgroundTypeSelector', getBackgroundTypeSelector())
+                break;
 
-        case 'background-user-gradient':
-            disableInput(backgroundColorPlain);
-            enableInput(backgroundColorUserGradient, backgroundColorUserText);
-            break;
+            case 'background-user-gradient':
+                body.style.background = `${localStorage.getItem('backgroundColorUserGradient')}(${localStorage.getItem('backgroundColorUserText')})`;
+                disableInput(backgroundColorPlain);
+                enableInput(backgroundColorUserGradient, backgroundColorUserText);
+                //backgroundTypeSelector.
+                localStorage.setItem('backgroundTypeSelector', getBackgroundTypeSelector())
+                break;
+        }
     }
 
+
     //fontsize
-    mainWindow.style.fontSize = localStorage.getItem('fontSizeValue') + localStorage.getItem('fontSizeUnits');
+    mainWindow.style.fontSize = fontSizeValue.fromLS() + fontSizeUnits.fromLS();
     //font weight
-    mainWindow.style.fontWeight = localStorage.getItem('fontWeight');
+    mainWindow.style.fontWeight = fontWeight.fromLS();
     //font color
-    mainWindow.style.color = localStorage.getItem('fontColor');
+    mainWindow.style.color = fontColor.fromLS();
     // set font family
-    mainWindow.style.fontFamily = localStorage.getItem('fontFamily');
+    mainWindow.style.fontFamily = fontFamily.fromLS();
     // btn font color
     let previewBtn = document.querySelectorAll('.preview-btn');
     if (previewBtn.length > 0) {
         for (elem of previewBtn) {
-            elem.style.color = localStorage.getItem('btnFontColor');
+            elem.style.color = btnFontColor.fromLS();
         }
     }
 
     //sentence box border ---- ez unit container - elvileg rendben, de csekkolni
-
     toggleBorder(sentenceBoxCollection, 'sentenceBoxBorderToggle', 'sentenceBoxBorderValue', 'sentenceBoxBorderUnit', 'sentenceBoxBorderStyle', 'sentenceBoxBorderColor');
 
     // word box border
-
     toggleBorder(wordBoxCollection, 'wordBoxBorderToggle', 'wordBoxBorderValue', 'wordBoxBorderUnit', 'wordBoxBorderStyle', 'wordBoxBorderColor');
 
     // word box highlight
     if (localStorage.getItem('wordBoxBackgroundToggle') === '1') {
         enableInput(wordBoxBackground);
         for (elem of wordBoxCollection) {
-            elem.style.background = localStorage.getItem('wordBoxBackground')
+            elem.style.background = wordBoxBackground.fromLS();
         }
     } else {
         disableInput(wordBoxBackground);
@@ -340,22 +321,19 @@ function applyPreferences() {
     }
 
     //toggle ranking box EZ ITT NEM JO
-
     rankingBoxCollection = document.querySelectorAll('.rank-box');
 
-    if (rankingBoxCollection.length > 0 && localStorage.getItem('rankingBoxToggle') === '1') {
+    if (rankingBoxCollection.length > 0 && rankingBoxToggle.fromLS() === '1') {
         for (element of rankingBoxCollection) {
             element.classList.remove('hidden');
         }
-    } else if (rankingBoxCollection.length > 0 && localStorage.getItem('rankingBoxToggle') === '0') {
+    } else if (rankingBoxCollection.length > 0 && rankingBoxToggle.fromLS() === '0') {
         for (element of rankingBoxCollection) {
             element.classList.add('hidden');
         }
-        /*for (e of document.querySelectorAll('.rank-box')) {e.remove()}*/
     }
 
     // ranking box border
-
     toggleBorder(rankingBoxCollection, 'rankingBoxBorderToggle', 'rankingBoxBorderValue', 'rankingBoxBorderUnit', 'rankingBoxBorderStyle', 'rankingBoxBorderColor');
 }
 
@@ -377,11 +355,9 @@ function pullSettings() {
     for (element of settings) {
         element.setValue();
     }
-    //background type
-    //document.querySelector(`#${localStorage.getItem('backgroundTypeSelector')}`).checked = true;
 }
 
-// event listnerek changere
+// ----------------------- event listnerek changere ----------------------------//
 
 // btn font color live preview
 //ez rosszul van bekotve
@@ -394,16 +370,16 @@ settingsRightColumn.addEventListener('click', e => {
     console.log(e.target.id)
     switch (e.target.id) {
         case 'toggle-background-img-label':
-            if (toggleBackgroundImageInput.value === '0') {
-                toggleBackgroundImageInput.value = '1';
+            if (toggleBackgroundImage.fromLS() === '0') {
+                toggleBackgroundImage.node.value = '1';
             } else {
-                toggleBackgroundImageInput.value = '0';
+                toggleBackgroundImage.node.value = '0';
             }
             break;
 
         case 'background-plain':
-            disableInput('toggle', backgroundColorUserGradient, backgroundColorUserText);
-            enableInput('toggle', backgroundColorPlain);
+            disableInput(backgroundColorUserGradient, backgroundColorUserText);
+            enableInput(backgroundColorPlain);
             break;
 
         case 'background-user-gradient':
@@ -476,10 +452,9 @@ let savePreferences = document.querySelector('#save-preferences');
 
 savePreferences.addEventListener('click', (e) => {
     localStorage.clear();
-    pushSettings(settings);
-    
+    pushSettings();
     saveButtons();
     loadButtons();
-    pullSettings(settings);
+    pullSettings();
     applyPreferences();
 });
